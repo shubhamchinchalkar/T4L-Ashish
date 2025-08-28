@@ -7,6 +7,9 @@
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
+    {% comment %} Guard so we add the Sale button only once {% endcomment %}
+    {% assign sale_button_added = false %}
+
     {%- for link in section.settings.menu.links -%}
       <li>
         {%- if link.links != blank -%}
@@ -17,9 +20,7 @@
                 class="header__menu-item list-menu__item link focus-inset"
               >
                 <span
-                  {%- if link.child_active %}
-                    class="header__active-menu-item"
-                  {% endif %}
+                  {%- if link.child_active %}class="header__active-menu-item"{% endif %}
                 >
                   {{- link.title | escape -}}
                 </span>
@@ -38,9 +39,7 @@
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
                         href="{{ childlink.url }}"
                         class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
+                        {% if childlink.current %}aria-current="page"{% endif %}
                       >
                         {{ childlink.title | escape }}
                       </a>
@@ -63,9 +62,7 @@
                                 id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
                                 href="{{ grandchildlink.url }}"
                                 class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"
-                                {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
+                                {% if grandchildlink.current %}aria-current="page"{% endif %}
                               >
                                 {{ grandchildlink.title | escape }}
                               </a>
@@ -84,20 +81,29 @@
             id="HeaderMenu-{{ link.handle }}"
             href="{{ link.url }}"
             class="header__menu-item list-menu__item link link--text focus-inset"
-            {% if link.current %}
-              aria-current="page"
-            {% endif %}
+            {% if link.current %}aria-current="page"{% endif %}
           >
             <span
-              {%- if link.current %}
-                class="header__active-menu-item"
-              {% endif %}
+              {%- if link.current %}class="header__active-menu-item"{% endif %}
             >
               {{- link.title | escape -}}
             </span>
           </a>
         {%- endif -%}
       </li>
+
+      {%- if sale_button_added == false -%}
+        {% if link.title == 'Accessories' or link.handle == 'accessories' %}
+          <li>
+            <a href="/collections/on-sale"
+               class="header__menu-item list-menu__item link link--text focus-inset">
+               Sale &amp; Offers
+            </a>
+          </li>
+          {% assign sale_button_added = true %}
+        {% endif %}
+      {%- endif -%}
+
     {%- endfor -%}
   </ul>
 </nav>
