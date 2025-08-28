@@ -4403,7 +4403,6 @@ product-info .breadcrumbs{
   
 
 /* === Sale & Offers Button Special Styling (Desktop only) === */
-@media screen and (min-width: 990px) {
   .sale-offers-btn {
     background-color: #fd1d1b;
     color: #fff !important;
@@ -4428,5 +4427,5 @@ product-info .breadcrumbs{
       box-shadow: 0 0 5px #fd1d1b;
     }
   }
-}
+
 
