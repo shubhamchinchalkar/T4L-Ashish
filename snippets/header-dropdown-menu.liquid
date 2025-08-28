@@ -99,18 +99,5 @@
         {%- endif -%}
       </li>
     {%- endfor -%}
-
-    {%- if section.settings.show_sale_offers != false -%}
-      <li>
-        <a
-          id="HeaderMenu-sale-offers"
-          href="{{ section.settings.sale_offers_url | default: '/collections/sale' }}"
-          class="header__menu-item list-menu__item link link--text focus-inset"
-        >
-          <span>{{ section.settings.sale_offers_label | default: 'Sale & Offers' }}</span>
-        </a>
-      </li>
-    {%- endif -%}
-
   </ul>
 </nav>
