@@ -21,7 +21,6 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {%- assign sale_button_added = false -%}
               {%- for link in section.settings.menu.links -%}
                 <li>
                   {%- if link.links != blank -%}
@@ -133,33 +132,14 @@
                     </a>
                   {%- endif -%}
                 </li>
-
-               {%- if sale_button_added == false -%}
-  {%- if link.title == 'Accessories' or link.handle == 'accessories' -%}
-    <li>
-      <a id="HeaderDrawer-sale-offers"
-         href="/collections/on-sale"
-         class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
-         aria-label="Sale & Offers">
-        Sale & Offers
-      </a>
-    </li>
-    {%- assign sale_button_added = true -%}
-  {%- endif -%}
-{%- endif -%}
-
               {%- endfor -%}
 
-              {% for link in linklists['about-us'].links %}
-                <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra">
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
-              {% for link in linklists['customer-care'].links %}
-                <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra">
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
+{% for link in linklists['about-us'].links %}
+    <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra"><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {% endfor %}
+{% for link in linklists['customer-care'].links %}
+    <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra"><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {% endfor %}
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">

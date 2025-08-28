@@ -7,7 +7,6 @@
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
-    {%- assign sale_button_added = false -%}
     {%- for link in section.settings.menu.links -%}
       <li>
         {%- if link.links != blank -%}
@@ -99,19 +98,6 @@
           </a>
         {%- endif -%}
       </li>
-
-      {%- if sale_button_added == false and (link.title == 'Accessories' or link.handle == 'accessories') -%}
-        <li>
-          <a id="HeaderMenu-sale-offers"
-             href="/collections/on-sale"
-             class="header__menu-item list-menu__item link link--text focus-inset"
-             aria-label="Sale & Offers">
-            <span>Sale & Offers</span>
-          </a>
-        </li>
-        {%- assign sale_button_added = true -%}
-      {%- endif -%}
-
     {%- endfor -%}
   </ul>
 </nav>
