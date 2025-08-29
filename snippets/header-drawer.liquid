@@ -1,16 +1,13 @@
-{% comment %}
+{% comment %} 
   Renders a header drawer menu for mobile and desktop.
-
+ 
   Usage:
-  {% render 'header-drawer' %}
+  {% render 'header-drawer' %} 
 {% endcomment %}
 
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
-    <summary
-      class="header__icon header__icon--menu header__icon--summary link focus-inset"
-      aria-label="{{ 'sections.header.menu' | t }}"
-    >
+    <summary class="header__icon header__icon--menu header__icon--summary link focus-inset" aria-label="{{ 'sections.header.menu' | t }}">
       <span>
         {{- 'icon-hamburger.svg' | inline_asset_content -}}
         {{- 'icon-close.svg' | inline_asset_content -}}
@@ -27,8 +24,7 @@
                 <a
                   href="/collections/on-sale"
                   class="menu-drawer__menu-item link sale-offers-btn"
-                  title="Sale & Offers"
-                >
+                  title="Sale & Offers">
                   Sale & Offers
                 </a>
               </li>
@@ -37,10 +33,7 @@
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
-                      <summary
-                        id="HeaderDrawer-{{ link.handle }}"
-                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
-                      >
+                      <summary id="HeaderDrawer-{{ link.handle }}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}">
                         {{ link.title | escape }}
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -52,8 +45,7 @@
                       <div
                         id="link-{{ link.handle | escape }}"
                         class="menu-drawer__submenu has-submenu gradient motion-reduce"
-                        tabindex="-1"
-                      >
+                        tabindex="-1">
                         <div class="menu-drawer__inner-submenu">
                           <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
                             <span class="svg-wrapper">
@@ -61,7 +53,10 @@
                             </span>
                             {{ link.title | escape }}
                           </button>
-                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                          <ul
+                            class="menu-drawer__menu list-menu"
+                            role="list"
+                            tabindex="-1">
                             {%- for childlink in link.links -%}
                               <li>
                                 {%- if childlink.links == blank -%}
@@ -70,17 +65,13 @@
                                     href="{{ childlink.url }}"
                                     class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                     {% if childlink.current %}
-                                      aria-current="page"
-                                    {% endif %}
-                                  >
+                                    aria-current="page"
+                                    {% endif %}>
                                     {{ childlink.title | escape }}
                                   </a>
                                 {%- else -%}
                                   <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
-                                    <summary
-                                      id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
-                                    >
+                                    <summary id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
                                       {{ childlink.title | escape }}
                                       <span class="svg-wrapper">
                                         {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -89,14 +80,8 @@
                                         {{- 'icon-caret.svg' | inline_asset_content -}}
                                       </span>
                                     </summary>
-                                    <div
-                                      id="childlink-{{ childlink.handle | escape }}"
-                                      class="menu-drawer__submenu has-submenu gradient motion-reduce"
-                                    >
-                                      <button
-                                        class="menu-drawer__close-button link link--text focus-inset"
-                                        aria-expanded="true"
-                                      >
+                                    <div id="childlink-{{ childlink.handle | escape }}" class="menu-drawer__submenu has-submenu gradient motion-reduce">
+                                      <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
                                         <span class="svg-wrapper">
                                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                                         </span>
@@ -105,8 +90,7 @@
                                       <ul
                                         class="menu-drawer__menu list-menu"
                                         role="list"
-                                        tabindex="-1"
-                                      >
+                                        tabindex="-1">
                                         {%- for grandchildlink in childlink.links -%}
                                           <li>
                                             <a
@@ -114,9 +98,8 @@
                                               href="{{ grandchildlink.url }}"
                                               class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
                                               {% if grandchildlink.current %}
-                                                aria-current="page"
-                                              {% endif %}
-                                            >
+                                              aria-current="page"
+                                              {% endif %}>
                                               {{ grandchildlink.title | escape }}
                                             </a>
                                           </li>
@@ -137,20 +120,24 @@
                       href="{{ link.url }}"
                       class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
                       {% if link.current %}
-                        aria-current="page"
-                      {% endif %}
-                    >
+                      aria-current="page"
+                      {% endif %}>
                       {{ link.title | escape }}
                     </a>
                   {%- endif -%}
+                </li>
               {%- endfor -%}
 
-{% for link in linklists['about-us'].links %}
-    <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra"><a href="{{ link.url }}">{{ link.title }}</a></li>
-  {% endfor %}
-{% for link in linklists['customer-care'].links %}
-    <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra"><a href="{{ link.url }}">{{ link.title }}</a></li>
-  {% endfor %}
+              {% for link in linklists['about-us'].links %}
+                <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+              {% for link in linklists['customer-care'].links %}
+                <li class="menu-drawer__menu-item list-menu__item link link--text focus-inset mobile-extra">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">
@@ -158,8 +145,7 @@
               <a
                 href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
                 class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
-                rel="nofollow"
-              >
+                rel="nofollow">
                 {%- if section.settings.enable_customer_avatar -%}
                   <account-icon>
                     {%- if customer and customer.has_avatar? -%}
@@ -188,12 +174,15 @@
               <div class="menu-drawer__localization header-localization">
                 {%- if localization.available_countries and localization.available_countries.size > 1 -%}
                   <localization-form>
-                    {%- form 'localization', id: 'HeaderCountryMobileForm', class: 'localization-form' -%}
+                    {%- form 'localization'
+                      , id: 'HeaderCountryMobileForm'
+                      , class: 'localization-form' -%}
                       <div>
                         <h2 class="visually-hidden" id="HeaderCountryMobileLabel">
                           {{ 'localization.country_label' | t }}
                         </h2>
-                        {%- render 'country-localization', localPosition: 'HeaderCountryMobile' -%}
+                        {%- render 'country-localization'
+                          , localPosition: 'HeaderCountryMobile' -%}
                       </div>
                     {%- endform -%}
                   </localization-form>
@@ -201,12 +190,15 @@
 
                 {%- if localization.available_languages and localization.available_languages.size > 1 -%}
                   <localization-form>
-                    {%- form 'localization', id: 'HeaderLanguageMobileForm', class: 'localization-form' -%}
+                    {%- form 'localization'
+                      , id: 'HeaderLanguageMobileForm'
+                      , class: 'localization-form' -%}
                       <div>
                         <h2 class="visually-hidden" id="HeaderLanguageMobileLabel">
                           {{ 'localization.language_label' | t }}
                         </h2>
-                        {%- render 'language-localization', localPosition: 'HeaderLanguageMobile' -%}
+                        {%- render 'language-localization'
+                          , localPosition: 'HeaderLanguageMobile' -%}
                       </div>
                     {%- endform -%}
                   </localization-form>
