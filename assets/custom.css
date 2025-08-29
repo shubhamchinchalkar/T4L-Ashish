@@ -1332,3 +1332,30 @@ body.showing-archived .product--unavailable {
     color: rgb(var(--color-background));
     border-color: rgba(var(--color-foreground);
 }
+
+/* Add Pulse + Glow to Sale offers button */
+.sale-offers-btn {
+  background-color: #fd1d1b;
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  text-decoration: none;
+  animation: pulseGlow 2s infinite ease-in-out; /* both effects merged */
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fd1d1b;
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #fd1d1b;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fd1d1b;
+  }
+}
