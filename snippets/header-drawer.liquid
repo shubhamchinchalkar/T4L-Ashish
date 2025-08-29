@@ -132,6 +132,18 @@
                     </a>
                   {%- endif -%}
                 </li>
+                  {%- assign _link_title = link.title | strip | downcase -%}
+{%- if _link_title == 'accessories' -%}
+  <li>
+    <a
+      href="/collections/on-sale"
+      class="drawer-menu__item link sale-offers-btn"
+      title="Sale & Offers"
+    >
+      Sale & Offers
+    </a>
+  </li>
+{%- endif -%}
               {%- endfor -%}
 
 {% for link in linklists['about-us'].links %}
