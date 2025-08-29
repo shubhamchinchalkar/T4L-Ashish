@@ -4400,4 +4400,31 @@ product-info .breadcrumbs{
     display: none; /* Hide scrollbar in Webkit browsers */
 }
 }
+
+/* Highlighted Sale & Offers button */
+.sale-offers-btn {
+  background-color: #fd1d1b;
+  color: #fff !important;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fd1d1b;
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #fd1d1b;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fd1d1b;
+  }
+}
+
   
