@@ -4401,14 +4401,6 @@ product-info .breadcrumbs{
 }
 }
 
-/* Sale & Offers shared */
-.sale-offers-btn {
-  background-color: #fd1d1b;
-  color: #fff !important;
-  font-weight: 600;
-  text-decoration: none;
-}
-
 /* Mobile drawer inline style */
 @media (max-width: 749px) {
   .menu-drawer__menu-item.sale-offers-btn {
