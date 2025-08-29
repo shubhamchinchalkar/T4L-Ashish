@@ -4,6 +4,12 @@
   Usage:
   {% render 'header-drawer' %}
 {% endcomment %}
+{%- assign sale_offers_enabled = true -%}
+{%- for _l in section.settings.menu.links -%}
+  {%- if _l.title | strip | downcase == 'sale & offers' -%}
+    {%- assign sale_offers_enabled = false -%}
+  {%- endif -%}
+{%- endfor -%}
 
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
@@ -132,6 +138,18 @@
                     </a>
                   {%- endif -%}
                 </li>
+                {%- if sale_offers_enabled and link.title | strip | downcase == 'accessories' -%}
+  <li>
+    <a
+      href="/collections/on-sale"
+      class="menu-drawer__menu-item list-menu__item link sale-offers-btn"
+      title="Sale & Offers"
+    >
+      Sale & Offers
+    </a>
+  </li>
+{%- endif -%}
+
               {%- endfor -%}
 
 {% for link in linklists['about-us'].links %}
