@@ -4,9 +4,9 @@
   Usage:
   {% render 'header-drawer' %}
 {% endcomment %}
-{%- assign sale_offers_enabled = true -%}
 {%- for _l in section.settings.menu.links -%}
-  {%- if _l.title | strip | downcase == 'sale & offers' -%}
+  {%- assign normalized_title = _l.title | strip | downcase -%}
+  {%- if normalized_title == 'sale & offers' -%}
     {%- assign sale_offers_enabled = false -%}
   {%- endif -%}
 {%- endfor -%}
