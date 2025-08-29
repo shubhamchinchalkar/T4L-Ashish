@@ -355,6 +355,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
             <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
+  <style>
+/* Add Pulse + Glow to Sale & Offers button */
+.sale-offers-btn {
+  background-color: #fd1d1b !important;
+  color: #fff !important;
+  padding: 8px 14px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  animation: pulseGlow 2s infinite ease-in-out !important;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fd1d1b;
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px #fd1d1b;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fd1d1b;
+  }
+}
+</style>
+
+
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} inc_vat">
