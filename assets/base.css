@@ -4417,3 +4417,30 @@ product-info .breadcrumbs{
     box-shadow: none;  /* no glow */
   }
 }
+
+/* --- Custom Subcategory Grid Styling --- */
+.sub-cat-block {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.sub-cat-tab {
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sub-cat-tab:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sub-cat-media img {
+  max-width: 100%;
+  border-radius: 8px;
+}
