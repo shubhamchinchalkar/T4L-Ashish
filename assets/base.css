@@ -4417,3 +4417,36 @@ product-info .breadcrumbs{
     box-shadow: none;  /* no glow */
   }
 }
+
+/* T4L – On-Sale banners (scoped, won’t touch other elements) */
+.t4l-sale-banners {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 0 24px;
+  align-items: stretch;
+}
+
+.t4l-sale-banner {
+  display: block;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.t4l-sale-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;      /* keeps them perfectly square */
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 990px) {
+  .t4l-sale-banners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .t4l-sale-banners { grid-template-columns: 1fr; }
+}
