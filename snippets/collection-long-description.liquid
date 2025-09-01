@@ -25,105 +25,23 @@
   {% endif %}
 </div>
 
-<!-- 🚀 New Sale Banner Area -->
-{% if section.blocks.size > 0 %}
-  <div class="collection-sale-banners page-width" aria-label="Sale banners">
-    <div class="collection-sale-banners__grid">
-      {% for block in section.blocks %}
-        {% if block.type == 'banner' %}
-          <div class="collection-sale-banners__item">
-            {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
-            {% if block.settings.image %}
-              <img
-                src="{{ block.settings.image | image_url: width: 1200 }}"
-                alt="{{ block.settings.alt | escape }}"
-                loading="lazy" />
-            {% endif %}
-            {% if block.settings.link != blank %}</a>{% endif %}
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-
-  <style>
-    .collection-sale-banners__grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      margin-top: 18px;
-      align-items: stretch;
-    }
-    .collection-sale-banners__item {
-      overflow: hidden;
-      border-radius: 6px;
-    }
-    .collection-sale-banners__item img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-    @media (max-width: 749px) {
-      .collection-sale-banners__grid {
-        gap: 12px;
-      }
-    }
-  </style>
-{% endif %}
-<!-- 🚀 End Sale Banner Area -->
-
 <!-- CLS Issue Fix - Collection Long Description -->
 <script>
   $(function() {
     setTimeout(function(){
-      $(".collection-long-desc").addClass('collapse');
+    	$(".collection-long-desc").addClass('collapse');
     },20000);
   
     $(".collection-long-desc .read_more").on('click', function(){
       if($(this).parent('.collection-long-desc.collapse').length){
-        $(this).text('Read Less');
-        $(this).parent('.collection-long-desc').removeClass('collapse');
-        $(this).parent('.collection-long-desc > *').slideDown(400);
+      	$(this).text('Read Less');
+        	$(this).parent('.collection-long-desc').removeClass('collapse');
+      	$(this).parent('.collection-long-desc > *').slideDown(400);
       } else{
-        $(this).parent('.collection-long-desc').addClass('collapse');
-        $(this).parent('.collection-long-desc > *').slideUp(400);
-        $(this).text('Read More');
+      	$(this).parent('.collection-long-desc').addClass('collapse');
+      	$(this).parent('.collection-long-desc > *').slideUp(400);
+        	$(this).text('Read More');
       }
     });
   });
 </script>
-
-{% schema %}
-  {
-    "name": "Collection Long Description",
-    "settings": [],
-    "blocks": [
-      {
-        "type": "banner",
-        "name": "Sale banner",
-        "settings": [
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Banner image"
-          }, {
-            "type": "url",
-            "id": "link",
-            "label": "Banner link"
-          }, {
-            "type": "text",
-            "id": "alt",
-            "label": "Alt text"
-          }
-        ]
-      }
-    ],
-    "max_blocks": 4,
-    "presets": [
-      {
-        "name": "Collection Long Description"
-      }
-    ]
-  }
-{% endschema %}
