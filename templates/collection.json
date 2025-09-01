@@ -27,6 +27,13 @@
         "padding_bottom": 20
       }
     },
+    "collection_subcategory_banners": {
+      "type": "collection-subcategory-banners",
+      "settings": {
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "custom_css": [],
@@ -75,6 +82,7 @@
   "order": [
     "banner",
     "subcategories",
+    "collection_subcategory_banners",
     "product-grid",
     "collection_people_also_searched_for_Ka7tMg",
     "collection_long_description_CcLXEC",
