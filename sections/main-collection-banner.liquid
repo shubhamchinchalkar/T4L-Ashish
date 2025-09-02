@@ -76,71 +76,70 @@
   });
 </script>
 
-{% if collection.handle == 'sale-offers' %}
-  <div class="sub-cat-block">
+<div class="sub-cat-block">
 
-    <!-- Fixme ashish change the img src with the required url, to adjust the image size change width and height -->
-
-
-    <a href="" class="sub-cat-tab">
-      <div class="sub-cat-media">
-
-        <img
-          src=""
-          class=""
-          alt="Bathrooms"
-          loading="lazy"
-          width="200"
-          height="200">
-
-      </div>
-      <h3>Bathroom</h3>
-    </a>
+  <!-- Fixme ashish change the img src with the required url, to adjust the image size change width and height -->
 
 
-    <a href="/collections/kitchens" class="sub-cat-tab">
-      <div class="sub-cat-media">
+  <a href="/collections/bathrooms" class="sub-cat-tab">
+    <div class="sub-cat-media">
 
-        <img
-          src="//build4less.co.uk/cdn/shop/collections/large-r1090x-grey_1_medium.jpg?v=1743090579"
-          class=""
-          alt="Kitchens"
-          loading="lazy"
-          width="200"
-          height="200">
+      <img
+        src="//build4less.co.uk/cdn/shop/collections/L-2020-6-18--7-39-52-568_163c83d1-7d3d-4294-9b7e-2850eb9a5097_medium.jpg?v=1742903470"
+        class=""
+        alt="Bathrooms"
+        loading="lazy"
+        width="200"
+        height="200">
 
-      </div>
-      <h3>Kitchens</h3>
-    </a>
+    </div>
+    <h3>Bathrooms</h3>
+  </a>
 
 
-  </div>
+  <a href="/collections/kitchens" class="sub-cat-tab">
+    <div class="sub-cat-media">
 
-  {% schema %}
-    {
-      "name": "t:sections.main-collection-banner.name",
-      "class": "section",
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "t:sections.main-collection-banner.settings.paragraph.content"
-        }, {
-          "type": "checkbox",
-          "id": "show_collection_description",
-          "default": true,
-          "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
-        }, {
-          "type": "checkbox",
-          "id": "show_collection_image",
-          "default": false,
-          "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
-          "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
-        }, {
-          "type": "color_scheme",
-          "id": "color_scheme",
-          "label": "t:sections.all.colors.label",
-          "default": "scheme-1"
-        }
-      ]
-    }
-  {% endschema %}
+      <img
+        src="//build4less.co.uk/cdn/shop/collections/large-r1090x-grey_1_medium.jpg?v=1743090579"
+        class=""
+        alt="Kitchens"
+        loading="lazy"
+        width="200"
+        height="200">
+
+    </div>
+    <h3>Kitchens</h3>
+  </a>
+
+
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.main-collection-banner.name",
+    "class": "section",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:sections.main-collection-banner.settings.paragraph.content"
+      }, {
+        "type": "checkbox",
+        "id": "show_collection_description",
+        "default": true,
+        "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+      }, {
+        "type": "checkbox",
+        "id": "show_collection_image",
+        "default": false,
+        "label": "t:sections.main-collection-banner.settings.show_collection_image.label",
+        "info": "t:sections.main-collection-banner.settings.show_collection_image.info"
+      }, {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+      }
+    ]
+  }
+{% endschema %}
