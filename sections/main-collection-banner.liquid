@@ -76,6 +76,48 @@
   });
 </script>
 
+{% if collection.handle == 'sale-offers' %}
+  <div class="sub-cat-block">
+
+    <!-- Fixme ashish change the img src with the required url, to adjust the image size change width and height -->
+
+
+    <a href="" class="sub-cat-tab">
+      <div class="sub-cat-media">
+
+        <img
+          src=""
+          class=""
+          alt="Bathrooms"
+          loading="lazy"
+          width="200"
+          height="200">
+
+      </div>
+      <h3>Bathroom</h3>
+    </a>
+
+
+    <a href="/collections/kitchens" class="sub-cat-tab">
+      <div class="sub-cat-media">
+
+        <img
+          src="//build4less.co.uk/cdn/shop/collections/large-r1090x-grey_1_medium.jpg?v=1743090579"
+          class=""
+          alt="Kitchens"
+          loading="lazy"
+          width="200"
+          height="200">
+
+      </div>
+      <h3>Kitchens</h3>
+    </a>
+
+
+  </div>
+
+{% endif %}
+
 {% schema %}
   {
     "name": "t:sections.main-collection-banner.name",
