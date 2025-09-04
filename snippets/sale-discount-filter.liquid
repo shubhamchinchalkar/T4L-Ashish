@@ -6,9 +6,11 @@
 {{ 'sale-discount-filter.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign discounts_list = '25,35,50' | split: ',' /* edit this list if you want more values */
+  {%- comment -%} Edit this list if you want more discount banners {%- endcomment -%}
+  assign discounts_list = '25,35,50' | split: ','
   assign current_discount = request.params.discount | default: ''
 -%}
+
 
 <div
   class="sale-discount-filter"
