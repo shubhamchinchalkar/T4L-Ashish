@@ -153,30 +153,13 @@
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
               ">
               {% assign skip_card_product_styles = false %}
-                {%- for product in collection.products -%}
+              {%- for product in collection.products -%}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
-              {%- endif -%}
-
-                {%- comment -%} 
-                  Compute the maximum discount percent among variants. 
-                {%- endcomment -%}
-                {%- assign max_discount = 0 -%}
-                {%- for variant in product.variants -%}
-                  {%- if variant.compare_at_price and variant.compare_at_price > variant.price -%}
-                    {%- assign diff = variant.compare_at_price | minus: variant.price -%}
-                    {%- assign percent = diff | times: 100 | divided_by: variant.compare_at_price | ceil -%}
-                    {%- if percent > max_discount -%}
-                      {%- assign max_discount = percent -%}
-                    {%- endif -%}
-                  {%- endif -%}
-                {%- endfor -%}
-
+                {%- endif -%}
                 <li
                   class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  data-max-discount="{{ max_discount }}"
-                  data-has-discount="{% if max_discount > 0 %}true{% else %}false{% endif %}"
                   {% if settings.animations_reveal_on_scroll %}
                   data-cascade
                   style="--animation-order: {{ forloop.index }};"
