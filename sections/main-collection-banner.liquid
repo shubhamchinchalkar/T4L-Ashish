@@ -32,7 +32,10 @@
           <div class="collection-hero__description rte">{{ collection.description }}</div>
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
-          {%- endif -%}
+        {%- endif -%}
+          {%- comment -%} Sale discount quick filter (appears under collection description) {%- endcomment -%}
+          {%- render 'sale-discount-filter' -%}
+
         {%- endif -%}
       {%- endif -%}
     </div>
