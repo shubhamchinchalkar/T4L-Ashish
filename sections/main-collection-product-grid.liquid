@@ -38,6 +38,13 @@
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
+
+    {%- comment -%} Capture discount param from URL ?discount=25 {%- endcomment -%}
+    {% assign _discount_filter = 0 %}
+    {% if collection.handle == 'on-sale' and request.params.discount != blank %}
+      {% assign _discount_filter = request.params.discount | plus: 0 %}
+    {% endif %}
+
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
       <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
@@ -158,35 +165,59 @@
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
-                <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                  {% endif %}>
-                  {% render 'card-product'
-                    ,
+
+                {%- liquid
+                  assign _product_max_discount = 0
+                  for v in product.variants
+                    if v.compare_at_price > v.price and v.compare_at_price > 0
+                      assign _diff = v.compare_at_price | minus: v.price
+                      assign _pct = _diff | times: 100 | divided_by: v.compare_at_price
+                      if _pct > _product_max_discount
+                        assign _product_max_discount = _pct
+                      endif
+                    endif
+                  endfor
+
+                  assign _rounded5 = _product_max_discount | plus: 2.5 | divided_by: 5 | floor | times: 5
+
+                  assign _show_product = true
+                  if _discount_filter > 0 and _rounded5 != _discount_filter
+                    assign _show_product = false
+                  endif
+                -%}
+
+                {% if _show_product %}
+                  <li
+                    class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                    {% if settings.animations_reveal_on_scroll %}
+                    data-cascade
+                    style="--animation-order: {{ forloop.index }};"
+                    {% endif %}>
+                    {% render 'card-product'
+                      ,
  card_product: product
-                    ,
+                      ,
  media_aspect_ratio: section.settings.image_ratio
-                    ,
+                      ,
  image_shape: section.settings.image_shape
-                    ,
+                      ,
  show_secondary_image: section.settings.show_secondary_image
-                    ,
+                      ,
  show_vendor: section.settings.show_vendor
-                    ,
+                      ,
  show_rating: section.settings.show_rating
-                    ,
+                      ,
  lazy_load: lazy_load
-                    ,
+                      ,
  skip_styles: skip_card_product_styles
-                    ,
+                      ,
  quick_add: section.settings.quick_add
-                    ,
+                      ,
  section_id: section.id
-                  %}
-                </li>
+                    %}
+                  </li>
+                {% endif %}
+
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             </ul>
