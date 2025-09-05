@@ -76,11 +76,15 @@
             <h2 class="product-count__text text-body">
               <span id="ProductCountDesktop">
                 {%- if collection.results_count -%}
-                  {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
+                  {{ 'templates.search.results_with_count'
+ | t: terms: collection.terms, count: collection.results_count
+                  }}
                 {%- elsif collection.products_count == collection.all_products_count -%}
                   {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
                 {%- else -%}
-                  {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
+                  {{ 'products.facets.product_count'
+ | t: product_count: collection.products_count, count: collection.all_products_count
+                  }}
                 {%- endif -%}
               </span>
             </h2>
@@ -121,7 +125,6 @@
         {% if settings.animations_reveal_on_scroll %}
         data-cascade
         {% endif %}>
-
         {%- if collection.products.size == 0 -%}
           <div
             class="collection collection--empty page-width"
@@ -132,19 +135,15 @@
               <h2 class="title title--primary">
                 {{ 'sections.collection_template.empty' | t -}}
                 <br>
-                {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: 'underlined-link link' }}
+                {{ 'sections.collection_template.use_fewer_filters_html'
+ | t: link: collection.url, class: 'underlined-link link'
+                }}
               </h2>
             </div>
           </div>
         {%- else -%}
           <div class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}">
             <div class="loading-overlay gradient"></div>
-
-            {{ collection.description }}
-            {% if collection.handle == 'on-sale' %}
-              {% render 'sale-banners' %}
-            {% endif %}
-
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
@@ -155,27 +154,12 @@
               ">
               {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
-
-                {%- liquid
-                  assign max_discount = 0
-                  for v in product.variants
-                    if v.compare_at_price > v.price and v.compare_at_price > 0
-                      assign diff = v.compare_at_price | minus: v.price
-                      assign pct = diff | times: 100 | divided_by: v.compare_at_price
-                      if pct > max_discount
-                        assign max_discount = pct
-                      endif
-                    endif
-                  endfor
-                -%}
-
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
                 <li
                   class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  data-discount="{{ max_discount | round }}"
                   {% if settings.animations_reveal_on_scroll %}
                   data-cascade
                   style="--animation-order: {{ forloop.index }};"

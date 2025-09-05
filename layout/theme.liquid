@@ -444,10 +444,6 @@ body {
       }
     </style>
 
-    {% if template.name == 'collection' and collection.handle == 'on-sale' %}
-      {{ 'sale-banners.css' | asset_url | stylesheet_tag }}
-    {% endif %}
-
 
   </head>
 
@@ -617,15 +613,6 @@ body {
         });
       });
     </script>
-    <!-- Global Footer Auto Collapse END -->
-
-    {% if template.name == 'collection' and collection.handle == 'on-sale' %}
-      <script>
-        document.documentElement.setAttribute('data-on-sale-collection',"true");
-      </script>
-      {{ 'sale-banners.js' | asset_url | script_tag }}
-    {% endif %}
-
-
+  <!-- Global Footer Auto Collapse END -->
   </body>
 </html>
