@@ -40,6 +40,44 @@
       assign ratio = 1
     endif
   -%}
+
+  {%- comment -%} Calculate discount percentage for client-side filtering {%- endcomment -%}
+{%- assign card_discount = 0 -%}
+{%- if card_product.compare_at_price > card_product.price -%}
+  {%- if card_product.variants.size > 1 -%}
+    {%- assign discount_values = '' -%}
+    {%- for variant in card_product.variants -%}
+      {%- if variant.compare_at_price > variant.price -%}
+        {%- assign compare_at_price = variant.compare_at_price -%}
+        {%- assign price = variant.price -%}
+        {%- assign clean_compare_at_price = compare_at_price | money_without_currency | replace: ',', '' | plus: 0 -%}
+        {%- assign clean_price = price | money_without_currency | replace: ',', '' | plus: 0 -%}
+        {%- assign actual_price = clean_compare_at_price | minus: clean_price -%}
+        {%- assign discount_percentage = actual_price | times: 100 | divided_by: clean_compare_at_price -%}
+        {%- assign discount_values = discount_values | append: discount_percentage | append: ',' -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign discount_values_array = discount_values | split: ',' -%}
+    {%- assign highest_discount = 0 -%}
+    {%- for value in discount_values_array -%}
+      {%- assign current_discount = value | plus: 0 -%}
+      {%- if current_discount > highest_discount -%}
+        {%- assign highest_discount = current_discount -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign card_discount = highest_discount | round: 0 -%}
+  {%- else -%}
+    {%- assign incWasPrice = card_product.compare_at_price_min | times: 1.2 -%}
+    {%- assign incVatPrice = card_product.price_min | times: 1.2 -%}
+    {%- assign clean_incWasPrice = incWasPrice | money_without_currency | replace: ',', '' | plus: 0 -%}
+    {%- assign clean_incVatPrice = incVatPrice | money_without_currency | replace: ',', '' | plus: 0 -%}
+    {%- assign save_percentage = clean_incWasPrice | minus: clean_incVatPrice -%}
+    {%- assign save_percentage = save_percentage | divided_by: clean_incWasPrice -%}
+    {%- assign save_percentage = save_percentage | times: 100 -%}
+    {%- assign card_discount = save_percentage | round: 0 -%}
+  {%- endif -%}
+{%- endif -%}
+
   
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
@@ -52,6 +90,7 @@
         {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
         {% if horizontal_class %} card--horizontal{% endif %}
       "
+      data-discount="{{ card_discount }}"
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
       <div
