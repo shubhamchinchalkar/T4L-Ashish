@@ -40,39 +40,8 @@
       assign ratio = 1
     endif
   -%}
-
-  {%- liquid
-  assign max_discount_for_filter = 0
-  if card_product.compare_at_price > card_product.price and card_product.available
-    if card_product.variants.size > 1
-      for variant in card_product.variants
-        assign compare_at_price = variant.compare_at_price | times: 1.2
-        assign price            = variant.price | times: 1.2
-        assign clean_compare    = compare_at_price | money_without_currency | replace: ',', '' | plus: 0
-        assign clean_price      = price | money_without_currency | replace: ',', '' | plus: 0
-        if clean_compare > 0
-          assign pct = clean_compare | minus: clean_price | times: 100 | divided_by: clean_compare
-          if pct > max_discount_for_filter
-            assign max_discount_for_filter = pct
-          endif
-        endif
-      endfor
-    else
-      assign incWas  = card_product.compare_at_price_min | times: 1.2
-      assign incNow  = card_product.price_min | times: 1.2
-      assign clean_w = incWas | money_without_currency | replace: ',', '' | plus: 0
-      assign clean_n = incNow | money_without_currency | replace: ',', '' | plus: 0
-      if clean_w > 0
-        assign pct = clean_w | minus: clean_n | times: 100 | divided_by: clean_w
-        assign max_discount_for_filter = pct
-      endif
-    endif
-  endif
--%}
-
   
-  <div class="card-wrapper product-card-wrapper underline-links-hover"
-    data-max-discount="{{ max_discount_for_filter | round: 0 }}">
+  <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
       class="
         card card--{{ settings.card_style }}
