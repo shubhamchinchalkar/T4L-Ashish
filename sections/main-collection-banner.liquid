@@ -1,7 +1,5 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
-{{ 'collection-discount-banners.css' | asset_url | stylesheet_tag }}
-
 
 {%- style -%}
   @media screen and (max-width: 749px) {
@@ -32,52 +30,6 @@
       {%- if section.settings.show_collection_description -%}
         {%- if collection.description != blank -%}
           <div class="collection-hero__description rte">{{ collection.description }}</div>
-
-          <!-- Discount banners (Tiles4Less custom) -->
-          <div
-            class="t4l-discount-banners"
-            role="toolbar"
-            aria-label="Filter by discount">
-            <button
-              type="button"
-              class="t4l-discount-banner"
-              data-min="1"
-              data-max="25"
-              aria-pressed="false">
-              <span class="t4l-range">Up to 25% off</span>
-              <span class="t4l-sub">Show products discounted 1%–25%</span>
-            </button>
-
-            <button
-              type="button"
-              class="t4l-discount-banner"
-              data-min="26"
-              data-max="35"
-              aria-pressed="false">
-              <span class="t4l-range">Up to 35% off</span>
-              <span class="t4l-sub">Show products discounted 26%–35%</span>
-            </button>
-
-            <button
-              type="button"
-              class="t4l-discount-banner"
-              data-min="36"
-              data-max="50"
-              aria-pressed="false">
-              <span class="t4l-range">Up to 50% off</span>
-              <span class="t4l-sub">Show products discounted 36%–50%</span>
-            </button>
-
-            <button
-              type="button"
-              class="t4l-discount-banner t4l-clear"
-              data-clear="true"
-              aria-pressed="false">
-              <span class="t4l-range">Show all</span>
-              <span class="t4l-sub">Clear discount filter</span>
-            </button>
-          </div>
-
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
@@ -123,9 +75,6 @@
     });
   });
 </script>
-
-<script src="{{ 'collection-discount-filter.js' | asset_url }}" defer="defer"></script>
-
 
 {% schema %}
   {
