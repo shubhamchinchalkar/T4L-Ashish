@@ -33,6 +33,204 @@
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
+          {%- comment -%} 
+            Sale filter banners (front-end only).
+            Placement: paste this immediately after the collection description div in
+            sections/main-collection-banner.liquid 
+          {%- endcomment -%}
+
+          {%- if collection.handle == 'on-sale' -%}
+            <div class="collection-sale-filter" aria-hidden="false">
+              <style>
+                /* Simple styles (change colors to match your theme) */
+                .sale-filter-banners {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 12px;
+                  margin-top: 1.2rem
+                }
+                .sale-filter-btn {
+                  background: #ff3b30;
+                  color: #fff;
+                  border: 0;
+                  padding: 8px 14px;
+                  border-radius: 10px;
+                  font-weight: 600;
+                  cursor: pointer;
+                  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+                }
+                .sale-filter-btn:focus {
+                  outline: 3px solid rgba(0, 0, 0, .08)
+                }
+                .sale-filter-btn.active {
+                  transform: translateY(-2px);
+                  box-shadow: 0 10px 24px rgba(0, 0, 0, .18)
+                }
+                .sale-filter-no-results {
+                  color: #444;
+                  margin-top: 1rem;
+                  font-style: italic
+                }
+                @media (max-width: 640px) {
+                  .sale-filter-banners {
+                    justify-content: flex-start
+                  }
+                }
+              </style>
+
+              <div
+                class="sale-filter-banners"
+                role="tablist"
+                aria-label="Sale filters">
+                <button
+                  type="button"
+                  class="sale-filter-btn"
+                  data-min="1"
+                  data-max="25">Up to 25% off</button>
+                <button
+                  type="button"
+                  class="sale-filter-btn"
+                  data-min="26"
+                  data-max="35">26% → 35% off</button>
+                <button
+                  type="button"
+                  class="sale-filter-btn"
+                  data-min="36"
+                  data-max="50">36% → 50% off</button>
+                <button
+                  type="button"
+                  class="sale-filter-btn sale-filter-reset"
+                  data-min="0"
+                  data-max="999">Show all</button>
+              </div>
+
+              <script>
+                      (function () {
+                        // Safe, self-contained script: computes discount % from prices inside each product card
+                        // then toggles visibility of product cards when a banner is clicked.
+                        function parseNumbersFromText(text) {
+                          if (!text) return [];
+                          // Match prices with £ sign (e.g. "£18.85" or "£1,234.00")
+                          var re = /£\s*([\d,]+(?:\.\d+)?)/g;
+                          var m;
+                          var nums = [];
+                          while ((m = re.exec(text)) !== null) {
+                            nums.push(parseFloat(m[1].replace(/,/g, '')));
+                          }
+                          return nums;
+                        }
+                
+                        function computeDiscountForCard(card) {
+                          // Avoid recomputing repeatedly
+                          if (card.dataset.discountCalculated === '1') return;
+                          card.dataset.discountCalculated = '1';
+                
+                          // Pull text from card and find price amounts
+                          var text = card.innerText || '';
+                          var nums = parseNumbersFromText(text);
+                
+                          // We expect at least two currency amounts when a product is on sale (compare_at and price)
+                          if (nums.length >= 2) {
+                            var compare = Math.max.apply(null, nums);
+                            var price = Math.min.apply(null, nums);
+                            if (compare > 0 && compare > price) {
+                              var pct = Math.round(((compare - price) / compare) * 100);
+                              card.dataset.salePercent = String(pct);
+                              return;
+                            }
+                          }
+                          card.dataset.salePercent = '0';
+                        }
+                
+                        function processAllCards() {
+                          // Grid selector used in this theme: `ul.grid` with items `li.grid__item`
+                          var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
+                          if (!grid) return;
+                          var cards = grid.querySelectorAll('li.grid__item, .grid__item');
+                          if (!cards) return;
+                          cards.forEach(function (card) { computeDiscountForCard(card); });
+                        }
+                
+                        function applyFilter(min, max) {
+                          var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
+                          if (!grid) return;
+                          var cards = grid.querySelectorAll('li.grid__item, .grid__item');
+                          var visible = 0;
+                          cards.forEach(function (card) {
+                            var pct = Number(card.dataset.salePercent || 0);
+                            if (pct >= min && pct <= max && pct > 0) {
+                              card.style.display = '';
+                              visible++;
+                            } else {
+                              card.style.display = 'none';
+                            }
+                          });
+                
+                          var existing = document.querySelector('.sale-filter-no-results');
+                          if (!existing) {
+                            existing = document.createElement('div');
+                            existing.className = 'sale-filter-no-results';
+                            grid.parentNode.insertBefore(existing, grid.nextSibling);
+                          }
+                          existing.textContent = visible ? '' : 'No products found in this discount range.';
+                          existing.style.display = visible ? 'none' : 'block';
+                        }
+                
+                        // Attach click handling (event delegation)
+                        document.addEventListener('click', function (e) {
+                          var btn = e.target.closest('.sale-filter-btn');
+                          if (!btn) return;
+                          var all = document.querySelectorAll('.sale-filter-btn');
+                          // Reset button handling
+                          if (btn.classList.contains('sale-filter-reset')) {
+                            all.forEach(function (b) { b.classList.remove('active'); });
+                            // restore all cards
+                            var cards = document.querySelectorAll('li.grid__item, .grid__item');
+                            cards.forEach(function (c) { c.style.display = ''; });
+                            var existing = document.querySelector('.sale-filter-no-results');
+                            if (existing) existing.style.display = 'none';
+                            return;
+                          }
+                          // Activate button
+                          all.forEach(function (b) { b.classList.toggle('active', b === btn); });
+                
+                          // Ensure discounts calculated
+                          processAllCards();
+                
+                          var min = Number(btn.getAttribute('data-min') || 0);
+                          var max = Number(btn.getAttribute('data-max') || 999);
+                          applyFilter(min, max);
+                        });
+                
+                        // Auto-run on DOM ready and handle dynamically loaded/paginated products
+                        document.addEventListener('DOMContentLoaded', function () {
+                          processAllCards();
+                          // If theme loads more products dynamically, recalc when DOM changes:
+                          var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
+                          if (grid) {
+                            var mo = new MutationObserver(function () { processAllCards(); });
+                            mo.observe(grid, { childList: true, subtree: true });
+                          } else {
+                            // Try a short poll if grid isn't on DOM at DOMContentLoaded
+                            var poll = setInterval(function () {
+                              var g = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
+                              if (g) {
+                clearInterval(poll);
+                processAllCards();
+                var mo2 = new MutationObserver(function () { processAllCards(); });
+                mo2.observe(g, { childList: true, subtree: true });
+                              }
+                            }, 400);
+                            // stop polling after 8s as safety
+                            setTimeout(function(){ clearInterval(poll); }, 8000);
+                          }
+                        });
+                      })();
+              </script>
+            </div>
+          {%- endif -%}
+
+
         {%- endif -%}
       {%- endif -%}
     </div>
