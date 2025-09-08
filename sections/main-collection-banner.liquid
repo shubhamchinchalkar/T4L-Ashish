@@ -33,6 +33,163 @@
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
+          {%- comment -%} Sale banners / client-side filter UI {%- endcomment -%}
+          {%- style -%}
+            .collection-sale-filters {
+              margin-top: 1.25rem;
+              margin-bottom: 1.25rem;
+            }
+            .sale-filters__inner {
+              display: flex;
+              gap: 1rem;
+              flex-wrap: wrap;
+              align-items: center;
+            }
+            .sale-filter {
+              border: none;
+              padding: 0.6rem 1rem;
+              border-radius: 8px;
+              font-weight: 700;
+              cursor: pointer;
+              box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+              background: #fff;
+            }
+            .sale-filter:focus {
+              outline: 3px solid rgba(0, 0, 0, 0.08);
+            }
+            .sale-filter--active {
+              box-shadow: 0 10px 28px rgba(240, 20, 20, 0.12);
+              transform: translateY(-2px);
+            }
+            .sale-filter--clear {
+              background: transparent;
+              border: 1px solid #e0e0e0;
+            }
+            @media (max-width: 680px) {
+              .sale-filters__inner {
+                gap: 0.5rem;
+              }
+              .sale-filter {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.95rem;
+              }
+            }
+          {%- endstyle -%}
+
+          <div class="collection-sale-filters page-width" aria-label="Sale filters">
+            <div class="sale-filters__inner">
+              <button
+                type="button"
+                class="sale-filter"
+                data-min="1"
+                data-max="25"
+                aria-pressed="false">Up to 25% off</button>
+              <button
+                type="button"
+                class="sale-filter"
+                data-min="26"
+                data-max="35"
+                aria-pressed="false">26% – 35% off</button>
+              <button
+                type="button"
+                class="sale-filter"
+                data-min="36"
+                data-max="100"
+                aria-pressed="false">36% – 100% off</button>
+              <button
+                type="button"
+                class="sale-filter sale-filter--clear"
+                data-clear="true">Show all</button>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var filterButtons = Array.from(document.querySelectorAll('.sale-filter'));
+              var productListSelector = '#product-grid .grid__item';
+              var originalCountNode = document.getElementById('ProductCountDesktop');
+              var originalCountHTML = originalCountNode ? originalCountNode.innerHTML : null;
+            
+              function readURLParams() {
+                var params = new URLSearchParams(window.location.search);
+                return { min: params.get('sale_min'), max: params.get('sale_max') };
+              }
+            
+              function writeURLParams(min, max) {
+                var params = new URLSearchParams(window.location.search);
+                if (min == null || max == null) {
+                  params.delete('sale_min'); params.delete('sale_max');
+                } else {
+                  params.set('sale_min', String(min));
+                  params.set('sale_max', String(max));
+                }
+                var newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+                window.history.replaceState({}, '', newUrl);
+              }
+            
+              function applyFilter(min, max) {
+                var items = document.querySelectorAll(productListSelector);
+                var visible = 0;
+                items.forEach(function (li) {
+                  var card = li.querySelector('[data-discount]');
+                  var d = card ? parseInt(card.getAttribute('data-discount') || '0', 10) : 0;
+                  var match = (min === null && max === null) || (d >= min && d <= max);
+                  li.style.display = match ? '' : 'none';
+                  if (match) visible++;
+                });
+                updateCount(visible);
+              }
+            
+              function updateCount(visible) {
+                if (!originalCountNode) return;
+                if (visible === 0) {
+                  originalCountNode.textContent = 'No products found for this discount range.';
+                } else {
+                  originalCountNode.textContent = 'Showing ' + visible + ' product' + (visible > 1 ? 's' : '');
+                }
+              }
+            
+              function clearActive() {
+                filterButtons.forEach(function(b){ b.classList.remove('sale-filter--active'); b.setAttribute('aria-pressed','false'); });
+              }
+            
+              function clearFilter() {
+                clearActive();
+                writeURLParams(null, null);
+                var items = document.querySelectorAll(productListSelector);
+                items.forEach(function(li){ li.style.display = ''; });
+                if (originalCountHTML !== null) originalCountNode.innerHTML = originalCountHTML;
+              }
+            
+              filterButtons.forEach(function(btn) {
+                btn.addEventListener('click', function (e) {
+                  if (btn.dataset.clear) {
+                    clearFilter();
+                    return;
+                  }
+                  var min = parseInt(btn.dataset.min, 10);
+                  var max = parseInt(btn.dataset.max, 10);
+                  clearActive();
+                  btn.classList.add('sale-filter--active');
+                  btn.setAttribute('aria-pressed','true');
+                  writeURLParams(min, max);
+                  applyFilter(min, max);
+                });
+              });
+            
+              // on load: apply any params
+              var params = readURLParams();
+              if (params.min && params.max) {
+                var min = parseInt(params.min, 10);
+                var max = parseInt(params.max, 10);
+                // mark matching button active (if present)
+                var match = filterButtons.find(function(b){ return b.dataset.min == String(min) && b.dataset.max == String(max); });
+                if (match) { match.classList.add('sale-filter--active'); match.setAttribute('aria-pressed','true'); }
+                applyFilter(min, max);
+              }
+            });
+          </script>
+
         {%- endif -%}
       {%- endif -%}
     </div>

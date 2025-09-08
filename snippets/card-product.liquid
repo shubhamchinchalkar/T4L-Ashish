@@ -40,6 +40,24 @@
       assign ratio = 1
     endif
   -%}
+
+  {%- comment -%} compute highest discount for this product to expose to the front-end as a data attribute {%- endcomment -%}
+{% assign card_discount = 0 %}
+{% for variant in card_product.variants %}
+  {% if variant.compare_at_price and variant.compare_at_price > variant.price %}
+    {% assign price = variant.price %}
+    {% assign compare_at_price = variant.compare_at_price %}
+    {% assign price_difference = compare_at_price | minus: price %}
+    {% assign discount_ratio = price_difference | divided_by: compare_at_price %}
+    {% assign discount_percent = discount_ratio | times: 100 %}
+    {% if discount_percent > card_discount %}
+      {% assign card_discount = discount_percent %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<div class="card-wrapper product-card-wrapper underline-links-hover" data-discount="{{ card_discount | round: 0 }}">
+
   
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
