@@ -1,0 +1,20 @@
+{{ 'discount-banners.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="discount-banners"
+  role="navigation"
+  aria-label="Filter by discount">
+  <a
+    class="discount-chip"
+    href="{{ collection.url }}?min=1&max=25"
+    data-range="1-25">Up to 25% OFF</a>
+  <a
+    class="discount-chip"
+    href="{{ collection.url }}?min=26&max=35"
+    data-range="26-35">Up to 35% OFF</a>
+  <a
+    class="discount-chip"
+    href="{{ collection.url }}?min=36&max=50"
+    data-range="36-50">Up to 50% OFF</a>
+  <a class="discount-chip clear" href="{{ collection.url }}">All Deals</a>
+</div>
