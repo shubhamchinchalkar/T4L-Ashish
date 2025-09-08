@@ -34,10 +34,10 @@
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
           {%- comment -%} 
-            Sale filter banners (front-end only).
-            Placement: paste this immediately after the collection description div in
-            sections/main-collection-banner.liquid 
-          {%- endcomment -%}
+                        Sale filter banners (front-end only).
+                        Placement: paste this immediately after the collection description div in
+                        sections/main-collection-banner.liquid 
+                    {%- endcomment -%}
 
           {%- if collection.handle == 'on-sale' -%}
             <div class="collection-sale-filter" aria-hidden="false">
@@ -57,14 +57,14 @@
                   border-radius: 10px;
                   font-weight: 600;
                   cursor: pointer;
-                  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+                  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
                 }
                 .sale-filter-btn:focus {
-                  outline: 3px solid rgba(0, 0, 0, .08)
+                  outline: 3px solid rgba(0, 0, 0, 0.08)
                 }
                 .sale-filter-btn.active {
                   transform: translateY(-2px);
-                  box-shadow: 0 10px 24px rgba(0, 0, 0, .18)
+                  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18)
                 }
                 .sale-filter-no-results {
                   color: #444;
@@ -105,128 +105,198 @@
               </div>
 
               <script>
-                      (function () {
-                        // Safe, self-contained script: computes discount % from prices inside each product card
-                        // then toggles visibility of product cards when a banner is clicked.
-                        function parseNumbersFromText(text) {
-                          if (!text) return [];
-                          // Match prices with £ sign (e.g. "£18.85" or "£1,234.00")
-                          var re = /£\s*([\d,]+(?:\.\d+)?)/g;
-                          var m;
-                          var nums = [];
-                          while ((m = re.exec(text)) !== null) {
-                            nums.push(parseFloat(m[1].replace(/,/g, '')));
-                          }
-                          return nums;
+                (function () {
+                  // Enable debug by either adding ?saleDebug=true to the URL or by setting DEBUG=true here
+                  var DEBUG = window.location.search.indexOf('saleDebug=true') !== -1 || false;
+                
+                  function extractMoneyFromText(text) {
+                    if (!text) return [];
+                    var re = /£\s*([\d,]+(?:\.\d+)?)/g;
+                    var m;
+                    var nums = [];
+                    while ((m = re.exec(text)) !== null) {
+                      nums.push(parseFloat(m[1].replace(/,/g, '')));
+                    }
+                    return nums;
+                  }
+                
+                  function extractMoneyFromElement(el) {
+                    if (!el) return null;
+                    var txt = (el.textContent || el.innerText || '').trim();
+                    var match = txt.match(/£\s*([\d,]+(?:\.\d+)?)/);
+                    if (match) return parseFloat(match[1].replace(/,/g, ''));
+                    return null;
+                  }
+                
+                  // Common selectors to find the compare-at (original) price and the current price.
+                  var COMPARE_SELECTORS = [
+                    '.price--compare', '.price-item--compare-at', '.price--was', '.was-price',
+                    '.product-card__price--compare', '.product-card__was', '.price--old', '.price--compare-at',
+                    '.compare-at', '.price-item.compare', '.price__was', '.price .was', '.price--regular .was'
+                  ];
+                  var PRICE_SELECTORS = [
+                    '.price--sale .price-item', '.price-item--sale', '.price--current', '.price-item--regular',
+                    '.product-card__price .price', '.price', '.price-item', 'span.money', '.price__final'
+                  ];
+                
+                  function findFirstMatch(card, selectors) {
+                    for (var i = 0; i < selectors.length; i++) {
+                      var el = card.querySelector(selectors[i]);
+                      if (el) {
+                        var v = extractMoneyFromElement(el);
+                        if (v !== null) return v;
+                      }
+                    }
+                    return null;
+                  }
+                
+                  function computeDiscountForCard(card) {
+                    if (card.dataset.discountCalculated === '1') return;
+                    card.dataset.discountCalculated = '1';
+                
+                    // Try targeted selectors first
+                    var compare = findFirstMatch(card, COMPARE_SELECTORS);
+                    var price = findFirstMatch(card, PRICE_SELECTORS);
+                
+                    // Try "Was £..." textual pattern (very common)
+                    if (!compare) {
+                      var wasMatch = (card.innerText || '').match(/Was\s*£\s*([\d,]+(?:\.\d+)?)/i);
+                      if (wasMatch) compare = parseFloat(wasMatch[1].replace(/,/g, ''));
+                    }
+                
+                    // Fallback: find all currency amounts in the card and take min/max
+                    var all = extractMoneyFromText(card.innerText || '');
+                    if (!price && all.length) price = Math.min.apply(null, all);
+                    if (!compare && all.length) compare = Math.max.apply(null, all);
+                
+                    // If still missing or invalid, set 0
+                    if (!compare || !price || compare <= price) {
+                      card.dataset.salePercent = '0';
+                    } else {
+                      // percent = round(((compare - price) / compare) * 100)
+                      var pct = Math.round(((compare - price) / compare) * 100);
+                      card.dataset.salePercent = String(pct);
+                    }
+                
+                    if (DEBUG) {
+                      // Add a small debug badge so you can visually inspect computed percent
+                      var existing = card.querySelector('.__sale_pct_badge');
+                      if (!existing) {
+                        var b = document.createElement('div');
+                        b.className = '__sale_pct_badge';
+                        b.style.position = 'absolute';
+                        b.style.right = '8px';
+                        b.style.top = '8px';
+                        b.style.padding = '6px 8px';
+                        b.style.background = 'rgba(0,0,0,0.8)';
+                        b.style.color = '#fff';
+                        b.style.fontSize = '12px';
+                        b.style.borderRadius = '6px';
+                        b.style.zIndex = 9999;
+                        // ensure the card can position children
+                        if (getComputedStyle(card).position === 'static') {
+                          card.style.position = 'relative';
                         }
+                        card.appendChild(b);
+                        existing = b;
+                      }
+                      existing.textContent = card.dataset.salePercent + '%';
+                      console.log('[sale-filter-debug] card:', card, {
+                        all: all,
+                        price: price,
+                        compare: compare,
+                        pct: card.dataset.salePercent
+                      });
+                    }
+                  }
                 
-                        function computeDiscountForCard(card) {
-                          // Avoid recomputing repeatedly
-                          if (card.dataset.discountCalculated === '1') return;
-                          card.dataset.discountCalculated = '1';
+                  function processAllCards() {
+                    var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid') || document.querySelector('.collection__products');
+                    if (!grid) return;
+                    // Common item selectors used by many Shopify themes:
+                    var cards = grid.querySelectorAll('li.grid__item, .grid__item, .product-card, .product-item, li.product');
+                    if (!cards) return;
+                    cards.forEach(function (card) { computeDiscountForCard(card); });
+                  }
                 
-                          // Pull text from card and find price amounts
-                          var text = card.innerText || '';
-                          var nums = parseNumbersFromText(text);
+                  function applyFilter(min, max) {
+                    var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid') || document.querySelector('.collection__products');
+                    if (!grid) return;
+                    var cards = grid.querySelectorAll('li.grid__item, .grid__item, .product-card, .product-item, li.product');
+                    var visible = 0;
+                    cards.forEach(function (card) {
+                      var pct = Number(card.dataset.salePercent || 0);
+                      // show only when pct is inside range and > 0
+                      if (pct >= min && pct <= max && pct > 0) {
+                        card.style.display = '';
+                        visible++;
+                      } else {
+                        card.style.display = 'none';
+                      }
+                    });
                 
-                          // We expect at least two currency amounts when a product is on sale (compare_at and price)
-                          if (nums.length >= 2) {
-                            var compare = Math.max.apply(null, nums);
-                            var price = Math.min.apply(null, nums);
-                            if (compare > 0 && compare > price) {
-                              var pct = Math.round(((compare - price) / compare) * 100);
-                              card.dataset.salePercent = String(pct);
-                              return;
-                            }
-                          }
-                          card.dataset.salePercent = '0';
-                        }
+                    var existing = document.querySelector('.sale-filter-no-results');
+                    if (!existing) {
+                      existing = document.createElement('div');
+                      existing.className = 'sale-filter-no-results';
+                      existing.style.color = '#444';
+                      existing.style.marginTop = '1rem';
+                      existing.style.fontStyle = 'italic';
+                      var gridParent = grid.parentNode || document.body;
+                      gridParent.insertBefore(existing, grid.nextSibling);
+                    }
+                    existing.textContent = visible ? '' : 'No products found in this discount range.';
+                    existing.style.display = visible ? 'none' : 'block';
+                  }
                 
-                        function processAllCards() {
-                          // Grid selector used in this theme: `ul.grid` with items `li.grid__item`
-                          var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
-                          if (!grid) return;
-                          var cards = grid.querySelectorAll('li.grid__item, .grid__item');
-                          if (!cards) return;
-                          cards.forEach(function (card) { computeDiscountForCard(card); });
-                        }
+                  // Click handling (delegation)
+                  document.addEventListener('click', function (e) {
+                    var btn = e.target.closest('.sale-filter-btn');
+                    if (!btn) return;
+                    var all = document.querySelectorAll('.sale-filter-btn');
+                    if (btn.classList.contains('sale-filter-reset')) {
+                      all.forEach(function (b) { b.classList.remove('active'); });
+                      var cards = document.querySelectorAll('li.grid__item, .grid__item, .product-card, .product-item, li.product');
+                      cards.forEach(function (c) { c.style.display = ''; });
+                      var existing = document.querySelector('.sale-filter-no-results');
+                      if (existing) existing.style.display = 'none';
+                      return;
+                    }
+                    all.forEach(function (b) { b.classList.toggle('active', b === btn); });
                 
-                        function applyFilter(min, max) {
-                          var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
-                          if (!grid) return;
-                          var cards = grid.querySelectorAll('li.grid__item, .grid__item');
-                          var visible = 0;
-                          cards.forEach(function (card) {
-                            var pct = Number(card.dataset.salePercent || 0);
-                            if (pct >= min && pct <= max && pct > 0) {
-                              card.style.display = '';
-                              visible++;
-                            } else {
-                              card.style.display = 'none';
-                            }
-                          });
+                    // Ensure discounts are calculated before filtering
+                    processAllCards();
                 
-                          var existing = document.querySelector('.sale-filter-no-results');
-                          if (!existing) {
-                            existing = document.createElement('div');
-                            existing.className = 'sale-filter-no-results';
-                            grid.parentNode.insertBefore(existing, grid.nextSibling);
-                          }
-                          existing.textContent = visible ? '' : 'No products found in this discount range.';
-                          existing.style.display = visible ? 'none' : 'block';
-                        }
+                    var min = Number(btn.getAttribute('data-min') || 0);
+                    var max = Number(btn.getAttribute('data-max') || 999);
+                    applyFilter(min, max);
+                  });
                 
-                        // Attach click handling (event delegation)
-                        document.addEventListener('click', function (e) {
-                          var btn = e.target.closest('.sale-filter-btn');
-                          if (!btn) return;
-                          var all = document.querySelectorAll('.sale-filter-btn');
-                          // Reset button handling
-                          if (btn.classList.contains('sale-filter-reset')) {
-                            all.forEach(function (b) { b.classList.remove('active'); });
-                            // restore all cards
-                            var cards = document.querySelectorAll('li.grid__item, .grid__item');
-                            cards.forEach(function (c) { c.style.display = ''; });
-                            var existing = document.querySelector('.sale-filter-no-results');
-                            if (existing) existing.style.display = 'none';
-                            return;
-                          }
-                          // Activate button
-                          all.forEach(function (b) { b.classList.toggle('active', b === btn); });
-                
-                          // Ensure discounts calculated
+                  // Run on DOM ready and watch for new items (infinite scroll / pagination)
+                  document.addEventListener('DOMContentLoaded', function () {
+                    processAllCards();
+                    var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid') || document.querySelector('.collection__products');
+                    if (grid) {
+                      var mo = new MutationObserver(function () { processAllCards(); });
+                      mo.observe(grid, { childList: true, subtree: true });
+                    } else {
+                      // short poll fallback
+                      var poll = setInterval(function () {
+                        var g = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid') || document.querySelector('.collection__products');
+                        if (g) {
+                          clearInterval(poll);
                           processAllCards();
+                          var mo2 = new MutationObserver(function () { processAllCards(); });
+                          mo2.observe(g, { childList: true, subtree: true });
+                        }
+                      }, 400);
+                      setTimeout(function () { clearInterval(poll); }, 8000);
+                    }
+                  });
                 
-                          var min = Number(btn.getAttribute('data-min') || 0);
-                          var max = Number(btn.getAttribute('data-max') || 999);
-                          applyFilter(min, max);
-                        });
-                
-                        // Auto-run on DOM ready and handle dynamically loaded/paginated products
-                        document.addEventListener('DOMContentLoaded', function () {
-                          processAllCards();
-                          // If theme loads more products dynamically, recalc when DOM changes:
-                          var grid = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
-                          if (grid) {
-                            var mo = new MutationObserver(function () { processAllCards(); });
-                            mo.observe(grid, { childList: true, subtree: true });
-                          } else {
-                            // Try a short poll if grid isn't on DOM at DOMContentLoaded
-                            var poll = setInterval(function () {
-                              var g = document.querySelector('ul.grid') || document.querySelector('.product-grid') || document.querySelector('.grid.product-grid');
-                              if (g) {
-                clearInterval(poll);
-                processAllCards();
-                var mo2 = new MutationObserver(function () { processAllCards(); });
-                mo2.observe(g, { childList: true, subtree: true });
-                              }
-                            }, 400);
-                            // stop polling after 8s as safety
-                            setTimeout(function(){ clearInterval(poll); }, 8000);
-                          }
-                        });
-                      })();
+                })();
               </script>
+
             </div>
           {%- endif -%}
 
