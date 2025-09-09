@@ -103,13 +103,6 @@
                 autocapitalize="off"
                 spellcheck="false"
                 {%- endif -%}>
-              <button
-                type="reset"
-                class="reset__button hidden"
-                aria-label="{{ 'general.search.clear' | t }}">
-                <span class="icon icon-close" aria-hidden="true">{{ 'icon-close.svg' | inline_asset_content }}</span>
-              </button>
-
               <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
               <input
                 name="options[prefix]"
