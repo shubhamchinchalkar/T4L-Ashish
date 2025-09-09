@@ -1,0 +1,95 @@
+/* add-to-cart-animation.css
+   Lightweight animations for Add to cart buttons.
+   Non-destructive: only applies when JS adds the helper classes:
+     - atc-anim--loading
+     - atc-anim--added
+     - atc-anim--error
+*/
+
+/* spinner inside the button */
+.atc-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.28); /* subtle border; adapts to dark/light backgrounds */
+  border-top-color: rgba(255,255,255,0.98);
+  box-sizing: border-box;
+  -webkit-animation: atc-spin 0.8s linear infinite;
+          animation: atc-spin 0.8s linear infinite;
+}
+
+/* spinner keyframes */
+@-webkit-keyframes atc-spin { to { -webkit-transform: rotate(360deg); transform: rotate(360deg); } }
+@keyframes atc-spin { to { -webkit-transform: rotate(360deg); transform: rotate(360deg); } }
+
+/* small press/pulse when the add starts */
+button.atc-anim--loading,
+input.atc-anim--loading[type="submit"] {
+  transform: scale(0.985);
+  transition: transform 140ms ease-out;
+  position: relative;
+  will-change: transform;
+}
+
+/* show a subtle glow while loading (non-intrusive) */
+button.atc-anim--loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms ease-out;
+}
+button.atc-anim--loading::after { opacity: 1; }
+
+/* added state: show checkmark and gentle grow + color tint */
+button.atc-anim--added,
+input.atc-anim--added[type="submit"] {
+  transform: scale(1.02);
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* checkmark using pseudo-element so we don't change button inner text */
+button.atc-anim--added::after,
+input.atc-anim--added[type="submit"]::after {
+  content: "✓";
+  display: inline-block;
+  margin-left: 0.6rem;
+  font-weight: 700;
+  font-size: 1.05em;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(0.5) translateY(2px);
+  transition: transform 240ms ease, opacity 240ms ease;
+  color: inherit; /* use button text color */
+}
+button.atc-anim--added.atc-anim--added-visible::after,
+input.atc-anim--added.atc-anim--added-visible[type="submit"]::after {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* error state: small shake */
+@keyframes atc-shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+button.atc-anim--error,
+input.atc-anim--error[type="submit"] {
+  animation: atc-shake 360ms ease;
+  background-color: rgba(255,60,60,0.06);
+}
+
+/* small accessibility: keep focus outline visible */
+button.atc-anim--loading:focus,
+button.atc-anim--added:focus,
+button.atc-anim--error:focus {
+  outline-offset: 3px;
+}
