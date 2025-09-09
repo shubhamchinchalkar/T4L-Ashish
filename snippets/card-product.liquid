@@ -40,6 +40,13 @@
       assign ratio = 1
     endif
   -%}
+
+  {% comment %} Add: computed display discount percent for frontend sale banners filter {% endcomment %}
+{% assign display_discount = 0 %}
+{% if card_product.compare_at_price_max and card_product.compare_at_price_max > 0 and card_product.price_min < card_product.compare_at_price_max %}
+  {% assign discount_amount = card_product.compare_at_price_max | minus: card_product.price_min %}
+  {% assign display_discount = discount_amount | times: 100 | divided_by: card_product.compare_at_price_max | round %}
+{% endif %}
   
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div
