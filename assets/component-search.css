@@ -72,34 +72,3 @@ input::-webkit-search-decoration {
 .template-search__results {
   position: relative;
 }
-
-/* --- Clear search "×" button --- */
-.search-clear {
-  position: absolute;
-  right: calc(var(--inputs-border-width, 0.8rem) + 4.4rem); /* aligns with existing reset/search buttons */
-  top: var(--inputs-border-width, 0.8rem);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  -webkit-appearance: none;
-  line-height: 1;
-}
-
-/* hide by default when class 'hidden' is present */
-.search-clear.hidden {
-  display: none !important;
-}
-
-/* tweak icon size if needed */
-.search-clear .icon {
-  width: 1.2rem;
-  height: 1.2rem;
-  stroke-width: 0.15rem;
-}
