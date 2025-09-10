@@ -66,6 +66,8 @@
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'clear-search.js' | asset_url }}" defer="defer"></script>
+
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
@@ -613,7 +615,6 @@ body {
         });
       });
     </script>
-    <!-- Global Footer Auto Collapse END -->
-    <script src="{{ 'clear-search.js' | asset_url }}" defer="defer"></script>
+  <!-- Global Footer Auto Collapse END -->
   </body>
 </html>
