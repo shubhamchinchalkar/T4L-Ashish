@@ -271,6 +271,17 @@
                 <use xlink:href="#icon-reset">
               </svg>
             </button>
+              <!-- Inline X button inside search bar -->
+<button
+  type="button"
+  class="search__close-inline field__button hidden"
+  aria-label="{{ 'accessibility.close' | t }}"
+>
+  <span class="svg-wrapper">
+    {{- 'icon-close.svg' | inline_asset_content -}}
+  </span>
+</button>
+
             <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
         <span class="svg-wrapper">
           {{- 'icon-search.svg' | inline_asset_content -}}
@@ -280,6 +291,15 @@
 
           {%- if settings.predictive_search_enabled -%}
             <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+
+            <!-- Top-right X button inside dropdown -->
+<button type="button" class="predictive-search__close link focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+  <span class="svg-wrapper">
+    {{- 'icon-close.svg' | inline_asset_content -}}
+  </span>
+</button>
+
+
               {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
             </div>
 

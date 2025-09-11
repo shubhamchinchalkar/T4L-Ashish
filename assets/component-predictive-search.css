@@ -239,3 +239,34 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 .predictive-search__item-content .make_enquiry {
     margin-top: 4px;
 }
+
+/* inline close inside search bar */
+.search__close-inline {
+  position: absolute;
+  top: 0.4rem;
+  right: 3.5rem; /* before magnifier */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.search__close-inline.hidden {
+  display: none;
+}
+
+/* close button inside dropdown */
+.predictive-search__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
