@@ -280,19 +280,27 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 .predictive-search__close {
   padding: 0.15rem; /* was 0.25rem */
 }
-/* Smaller, bold, black X buttons */
-.search__close-inline .svg-wrapper,
-.predictive-search__close .svg-wrapper {
-  width: 14px;
-  height: 14px;
-  color: #000;          /* make X black */
-  font-weight: 700;     /* make X appear bold */
-}
 
+/* Style close buttons with black circular background */
 .search__close-inline,
 .predictive-search__close {
-  padding: 0.15rem;
-  color: #000;          /* apply black to button */
-  font-weight: 700;     /* bold styling */
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #000; /* black circle */
+  border: 2px solid #000; /* bold outer ring */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0; /* reset padding */
+}
+
+/* Make the X icon white inside black circle */
+.search__close-inline .svg-wrapper,
+.predictive-search__close .svg-wrapper {
+  width: 12px;  /* size of X */
+  height: 12px;
+  fill: #fff;   /* force white icon */
 }
 
