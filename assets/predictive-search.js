@@ -18,6 +18,34 @@ class PredictiveSearch extends SearchForm {
     this.addEventListener('focusout', this.onFocusOut.bind(this));
     this.addEventListener('keyup', this.onKeyup.bind(this));
     this.addEventListener('keydown', this.onKeydown.bind(this));
+    // Wire up the dropdown close/clear button (if present)
+const closeBtn = this.querySelector('[data-predictive-close]');
+if (closeBtn) {
+  closeBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    // Prefer the form reset (so the existing onFormReset logic runs)
+    try {
+      if (this.input && this.input.form) {
+        this.input.form.reset();
+      } else {
+        // fallback
+        if (this.input) this.input.value = '';
+        this.closeResults(true);
+      }
+    } catch (err) {
+      // defensive fallback: clear and close
+      if (this.input) this.input.value = '';
+      this.closeResults(true);
+    }
+
+    // Put focus back on the input for accessibility
+    try {
+      this.input?.focus();
+    } catch (e) {}
+  });
+}
+
   }
 
   getQuery() {
@@ -86,16 +114,31 @@ class PredictiveSearch extends SearchForm {
     event.preventDefault();
 
     switch (event.code) {
-      case 'ArrowUp':
-        this.switchOption('up');
-        break;
-      case 'ArrowDown':
-        this.switchOption('down');
-        break;
-      case 'Enter':
-        this.selectOption();
-        break;
+  case 'ArrowUp':
+    this.switchOption('up');
+    break;
+  case 'ArrowDown':
+    this.switchOption('down');
+    break;
+  case 'Enter':
+    this.selectOption();
+    break;
+  case 'Escape': // new: clear + close on Escape
+    // prefer the form reset so onFormReset hook runs
+    if (this.input && this.input.form) {
+      try {
+        this.input.form.reset();
+      } catch (e) {
+        this.input.value = '';
+        this.closeResults(true);
+      }
+    } else {
+      this.closeResults(true);
     }
+    // move focus back to the input
+    try { this.input?.focus(); } catch (e) {}
+    break;
+}
   }
 
   onKeydown(event) {
