@@ -280,3 +280,19 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 .predictive-search__close {
   padding: 0.15rem; /* was 0.25rem */
 }
+/* Smaller, bold, black X buttons */
+.search__close-inline .svg-wrapper,
+.predictive-search__close .svg-wrapper {
+  width: 14px;
+  height: 14px;
+  color: #000;          /* make X black */
+  font-weight: 700;     /* make X appear bold */
+}
+
+.search__close-inline,
+.predictive-search__close {
+  padding: 0.15rem;
+  color: #000;          /* apply black to button */
+  font-weight: 700;     /* bold styling */
+}
+
