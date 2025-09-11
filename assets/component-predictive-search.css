@@ -281,26 +281,35 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
   padding: 0.15rem; /* was 0.25rem */
 }
 
-/* Style close buttons with black circular background */
+/* Style for inline X inside search bar */
 .search__close-inline,
 .predictive-search__close {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background-color: #000; /* black circle */
-  border: 2px solid #000; /* bold outer ring */
-  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #000;   /* black border */
+  border-radius: 50%;       /* make circle */
+  background: #fff;         /* white background */
+  color: #000;              /* black X */
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 0; /* reset padding */
+  padding: 0; /* center the X */
 }
 
-/* Make the X icon white inside black circle */
+/* Remove any inline SVG if present */
 .search__close-inline .svg-wrapper,
 .predictive-search__close .svg-wrapper {
-  width: 12px;  /* size of X */
-  height: 12px;
-  fill: #fff;   /* force white icon */
+  display: none;
+}
+
+/* Hover effect (optional) */
+.search__close-inline:hover,
+.predictive-search__close:hover {
+  background: #000;
+  color: #fff; /* invert colors on hover */
 }
 
