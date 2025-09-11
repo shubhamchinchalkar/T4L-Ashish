@@ -18,26 +18,6 @@ class PredictiveSearch extends SearchForm {
     this.addEventListener('focusout', this.onFocusOut.bind(this));
     this.addEventListener('keyup', this.onKeyup.bind(this));
     this.addEventListener('keydown', this.onKeydown.bind(this));
-
-    // Dropdown close button
-const dropdownClose = this.querySelector('.predictive-search__close');
-if (dropdownClose) {
-  dropdownClose.addEventListener('click', () => {
-    this.closeResults(true);
-    this.input.focus();
-  });
-}
-
-// Inline close button
-const inlineClose = this.querySelector('.search__close-inline');
-if (inlineClose) {
-  inlineClose.addEventListener('click', () => {
-    this.closeResults(true);
-    this.input.focus();
-  });
-}
-
-
   }
 
   getQuery() {
@@ -102,13 +82,6 @@ if (inlineClose) {
   }
 
   onKeyup(event) {
-
-    if (event.key === 'Escape') {
-  this.closeResults(true);
-  this.input.blur();
-  return;
-}
-
     if (!this.getQuery().length) this.close(true);
     event.preventDefault();
 
@@ -281,11 +254,6 @@ if (inlineClose) {
     this.setAttribute('open', true);
     this.input.setAttribute('aria-expanded', true);
     this.isOpen = true;
-
-    const inlineClose = this.querySelector('.search__close-inline');
-if (inlineClose) inlineClose.classList.remove('hidden');
-
-
   }
 
   close(clearSearchTerm = false) {
@@ -308,12 +276,6 @@ if (inlineClose) inlineClose.classList.remove('hidden');
     this.input.setAttribute('aria-expanded', false);
     this.resultsMaxHeight = false;
     this.predictiveSearchResults.removeAttribute('style');
-
-    const inlineClose = this.querySelector('.search__close-inline');
-if (inlineClose) inlineClose.classList.add('hidden');
-
-
-
   }
 }
 
