@@ -270,3 +270,13 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
   align-items: center;
   justify-content: center;
 }
+/* make close buttons smaller */
+.search__close-inline .svg-wrapper,
+.predictive-search__close .svg-wrapper {
+  width: 14px;
+  height: 14px;
+}
+.search__close-inline,
+.predictive-search__close {
+  padding: 0.15rem; /* was 0.25rem */
+}
