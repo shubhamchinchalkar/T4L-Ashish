@@ -98,24 +98,12 @@ class PredictiveSearch extends SearchForm {
     }
   }
 
-  // -------------------------------------------
-  // UPDATED (2.1): handle ESC close + prevent arrows
-  // -------------------------------------------
   onKeydown(event) {
-    // Close on ESC and clear input
-    if (event.code === 'Escape' || event.key === 'Escape') {
-      event.preventDefault();
-      this.close(true);   // true = also clear search input
-      this.input.blur();
-      return;
-    }
-
-    // Prevent the cursor from moving in the input when using arrow keys
+    // Prevent the cursor from moving in the input when using the up and down arrow keys
     if (event.code === 'ArrowUp' || event.code === 'ArrowDown') {
       event.preventDefault();
     }
   }
-  // -------------------------------------------
 
   updateSearchForTerm(previousTerm, newTerm) {
     const searchForTextElement = this.querySelector('[data-predictive-search-search-for-text]');
@@ -185,7 +173,6 @@ class PredictiveSearch extends SearchForm {
 
     if (this.cachedResults[queryKey]) {
       this.renderSearchResults(this.cachedResults[queryKey]);
-      this.injectCloseHeader(); // add close button after render
       return;
     }
 
@@ -210,8 +197,6 @@ class PredictiveSearch extends SearchForm {
           predictiveSearchInstance.cachedResults[queryKey] = resultsMarkup;
         });
         this.renderSearchResults(resultsMarkup);
-        this.injectCloseHeader(); // add close button after render
-
         $('.make_enquiry.make_enquiry_event').click(function(event){
           event.stopPropagation()
           event.preventDefault()
@@ -292,45 +277,6 @@ class PredictiveSearch extends SearchForm {
     this.resultsMaxHeight = false;
     this.predictiveSearchResults.removeAttribute('style');
   }
-
-   // -------------------------------------------
-  // NEW (2.3): helper method injectCloseHeader()
-  // -------------------------------------------
-  injectCloseHeader() {
-    // Desktop only
-    if (!window.matchMedia('(min-width: 750px)').matches) return;
-
-    const container = this.predictiveSearchResults;
-    if (!container) return;
-
-    // Don’t duplicate
-    let header = container.querySelector('.predictive-search__header');
-    if (!header) {
-      header = document.createElement('div');
-      header.className = 'predictive-search__header';
-      header.innerHTML = `
-        <button type="button" class="predictive-search__close-button" aria-label="Close search">
-          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-          </svg>
-        </button>
-      `;
-      container.prepend(header);
-    }
-
-    // Bind close button once
-    const btn = header.querySelector('.predictive-search__close-button');
-    if (btn && !btn.dataset.bound) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.close(true);   // close & clear
-        this.input.focus();
-      });
-      btn.dataset.bound = 'true';
-    }
-  }
-  // -------------------------------------------
-
 }
 
 customElements.define('predictive-search', PredictiveSearch);

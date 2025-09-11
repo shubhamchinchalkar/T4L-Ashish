@@ -239,37 +239,3 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 .predictive-search__item-content .make_enquiry {
     margin-top: 4px;
 }
-
-/* === Desktop close button for predictive search === */
-
-
-@media screen and (min-width: 750px) {
-  /* Header container inside predictive search (sticky at the top) */
-  .predictive-search__header {
-   position: sticky; 
-    top: 0;
-    display: flex;                
-    justify-content: flex-end;            
-    align-items: center;       
-    padding: 8px;
-    background: rgb(var(--color-background));         
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);    
-    z-index: 1;    
-  }
-
-  /* Close button styles */
-  .predictive-search__close-button {
-    position: relative;
-    background: none;       
-    border: none;
-    cursor: pointer;        
-    padding: 8px;
-    border-radius: 4px;  
-  }
-
-  .predictive-search__close-button:hover,
-  .predictive-search__close-button:focus-visible {
-    background-color: rgba(var(--color-foreground), 0.06);  
-    outline: none;       
-  }
-}
