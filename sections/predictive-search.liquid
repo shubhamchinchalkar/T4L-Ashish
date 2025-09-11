@@ -6,16 +6,6 @@
  | plus: predictive_search.resources.articles.size
   %}
   <div id="predictive-search-results" role="listbox">
-  <div id="predictive-search-results" role="listbox">
-    <button
-      type="button"
-      class="predictive-search__dropdown-close"
-      aria-label="{{ 'general.search.reset' | t }}"
-      data-predictive-close>
-      <span class="svg-wrapper">
-        {{- 'icon-reset.svg' | inline_asset_content -}}
-      </span>
-    </button>
     {%- if first_column_results_size > 0 or predictive_search.resources.products.size > 0 -%}
       <div id="predictive-search-results-groups-wrapper" class="predictive-search__results-groups-wrapper{% unless predictive_search.resources.products.size > 0 %} predictive-search__results-groups-wrapper--no-products{% endunless %}{% unless predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 %} predictive-search__results-groups-wrapper--no-suggestions{% endunless %}">
     {%- endif -%}
