@@ -416,7 +416,7 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with falling snow and tree */
+      /* Christmas-themed Sale & Offers button with falling snow, tree, and blinking effect */
       .sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
         /* Deep red to forest green gradient */
@@ -440,7 +440,9 @@ body {
         overflow: hidden !important;
         /* Contain snow animation */
         box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
-        /* Soft static snowy glow */
+        /* Base snowy glow */
+        animation: pulse 2s ease-in-out infinite !important;
+        /* Blinking effect via glowing pulse */
       }
 
       /* Christmas tree icon using pseudo-element */
@@ -481,6 +483,20 @@ body {
         }
         100% {
           transform: translateY(50px);
+        }
+      }
+
+      /* Blinking pulse animation for glowing effect */
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+          /* Brighter glow at peak */
+        }
+        100% {
+          box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
         }
       }
     </style>
