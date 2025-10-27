@@ -416,40 +416,63 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas Snow Sale Button */
+      /* Christmas-themed Sale & Offers button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #fd1d1b 0%, #c41e3a 100%) !important;
+        background: linear-gradient(135deg, #a71d31, #2a623d) !important;
+        /* Deep red to forest green gradient */
         color: #fff !important;
-        padding: 10px 16px !important;
+        /* White text for contrast */
+        padding: 10px 40px 10px 20px !important;
+        /* Extra padding on right for tree icon */
         border-radius: 8px !important;
-        font-weight: 600 !important;
-        display: inline-block !important;
+        /* Rounded corners for a cozy look */
+        font-weight: 700 !important;
+        /* Bold text */
+        font-size: 14px !important;
+        /* Slightly smaller for elegance */
+        display: inline-flex !important;
+        /* Flex for icon alignment */
+        align-items: center !important;
+        /* Center text and icon vertically */
         text-decoration: none !important;
-        position: relative !important;
-        overflow: hidden !important;
-        animation: christmasGlow 2s infinite ease-in-out !important;
-        box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4) !important;
-        border: 2px solid #fff !important;
+        position: relative;
+        /* For snow and tree positioning */
+        overflow: hidden;
+        /* Contain pseudo-elements */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        /* Soft shadow for depth */
       }
 
-      .sale-offers-btn:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(253, 29, 27, 0.6) !important;
+      /* Snow effect using pseudo-element */
+      .sale-offers-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.6"/><circle cx="60" cy="30" r="1.5" fill="white" opacity="0.5"/><circle cx="40" cy="70" r="2" fill="white" opacity="0.7"/><circle cx="80" cy="50" r="1" fill="white" opacity="0.4"/></svg>') repeat !important;
+        opacity: 0.3;
+        /* Subtle snow dots */
+        pointer-events: none;
+        /* Prevent interaction with snow layer */
       }
 
-      @keyframes christmasGlow {
-        0% {
-          box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4)
-          , 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-        50% {
-          box-shadow: 0 6px 25px rgba(253, 29, 27, 0.7)
-          , 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        100% {
-          box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4)
-          , 0 0 10px rgba(255, 255, 255, 0.3);
-        }
+      /* Christmas tree icon using pseudo-element */
+      .sale-offers-btn::after {
+        content: '🎄';
+        /* Unicode Christmas tree emoji */
+        position: absolute;
+        right: 10px;
+        /* Position tree on right side */
+        font-size: 18px;
+        /* Size of tree icon */
+        line-height: 1;
+        /* Align with text */
+        color: #ffd700 !important;
+        /* Gold color for tree */
+        pointer-events: none;
+        /* Prevent interaction with tree */
       }
     </style>
 
