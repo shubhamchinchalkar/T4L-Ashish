@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <meta name="robots" content="INDEX,FOLLOW" />
+    <link rel="stylesheet" href="{{ 'sale-banners.css' | asset_url }}" />
+
 
     <!-- canonical custom code (old =    <link rel="canonical" href="{/{ canonical_url }/}"> -->
     {%- if canonical_url != blank -%}
@@ -670,6 +672,7 @@ body {
         });
       });
     </script>
-  <!-- Global Footer Auto Collapse END -->
+    <!-- Global Footer Auto Collapse END -->
+    <script src="{{ 'sale-banners.js' | asset_url }}" defer></script>
   </body>
 </html>

@@ -1,5 +1,8 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+{%- comment -%} sale banners - inserted by you {%- endcomment -%}
+{% render 'sale-banners' %}
+
 
 {%- style -%}
   @media screen and (max-width: 749px) {
