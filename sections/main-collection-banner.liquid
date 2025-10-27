@@ -30,53 +30,6 @@
       {%- if section.settings.show_collection_description -%}
         {%- if collection.description != blank -%}
           <div class="collection-hero__description rte">{{ collection.description }}</div>
-
-          {%- comment -%} 
-                        🔹 Discount Range Banners
-                        When user clicks, ?discount=min-max is added to URL for dynamic filtering. 
-                    {%- endcomment -%}
-
-          {%- if collection.handle == 'on-sale' -%}
-            <div class="discount-banners-wrapper page-width" style="margin-top:1.5rem;">
-              <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
-
-                <!-- 0–25% Banner -->
-                <a
-                  href="{{ collection.url }}?discount=0-25"
-                  class="discount-banner"
-                  style="display:block;text-decoration:none;border-radius:10px;overflow:hidden;">
-                  <img
-                    src="{{ 'banner-discount-0-25.jpg' | asset_url }}"
-                    alt="Up to 25% Off"
-                    style="max-width:320px;width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-                </a>
-
-                <!-- 26–35% Banner -->
-                <a
-                  href="{{ collection.url }}?discount=26-35"
-                  class="discount-banner"
-                  style="display:block;text-decoration:none;border-radius:10px;overflow:hidden;">
-                  <img
-                    src="{{ 'banner-discount-26-35.jpg' | asset_url }}"
-                    alt="26%–35% Off"
-                    style="max-width:320px;width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-                </a>
-
-                <!-- 36–50% Banner -->
-                <a
-                  href="{{ collection.url }}?discount=36-50"
-                  class="discount-banner"
-                  style="display:block;text-decoration:none;border-radius:10px;overflow:hidden;">
-                  <img
-                    src="{{ 'banner-discount-36-50.jpg' | asset_url }}"
-                    alt="36%–50% Off"
-                    style="max-width:320px;width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-                </a>
-
-              </div>
-            </div>
-          {%- endif -%}
-
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
