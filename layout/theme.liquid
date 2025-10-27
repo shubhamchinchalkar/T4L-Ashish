@@ -416,170 +416,154 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas Sale & Offers Button */
+      /* Frosty Christmas-themed Sale & Offers button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #c41e3a 0%, #228b22 50%, #c41e3a 100%) !important;
-        background-size: 200% 200% !important;
-        color: #fff !important;
-        padding: 10px 16px !important;
-        border-radius: 8px !important;
+        background: linear-gradient(135deg, rgba(200, 230, 255, 0.9), rgba(255, 255, 255, 0.7)) !important;
+        /* Frosty blue-white gradient */
+        color: #1a535c !important;
+        /* Deep teal text for contrast */
+        padding: 12px 20px !important;
+        /* Spacious padding */
+        border-radius: 10px !important;
+        /* Rounded, icy edges */
         font-weight: 700 !important;
-        display: inline-block !important;
+        /* Bold text */
+        font-size: 14px !important;
+        /* Clear font size */
+        display: inline-flex !important;
+        /* Center content */
+        align-items: center !important;
+        justify-content: center !important;
         text-decoration: none !important;
         position: relative !important;
+        /* For pseudo-elements */
         overflow: hidden !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
-        border: 2px solid #ffd700 !important;
-        animation: christmasGlow 3s infinite ease-in-out
-        , backgroundShift 4s infinite ease-in-out !important;
-        transition: all 0.3s ease !important;
+        /* Contain effects */
+        border: 1px solid rgba(255, 255, 255, 0.8) !important;
+        /* Frosty border */
+        backdrop-filter: blur(5px) !important;
+        /* Glass-like effect */
+        animation: glow 2.5s infinite ease-in-out !important;
+        /* Subtle glow */
+        min-width: 130px !important;
+        /* Space for tree and text */
       }
 
-      .sale-offers-btn:before {
-        content: "🎄" !important;
-        position: absolute !important;
-        left: 8px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        font-size: 14px !important;
-        animation: treeWiggle 2s infinite ease-in-out !important;
+      /* Snow-covered Christmas tree with glowing star */
+      .sale-offers-btn::before {
+        content: '★';
+        /* Star on top */
+        position: absolute;
+        left: 12px;
+        top: 8px;
+        color: #ffd700;
+        /* Gold star */
+        font-size: 8px;
+        animation: starGlow 1.5s infinite ease-in-out;
+        z-index: 2;
       }
 
-      .sale-offers-btn:after {
-        content: "❄️" !important;
-        position: absolute !important;
-        right: 8px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        font-size: 12px !important;
-        animation: snowfall 3s infinite linear !important;
+      .sale-offers-btn::after {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 20px;
+        background: linear-gradient(to bottom, #fff 10%, /* Snow on top */ #228b22 30%, /* Green tree */ #228b22 70%, #8b4513 70% /* Brown trunk */);
+        clip-path: polygon(50% 10%, 10% 60%, 30% 60%, 20% 100%, 80% 100%, 70% 60%, 90% 60%);
+        /* Tree shape */
+        opacity: 0.6;
+        /* Subtle visibility */
+        z-index: 1;
       }
 
-      .sale-offers-btn:hover {
-        transform: scale(1.05) !important;
-        box-shadow: 0 0 30px #ffd700
-        , 0 0 40px #c41e3a !important;
+      /* Falling dendrite snowflakes */
+      .sale-offers-btn > span::before {
+        content: '❄ ❄';
+        /* Snowflake characters */
+        position: absolute;
+        top: -50%;
+        left: 60%;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 7px;
+        line-height: 1;
+        animation: snowFall 4s infinite linear;
+        z-index: 3;
       }
 
-      /* Christmas Animations */
-      @keyframes christmasGlow {
+      /* Additional snowflakes for depth */
+      .sale-offers-btn > span::after {
+        content: '❄';
+        position: absolute;
+        top: -30%;
+        left: 80%;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 6px;
+        animation: snowFall 3.5s infinite linear;
+        animation-delay: 0.8s;
+        /* Staggered fall */
+        z-index: 3;
+      }
+
+      /* Glowing button animation */
+      @keyframes glow {
         0% {
-          box-shadow: 0 0 10px #ffd700
-          , 0 0 20px #c41e3a
-          , 0 0 30px #228b22;
-          transform: scale(1);
-        }
-        33% {
-          box-shadow: 0 0 20px #c41e3a
-          , 0 0 30px #ffd700
-          , 0 0 40px #228b22;
-          transform: scale(1.02);
-        }
-        66% {
-          box-shadow: 0 0 20px #228b22
-          , 0 0 30px #c41e3a
-          , 0 0 40px #ffd700;
-          transform: scale(1.02);
-        }
-        100% {
-          box-shadow: 0 0 10px #ffd700
-          , 0 0 20px #c41e3a
-          , 0 0 30px #228b22;
-          transform: scale(1);
-        }
-      }
-
-      @keyframes backgroundShift {
-        0% {
-          background-position: 0 50%;
+          box-shadow: 0 0 10px rgba(200, 230, 255, 0.5);
         }
         50% {
-          background-position: 100% 50%;
+          box-shadow: 0 0 20px rgba(200, 230, 255, 0.9);
+          transform: scale(1.05);
         }
         100% {
-          background-position: 0 50%;
+          box-shadow: 0 0 10px rgba(200, 230, 255, 0.5);
+          transform: scale(1);
         }
       }
 
-      @keyframes treeWiggle {
+      /* Glowing star animation */
+      @keyframes starGlow {
         0,
         100% {
-          transform: translateY(-50%) rotate(0deg);
-        }
-        25% {
-          transform: translateY(-50%) rotate(-5deg);
-        }
-        75% {
-          transform: translateY(-50%) rotate(5deg);
-        }
-      }
-
-      @keyframes snowfall {
-        0% {
-          transform: translateY(-50%) translateX(0px) rotate(0deg);
-          opacity: 1;
+          text-shadow: 0 0 5px #ffd700
+          , 0 0 10px #ffd700;
         }
         50% {
-          transform: translateY(-50%) translateX(5px) rotate(180deg);
-          opacity: 0.7;
-        }
-        100% {
-          transform: translateY(-50%) translateX(0px) rotate(360deg);
-          opacity: 1;
+          text-shadow: 0 0 10px #ffd700
+          , 0 0 20px #ffd700;
         }
       }
 
-      /* Alternative Festive Version (uncomment to use instead) */
+      /* Falling snow animation */
+      @keyframes snowFall {
+        0% {
+          transform: translateY(-100%) translateX(-50%) rotate(0deg);
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(200%) translateX(-50%) rotate(180deg);
+          opacity: 0.3;
+        }
+      }
 
+      /* Sparkle on hover */
+      .sale-offers-btn:hover > span::before,
+      .sale-offers-btn:hover > span::after {
+        animation: snowFall 3s infinite linear
+        , sparkle 1s infinite;
+      }
 
-      /*
-
-   .sale-offers-btn { 
-   background: linear-gradient(45deg, #c41e3a, #ffd700, #228b22, #c41e3a) !important; 
-   background-size: 400% 400% !important; 
-   color: #fff !important; 
-   padding: 12px 20px !important; 
-   border-radius: 25px !important; 
-   font-weight: 800 !important; 
-   display: inline-block !important; 
-   text-decoration: none !important; 
-   position: relative !important; 
-   overflow: hidden !important; 
-   text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important; 
-   border: 3px solid #fff !important; 
-   animation: festiveRainbow 2s infinite ease-in-out, christmasPulse 1.5s infinite ease-in-out !important; 
-   box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4) !important; 
-   } 
-
-   .sale-offers-btn:before { 
-   content: "🎅🎁" !important; 
-   position: absolute !important; 
-   left: -100% !important; 
-   top: 50% !important; 
-   transform: translateY(-50%) !important; 
-   font-size: 16px !important; 
-   animation: santaSlide 4s infinite linear !important; 
-   white-space: nowrap !important; 
-   } 
-
-   @keyframes festiveRainbow { 
-   0% { background-position: 0% 50%; } 
-   50% { background-position: 100% 50%; } 
-   100% { background-position: 0% 50%; } 
-   } 
-
-   @keyframes christmasPulse { 
-   0% { transform: scale(1); } 
-   50% { transform: scale(1.05); } 
-   100% { transform: scale(1); } 
-   } 
-
-   @keyframes santaSlide { 
-   0% { left: -100%; } 
-   100% { left: 100%; } 
-   } 
-*/
-
+      @keyframes sparkle {
+        0,
+        100% {
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 1;
+          text-shadow: 0 0 6px rgba(255, 255, 255, 1);
+        }
+      }
     </style>
 
 
