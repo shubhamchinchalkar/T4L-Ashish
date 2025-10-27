@@ -33,67 +33,6 @@
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
-
-          {%- comment -%} 
-            Discount quick-filter banners:
-            Shows only on the 'on-sale' collection. Links add ?discount=min-max 
-          {%- endcomment -%}
-
-          {%- if collection.handle == 'on-sale' -%}
-            <div class="collection-discount-banners page-width" style="margin-top:1.2rem;">
-              <div class="collection-discount-banners__inner" style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
-                <!-- Banner 0-25% -->
-                <a
-                  href="{{ collection.url }}?discount=0-25"
-                  aria-label="Up to 25% off"
-                  class="collection-discount-banner"
-                  style="display:block; text-decoration:none;">
-                  {% if 'banner-discount-0-25.jpg' | asset_url %}
-                    <img
-                      src="{{ 'banner-discount-0-25.jpg' | asset_url }}"
-                      alt="Up to 25% off"
-                      style="max-width:320px; height:auto; display:block; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.08);" />
-                  {% else %}
-                    <div style="padding:18px 26px; border-radius:6px; background:#f5f5f5; text-align:center; font-weight:600;">Up to 25% off</div>
-                  {% endif %}
-                </a>
-
-                <!-- Banner 26-35% -->
-                <a
-                  href="{{ collection.url }}?discount=26-35"
-                  aria-label="26 to 35% off"
-                  class="collection-discount-banner"
-                  style="display:block; text-decoration:none;">
-                  {% if 'banner-discount-26-35.jpg' | asset_url %}
-                    <img
-                      src="{{ 'banner-discount-26-35.jpg' | asset_url }}"
-                      alt="26 to 35% off"
-                      style="max-width:320px; height:auto; display:block; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.08);" />
-                  {% else %}
-                    <div style="padding:18px 26px; border-radius:6px; background:#f5f5f5; text-align:center; font-weight:600;">26% - 35% off</div>
-                  {% endif %}
-                </a>
-
-                <!-- Banner 36-50% -->
-                <a
-                  href="{{ collection.url }}?discount=36-50"
-                  aria-label="36 to 50% off"
-                  class="collection-discount-banner"
-                  style="display:block; text-decoration:none;">
-                  {% if 'banner-discount-36-50.jpg' | asset_url %}
-                    <img
-                      src="{{ 'banner-discount-36-50.jpg' | asset_url }}"
-                      alt="36 to 50% off"
-                      style="max-width:320px; height:auto; display:block; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.08);" />
-                  {% else %}
-                    <div style="padding:18px 26px; border-radius:6px; background:#f5f5f5; text-align:center; font-weight:600;">36% - 50% off</div>
-                  {% endif %}
-                </a>
-              </div>
-            </div>
-          {%- endif -%}
-
-
         {%- endif -%}
       {%- endif -%}
     </div>

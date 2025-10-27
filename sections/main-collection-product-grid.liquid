@@ -152,49 +152,12 @@
                 grid--{{ section.settings.columns_desktop }}-col-desktop
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
               ">
-
-              {%- comment -%} 
-                Discount filter: read request.query.discount (format "min-max", e.g. 26-35)
-                If present, collection.product loop will only render products whose computed
-                discount % is between min and max (inclusive). 
-              {%- endcomment -%}
-
-              {%- assign discount_param = request.query.discount | default: '' -%}
-              {%- assign filter_by_discount = false -%}
-              {%- assign min_discount = 0 -%}
-              {%- assign max_discount = 100 -%}
-              {%- if discount_param != '' -%}
-                {%- assign parts = discount_param | split: '-' -%}
-                {%- if parts.size == 2 -%}
-                  {%- assign min_discount = parts[0] | plus: 0 -%}
-                  {%- assign max_discount = parts[1] | plus: 0 -%}
-                  {%- assign filter_by_discount = true -%}
-                {%- endif -%}
-              {%- endif -%}
-
               {% assign skip_card_product_styles = false %}
-                {%- for product in collection.products -%}
-                {%- assign lazy_load = false %}
+              {%- for product in collection.products -%}
+                {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
-              {%- endif -%}
-
-                {%- comment -%} compute approximate discount percent for this product {%- endcomment -%}
-                {%- assign price = product.price_min | default: 0 -%}
-                {%- assign compare_at = product.compare_at_price_max | default: 0 -%}
-                {%- assign discount_pct = 0 -%}
-
-                {%- if filter_by_discount and compare_at > price and compare_at > 0 -%}
-                  {%- assign diff = compare_at | minus: price -%}
-                  {%- assign discount_pct = diff | divided_by: compare_at | times: 100 -%}
-                  {%- assign discount_pct = discount_pct | round -%}
                 {%- endif -%}
-
-                {%- if filter_by_discount and (discount_pct < min_discount or discount_pct > max_discount) -%}
-                  {% comment %} skip this product because it doesn't match discount range {% endcomment %}
-                  {% continue %}
-                {%- endif -%}
-
                 <li
                   class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                   {% if settings.animations_reveal_on_scroll %}
