@@ -416,119 +416,101 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Creative Christmas Sale & Offers button */
+      /* Creative Christmas-themed Sale & Offers button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #a71d31, #1a936f, #ffd700) !important;
-        /* Red, green, gold gradient */
+        background: linear-gradient(135deg, #a60f2d, #006633, #FFD700) !important;
+        /* Christmas red, green, and gold gradient */
         color: #fff !important;
         /* White text for contrast */
         padding: 12px 18px !important;
         /* Larger padding for prominence */
-        border-radius: 50px !important;
-        /* Pill-shaped for ornament-like look */
+        border-radius: 8px !important;
+        /* Rounded corners for a festive look */
         font-weight: 700 !important;
         /* Bold text */
-        font-family: 'Arial'
-        , sans-serif !important;
-        /* Clean, festive font */
+        font-size: 14px !important;
+        /* Consistent text size */
         display: inline-block !important;
         text-decoration: none !important;
         position: relative;
         /* For pseudo-elements */
         overflow: hidden;
-        /* Contain effects */
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6)
-        , 0 0 25px rgba(255, 255, 255, 0.3) !important;
-        /* Gold and white glow */
-        animation: jingleGlow 2.5s infinite ease-in-out !important;
-        /* Jingling animation */
-        transition: transform 0.3s ease !important;
-        /* Smooth hover effect */
+        /* Contain snow effect */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
+        , 0 0 10px rgba(255, 215, 0, 0.5) !important;
+        /* Gold glow with shadow */
+        animation: festiveBlink 4s infinite ease-in-out !important;
+        /* Subtle blinking like Christmas lights */
+        backdrop-filter: blur(3px) !important;
+        /* Frosted glass effect */
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        /* Subtle frosted border */
       }
 
-      /* Hover effect: Slight lift and brighter glow */
-      .sale-offers-btn:hover {
-        transform: translateY(-3px) !important;
-        /* Lift effect */
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8)
-        , 0 0 30px rgba(255, 255, 255, 0.5) !important;
-      }
-
-      /* Snowy background effect with moving particles */
-      .sale-offers-btn::before {
+      /* Fixed snow sparkle effect using multiple pseudo-elements */
+      .sale-offers-btn::before,
+      .sale-offers-btn::after {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="2" fill="rgba(255, 255, 255, 0.5)"/></svg>') repeat;
-        animation: snowFall 10s linear infinite !important;
-        opacity: 0.3;
-        /* Subtle snow effect */
-      }
-
-      /* Sparkling star effect on text */
-      .sale-offers-btn::after {
-        content: '✨';
-        /* Sparkle emoji */
-        position: absolute;
-        top: -10px;
-        right: 5px;
-        font-size: 16px;
-        animation: sparkleStar 3s infinite ease-in-out !important;
+        width: 8px;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.8);
+        /* Bright snowflake-like sparkle */
+        border-radius: 50%;
+        /* Circular sparkles */
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+        /* Soft glow */
         opacity: 0;
+        animation: snowSparkle 3s infinite linear;
       }
 
-      /* Jingling animation (mimics bell-like motion and glow) */
-      @keyframes jingleGlow {
+      .sale-offers-btn::before {
+        top: 10%;
+        left: -10%;
+        animation-delay: 0.5s;
+        /* Staggered start for first sparkle */
+      }
+
+      .sale-offers-btn::after {
+        top: 60%;
+        left: -20%;
+        animation-delay: 1.5s;
+        /* Staggered start for second sparkle */
+      }
+
+      /* Festive blink animation for Christmas light effect */
+      @keyframes festiveBlink {
         0% {
-          transform: scale(1) rotate(0deg);
-          box-shadow: 0 0 15px rgba(200, 16, 46, 0.6)
-          , 0 0 25px rgba(255, 255, 255, 0.3);
-        }
-        25% {
-          transform: scale(1.1) rotate(2deg);
-          /* Slight tilt like a jingle bell */
-          box-shadow: 0 0 20px rgba(26, 147, 111, 0.8)
-          , 0 0 30px rgba(255, 255, 255, 0.4);
+          transform: scale(1);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
+          , 0 0 10px rgba(255, 215, 0, 0.5);
         }
         50% {
-          transform: scale(1.1) rotate(-2deg);
-          box-shadow: 0 0 25px rgba(255, 215, 0, 0.7)
-          , 0 0 35px rgba(255, 255, 255, 0.5);
+          transform: scale(1.05);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3)
+          , 0 0 20px rgba(200, 16, 46, 0.7);
+          /* Reddish glow */
         }
         100% {
-          transform: scale(1) rotate(0deg);
-          box-shadow: 0 0 15px rgba(200, 16, 46, 0.6)
-          , 0 0 25px rgba(255, 255, 255, 0.3);
+          transform: scale(1);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
+          , 0 0 10px rgba(255, 215, 0, 0.5);
         }
       }
 
-      /* Snowfall animation for background */
-      @keyframes snowFall {
+      /* Fixed snow sparkle animation */
+      @keyframes snowSparkle {
         0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 0 100px;
-          /* Snow falling downward */
-        }
-      }
-
-      /* Sparkle star animation */
-      @keyframes sparkleStar {
-        0% {
+          transform: translateX(0) translateY(0);
           opacity: 0;
-          transform: translateY(0);
         }
         50% {
-          opacity: 1;
-          transform: translateY(5px);
+          opacity: 0.8;
+          transform: translateX(150%) translateY(20%);
         }
         100% {
+          transform: translateX(300%) translateY(40%);
           opacity: 0;
-          transform: translateY(10px);
         }
       }
     </style>
