@@ -416,105 +416,69 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Creative Christmas-themed Sale & Offers button */
+      /* Christmas-themed Sale & Offers button with snow and tree */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #a60f2d, #006633, #FFD700) !important;
-        /* Christmas red, green, and gold gradient */
+        background: linear-gradient(135deg, #b22222, #228b22) !important;
+        /* Deep red to forest green gradient */
         color: #fff !important;
         /* White text for contrast */
-        padding: 12px 18px !important;
-        /* Larger padding for prominence */
+        padding: 10px 30px 10px 20px !important;
+        /* Extra padding on right for tree icon */
         border-radius: 8px !important;
-        /* Rounded corners for a festive look */
+        /* Rounded corners for festive feel */
         font-weight: 700 !important;
         /* Bold text */
         font-size: 14px !important;
-        /* Consistent text size */
+        /* Slightly smaller for elegance */
         display: inline-block !important;
         text-decoration: none !important;
         position: relative;
         /* For pseudo-elements */
         overflow: hidden;
         /* Contain snow effect */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
-        , 0 0 10px rgba(255, 215, 0, 0.5) !important;
-        /* Gold glow with shadow */
-        animation: festiveBlink 4s infinite ease-in-out !important;
-        /* Subtle blinking like Christmas lights */
-        backdrop-filter: blur(3px) !important;
-        /* Frosted glass effect */
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        /* Subtle frosted border */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3)
+        , 0 0 8px rgba(255, 255, 255, 0.4) !important;
+        /* Soft glow */
       }
 
-      /* Fixed snow sparkle effect using multiple pseudo-elements */
-      .sale-offers-btn::before,
+      /* Static snow effect using radial gradients */
+      .sale-offers-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 3px), radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.3) 2px, transparent 3px), radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.3) 2px, transparent 3px)
+        , radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.2) 2px, transparent 3px) !important;
+        /* Snow-like specks */
+        opacity: 0.5;
+        /* Subtle snow visibility */
+      }
+
+      /* Christmas tree icon using CSS shapes */
       .sale-offers-btn::after {
         content: '';
         position: absolute;
-        width: 8px;
-        height: 8px;
-        background: rgba(255, 255, 255, 0.8);
-        /* Bright snowflake-like sparkle */
-        border-radius: 50%;
-        /* Circular sparkles */
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-        /* Soft glow */
-        opacity: 0;
-        animation: snowSparkle 3s infinite linear;
-      }
-
-      .sale-offers-btn::before {
-        top: 10%;
-        left: -10%;
-        animation-delay: 0.5s;
-        /* Staggered start for first sparkle */
-      }
-
-      .sale-offers-btn::after {
-        top: 60%;
-        left: -20%;
-        animation-delay: 1.5s;
-        /* Staggered start for second sparkle */
-      }
-
-      /* Festive blink animation for Christmas light effect */
-      @keyframes festiveBlink {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
-          , 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-        50% {
-          transform: scale(1.05);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3)
-          , 0 0 20px rgba(200, 16, 46, 0.7);
-          /* Reddish glow */
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2)
-          , 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-      }
-
-      /* Fixed snow sparkle animation */
-      @keyframes snowSparkle {
-        0% {
-          transform: translateX(0) translateY(0);
-          opacity: 0;
-        }
-        50% {
-          opacity: 0.8;
-          transform: translateX(150%) translateY(20%);
-        }
-        100% {
-          transform: translateX(300%) translateY(40%);
-          opacity: 0;
-        }
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 12px;
+        background: /* Tree foliage */
+        linear-gradient(transparent 0%, transparent 30%, #228b22 30%, #228b22 50%, transparent 50%), linear-gradient(transparent 20%, transparent 40%, #228b22 40%, #228b22 60%, transparent 60%), linear-gradient(transparent 40%, transparent 60%, #228b22 60%, #228b22 80%, transparent 80%), /* Tree trunk */
+        linear-gradient(90deg, transparent 40%, #8b4513 40%, #8b4513 60%, transparent 60%);
+        background-size: 100% 33.33%
+        , 80% 33.33%
+        , 60% 33.33%
+        , 20% 20%;
+        background-position: center 0
+        , center 33.33%
+        , center 66.66%
+        , center bottom;
+        background-repeat: no-repeat;
       }
     </style>
-
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} inc_vat">
