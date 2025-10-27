@@ -416,32 +416,52 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Add Pulse + Glow to Sale & Offers button */
+      /* Christmas Sale & Offers Button */
       .sale-offers-btn {
-        background-color: #fd1d1b !important;
+        background: linear-gradient(135deg, #fd1d1b 0%, #c41e3a 100%) !important;
         color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 4px !important;
+        padding: 10px 16px !important;
+        border-radius: 8px !important;
         font-weight: 600 !important;
         display: inline-block !important;
         text-decoration: none !important;
-        animation: pulseGlow 2s infinite ease-in-out !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border: 2px solid #fff !important;
+        box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4) !important;
+        animation: christmasGlow 2s infinite ease-in-out !important;
       }
 
-      @keyframes pulseGlow {
+      .sale-offers-btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(253, 29, 27, 0.6) !important;
+      }
+
+      .sale-offers-btn::before {
+        content: '🎄' !important;
+        margin-right: 5px !important;
+      }
+
+      .sale-offers-btn::after {
+        content: '🎁' !important;
+        margin-left: 5px !important;
+      }
+
+      @keyframes christmasGlow {
         0% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4)
+          , 0 0 10px rgba(255, 255, 255, 0.3) !important;
         }
         50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 20px #fd1d1b;
+          box-shadow: 0 6px 25px rgba(253, 29, 27, 0.7)
+          , 0 0 20px rgba(255, 255, 255, 0.5) !important;
         }
         100% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4)
+          , 0 0 10px rgba(255, 255, 255, 0.3) !important;
         }
       }
+
     </style>
 
 
