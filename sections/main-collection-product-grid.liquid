@@ -1,3 +1,6 @@
+{%- assign discount_min = request.params.discount_min | default: 0 | plus: 0 -%}
+{%- assign discount_max = request.params.discount_max | default: 100 | plus: 0 -%}
+
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -38,6 +41,8 @@
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
+    {% comment %} Step 2: Include banner for On-Sale page - Banner section added below {% endcomment %}
+    {% section 'sale-banners' %}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
       <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
@@ -76,15 +81,11 @@
             <h2 class="product-count__text text-body">
               <span id="ProductCountDesktop">
                 {%- if collection.results_count -%}
-                  {{ 'templates.search.results_with_count'
- | t: terms: collection.terms, count: collection.results_count
-                  }}
+                  {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
                 {%- elsif collection.products_count == collection.all_products_count -%}
                   {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
                 {%- else -%}
-                  {{ 'products.facets.product_count'
- | t: product_count: collection.products_count, count: collection.all_products_count
-                  }}
+                  {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
                 {%- endif -%}
               </span>
             </h2>
@@ -135,9 +136,7 @@
               <h2 class="title title--primary">
                 {{ 'sections.collection_template.empty' | t -}}
                 <br>
-                {{ 'sections.collection_template.use_fewer_filters_html'
- | t: link: collection.url, class: 'underlined-link link'
-                }}
+                {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: 'underlined-link link' }}
               </h2>
             </div>
           </div>
@@ -153,41 +152,49 @@
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
               ">
               {% assign skip_card_product_styles = false %}
+
               {%- for product in collection.products -%}
-                {% assign lazy_load = false %}
-                {%- if forloop.index > 2 -%}
-                  {%- assign lazy_load = true -%}
-                {%- endif -%}
-                <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                  {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                  {% endif %}>
-                  {% render 'card-product'
-                    ,
+                {% assign compare = product.compare_at_price_max %}
+                {% assign price = product.price %}
+                {% if compare > 0 %}
+                  {% assign discount = 100 | times: price | divided_by: compare %}
+                  {% assign discount = 100 | minus: discount %}
+                {% else %}
+                  {% assign discount = 0 %}
+                {% endif %}
+
+                {% if discount >= discount_min and discount <= discount_max %}
+                  <li
+                    class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                    {% if settings.animations_reveal_on_scroll %}
+                    data-cascade
+                    style="--animation-order: {{ forloop.index }};"
+                    {% endif %}>
+                    {% render 'card-product'
+                      ,
  card_product: product
-                    ,
+                      ,
  media_aspect_ratio: section.settings.image_ratio
-                    ,
+                      ,
  image_shape: section.settings.image_shape
-                    ,
+                      ,
  show_secondary_image: section.settings.show_secondary_image
-                    ,
+                      ,
  show_vendor: section.settings.show_vendor
-                    ,
+                      ,
  show_rating: section.settings.show_rating
-                    ,
- lazy_load: lazy_load
-                    ,
+                      ,
+ lazy_load: forloop.index > 2
+                      ,
  skip_styles: skip_card_product_styles
-                    ,
+                      ,
  quick_add: section.settings.quick_add
-                    ,
+                      ,
  section_id: section.id
-                  %}
-                </li>
-                {%- assign skip_card_product_styles = true -%}
+                    %}
+                  </li>
+                  {%- assign skip_card_product_styles = true -%}
+                {% endif %}
               {%- endfor -%}
             </ul>
 
