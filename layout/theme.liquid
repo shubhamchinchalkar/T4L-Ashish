@@ -416,30 +416,68 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Add Pulse + Glow to Sale & Offers button */
+      /* Christmas-themed Sale & Offers button */
       .sale-offers-btn {
-        background-color: #fd1d1b !important;
+        background: linear-gradient(135deg, #c8102e, #1a936f) !important;
+        /* Red to green gradient for Christmas */
         color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 4px !important;
-        font-weight: 600 !important;
+        /* White text for contrast */
+        padding: 10px 16px !important;
+        /* Slightly larger padding for prominence */
+        border-radius: 6px !important;
+        /* Softer corners */
+        font-weight: 700 !important;
+        /* Bold text */
         display: inline-block !important;
         text-decoration: none !important;
-        animation: pulseGlow 2s infinite ease-in-out !important;
+        position: relative;
+        /* For pseudo-elements */
+        overflow: hidden;
+        /* Contain pseudo-elements */
+        animation: twinkle 3s infinite ease-in-out !important;
+        /* Twinkling animation */
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+        /* Subtle glow */
       }
 
-      @keyframes pulseGlow {
+      /* Snow-like sparkle effect using pseudo-element */
+      .sale-offers-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: sparkle 4s infinite linear;
+      }
+
+      /* Twinkle animation for button */
+      @keyframes twinkle {
         0% {
           transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          box-shadow: 0 0 10px rgba(200, 16, 46, 0.5);
+          /* Red glow */
         }
         50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 20px #fd1d1b;
+          transform: scale(1.1);
+          box-shadow: 0 0 20px rgba(26, 147, 111, 0.7);
+          /* Green glow */
         }
         100% {
           transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          box-shadow: 0 0 10px rgba(200, 16, 46, 0.5);
+          /* Back to red glow */
+        }
+      }
+
+      /* Sparkle animation for snow effect */
+      @keyframes sparkle {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(200%);
         }
       }
     </style>
