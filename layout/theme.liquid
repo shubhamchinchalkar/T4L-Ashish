@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <meta name="robots" content="INDEX,FOLLOW" />
-    <link rel="stylesheet" href="{{ 'sale-banners.css' | asset_url }}" />
-
 
     <!-- canonical custom code (old =    <link rel="canonical" href="{/{ canonical_url }/}"> -->
     {%- if canonical_url != blank -%}
@@ -418,87 +416,30 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with falling snow, tree, and blinking effect */
+      /* Add Pulse + Glow to Sale & Offers button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #a30820, #154734) !important;
-        /* Deep red to forest green gradient */
+        background-color: #fd1d1b !important;
         color: #fff !important;
-        /* White text for contrast */
-        padding: 10px 16px 10px 30px !important;
-        /* Extra left padding for tree icon */
-        border-radius: 8px !important;
-        /* Rounded corners for a festive look */
-        font-weight: 700 !important;
-        /* Bold text */
-        font-size: 14px !important;
-        /* Slightly smaller font for balance */
-        display: inline-flex !important;
-        /* Flex to align tree and text */
-        align-items: center !important;
-        /* Center content vertically */
+        padding: 8px 14px !important;
+        border-radius: 4px !important;
+        font-weight: 600 !important;
+        display: inline-block !important;
         text-decoration: none !important;
-        position: relative;
-        /* For snow and tree positioning */
-        overflow: hidden !important;
-        /* Contain snow animation */
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
-        /* Base snowy glow */
-        animation: pulse 2s ease-in-out infinite !important;
-        /* Blinking effect via glowing pulse */
+        animation: pulseGlow 2s infinite ease-in-out !important;
       }
 
-      /* Christmas tree icon using pseudo-element */
-      .sale-offers-btn::before {
-        content: '🎄';
-        /* Unicode Christmas tree */
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 16px;
-        /* Small tree size */
-        color: #FFD700;
-        /* Gold for festive accent */
-      }
-
-      /* Falling dendrite snow effect */
-      .sale-offers-btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
-        background-size: 50px 50px;
-        /* Snow pattern size */
-        animation: snowFall 6s linear infinite !important;
-        /* Smooth falling snow */
-        opacity: 0.4;
-        /* Subtle snow visibility */
-      }
-
-      /* Snow falling animation */
-      @keyframes snowFall {
+      @keyframes pulseGlow {
         0% {
-          transform: translateY(-50px);
-        }
-        100% {
-          transform: translateY(50px);
-        }
-      }
-
-      /* Blinking pulse animation for glowing effect */
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+          transform: scale(1);
+          box-shadow: 0 0 5px #fd1d1b;
         }
         50% {
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
-          /* Brighter glow at peak */
+          transform: scale(1.08);
+          box-shadow: 0 0 20px #fd1d1b;
         }
         100% {
-          box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+          transform: scale(1);
+          box-shadow: 0 0 5px #fd1d1b;
         }
       }
     </style>
@@ -672,7 +613,6 @@ body {
         });
       });
     </script>
-    <!-- Global Footer Auto Collapse END -->
-    <script src="{{ 'sale-banners.js' | asset_url }}" defer></script>
+  <!-- Global Footer Auto Collapse END -->
   </body>
 </html>
