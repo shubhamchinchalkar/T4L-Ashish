@@ -1,6 +1,6 @@
 {%- comment -%} 
-    Section: Discount banners which filter products by discount percentage ranges.
-    Add this section to collection templates (via theme editor) above the product grid. 
+      Section: Discount banners which filter products by discount percentage ranges.
+      Add this section to collection templates (via theme editor) above the product grid. 
 {%- endcomment -%}
 
 <div class="collection-discount-banners page-width" data-section-type="collection-discount-banners">
@@ -16,7 +16,7 @@
     </a>
 
     <a
-      href="{{ https://oc0tjlh7f2rr9ppq-57948078277.shopifyprevie…_2025-10-10T091516.117.png?v=1760090473&width=600.url }}?discount=26-35"
+      href="{{ "https://oc0tjlh7f2rr9ppq-57948078277.shopifyprevie…_2025-10-10T091516.117.png?v=1760090473&width=600" }}?discount=26-35"
       class="discount-banner"
       style="flex:1;display:block;padding:18px;text-align:center;border-radius:6px;border:1px solid #eee;text-decoration:none;">
       <div style="font-weight:700;font-size:18px;">Up to
@@ -38,7 +38,7 @@
 </div>
 
 {%- comment -%} 
-    Include the JS asset that applies the filter only on pages where section present.
-    Make sure you upload assets/discount-filter.js and then the following line will correctly load it. 
+      Include the JS asset that applies the filter only on pages where section present.
+      Make sure you upload assets/discount-filter.js and then the following line will correctly load it. 
 {%- endcomment -%}
 <script src="{{ 'discount-filter.js' | asset_url }}" defer></script>
