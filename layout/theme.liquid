@@ -416,72 +416,122 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button */
+      /* Creative Christmas Sale & Offers button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #c8102e, #1a936f) !important;
-        /* Red to green gradient for Christmas */
+        background: linear-gradient(135deg, #a71d31, #1a936f, #ffd700) !important;
+        /* Red, green, gold gradient */
         color: #fff !important;
         /* White text for contrast */
-        padding: 10px 16px !important;
-        /* Slightly larger padding for prominence */
-        border-radius: 6px !important;
-        /* Softer corners */
+        padding: 12px 18px !important;
+        /* Larger padding for prominence */
+        border-radius: 50px !important;
+        /* Pill-shaped for ornament-like look */
         font-weight: 700 !important;
         /* Bold text */
+        font-family: 'Arial'
+        , sans-serif !important;
+        /* Clean, festive font */
         display: inline-block !important;
         text-decoration: none !important;
         position: relative;
         /* For pseudo-elements */
         overflow: hidden;
-        /* Contain pseudo-elements */
-        animation: twinkle 3s infinite ease-in-out !important;
-        /* Twinkling animation */
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
-        /* Subtle glow */
+        /* Contain effects */
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6)
+        , 0 0 25px rgba(255, 255, 255, 0.3) !important;
+        /* Gold and white glow */
+        animation: jingleGlow 2.5s infinite ease-in-out !important;
+        /* Jingling animation */
+        transition: transform 0.3s ease !important;
+        /* Smooth hover effect */
       }
 
-      /* Snow-like sparkle effect using pseudo-element */
+      /* Hover effect: Slight lift and brighter glow */
+      .sale-offers-btn:hover {
+        transform: translateY(-3px) !important;
+        /* Lift effect */
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8)
+        , 0 0 30px rgba(255, 255, 255, 0.5) !important;
+      }
+
+      /* Snowy background effect with moving particles */
       .sale-offers-btn::before {
         content: '';
         position: absolute;
         top: 0;
-        left: -100%;
+        left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-        animation: sparkle 4s infinite linear;
+        background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="2" fill="rgba(255, 255, 255, 0.5)"/></svg>') repeat;
+        animation: snowFall 10s linear infinite !important;
+        opacity: 0.3;
+        /* Subtle snow effect */
       }
 
-      /* Twinkle animation for button */
-      @keyframes twinkle {
+      /* Sparkling star effect on text */
+      .sale-offers-btn::after {
+        content: '✨';
+        /* Sparkle emoji */
+        position: absolute;
+        top: -10px;
+        right: 5px;
+        font-size: 16px;
+        animation: sparkleStar 3s infinite ease-in-out !important;
+        opacity: 0;
+      }
+
+      /* Jingling animation (mimics bell-like motion and glow) */
+      @keyframes jingleGlow {
         0% {
-          transform: scale(1);
-          box-shadow: 0 0 10px rgba(200, 16, 46, 0.5);
-          /* Red glow */
+          transform: scale(1) rotate(0deg);
+          box-shadow: 0 0 15px rgba(200, 16, 46, 0.6)
+          , 0 0 25px rgba(255, 255, 255, 0.3);
+        }
+        25% {
+          transform: scale(1.1) rotate(2deg);
+          /* Slight tilt like a jingle bell */
+          box-shadow: 0 0 20px rgba(26, 147, 111, 0.8)
+          , 0 0 30px rgba(255, 255, 255, 0.4);
         }
         50% {
-          transform: scale(1.1);
-          box-shadow: 0 0 20px rgba(26, 147, 111, 0.7);
-          /* Green glow */
+          transform: scale(1.1) rotate(-2deg);
+          box-shadow: 0 0 25px rgba(255, 215, 0, 0.7)
+          , 0 0 35px rgba(255, 255, 255, 0.5);
         }
         100% {
-          transform: scale(1);
-          box-shadow: 0 0 10px rgba(200, 16, 46, 0.5);
-          /* Back to red glow */
+          transform: scale(1) rotate(0deg);
+          box-shadow: 0 0 15px rgba(200, 16, 46, 0.6)
+          , 0 0 25px rgba(255, 255, 255, 0.3);
         }
       }
 
-      /* Sparkle animation for snow effect */
-      @keyframes sparkle {
+      /* Snowfall animation for background */
+      @keyframes snowFall {
         0% {
-          transform: translateX(0);
+          background-position: 0 0;
         }
         100% {
-          transform: translateX(200%);
+          background-position: 0 100px;
+          /* Snow falling downward */
+        }
+      }
+
+      /* Sparkle star animation */
+      @keyframes sparkleStar {
+        0% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(5px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(10px);
         }
       }
     </style>
-
 
   </head>
 
