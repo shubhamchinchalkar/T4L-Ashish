@@ -416,69 +416,44 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with snow and tree */
+      /* Christmas Snow Sale Button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #b22222, #228b22) !important;
-        /* Deep red to forest green gradient */
+        background: linear-gradient(135deg, #fd1d1b 0%, #c41e3a 100%) !important;
         color: #fff !important;
-        /* White text for contrast */
-        padding: 10px 30px 10px 20px !important;
-        /* Extra padding on right for tree icon */
+        padding: 10px 16px !important;
         border-radius: 8px !important;
-        /* Rounded corners for festive feel */
-        font-weight: 700 !important;
-        /* Bold text */
-        font-size: 14px !important;
-        /* Slightly smaller for elegance */
+        font-weight: 600 !important;
         display: inline-block !important;
         text-decoration: none !important;
-        position: relative;
-        /* For pseudo-elements */
-        overflow: hidden;
-        /* Contain snow effect */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3)
-        , 0 0 8px rgba(255, 255, 255, 0.4) !important;
-        /* Soft glow */
+        position: relative !important;
+        overflow: hidden !important;
+        animation: christmasGlow 2s infinite ease-in-out !important;
+        box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4) !important;
+        border: 2px solid #fff !important;
       }
 
-      /* Static snow effect using radial gradients */
-      .sale-offers-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 3px), radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.3) 2px, transparent 3px), radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.3) 2px, transparent 3px)
-        , radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.2) 2px, transparent 3px) !important;
-        /* Snow-like specks */
-        opacity: 0.5;
-        /* Subtle snow visibility */
+      .sale-offers-btn:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(253, 29, 27, 0.6) !important;
       }
 
-      /* Christmas tree icon using CSS shapes */
-      .sale-offers-btn::after {
-        content: '';
-        position: absolute;
-        right: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 10px;
-        height: 12px;
-        background: /* Tree foliage */
-        linear-gradient(transparent 0%, transparent 30%, #228b22 30%, #228b22 50%, transparent 50%), linear-gradient(transparent 20%, transparent 40%, #228b22 40%, #228b22 60%, transparent 60%), linear-gradient(transparent 40%, transparent 60%, #228b22 60%, #228b22 80%, transparent 80%), /* Tree trunk */
-        linear-gradient(90deg, transparent 40%, #8b4513 40%, #8b4513 60%, transparent 60%);
-        background-size: 100% 33.33%
-        , 80% 33.33%
-        , 60% 33.33%
-        , 20% 20%;
-        background-position: center 0
-        , center 33.33%
-        , center 66.66%
-        , center bottom;
-        background-repeat: no-repeat;
+      @keyframes christmasGlow {
+        0% {
+          box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4)
+          , 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        50% {
+          box-shadow: 0 6px 25px rgba(253, 29, 27, 0.7)
+          , 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        100% {
+          box-shadow: 0 4px 15px rgba(253, 29, 27, 0.4)
+          , 0 0 10px rgba(255, 255, 255, 0.3);
+        }
       }
     </style>
+
+
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} inc_vat">
