@@ -51,11 +51,8 @@
         {% if extend_height %} card--extend-height{% endif %}
         {% if card_product.featured_media == nil and settings.card_style == 'card' %} ratio{% endif %}
         {% if horizontal_class %} card--horizontal{% endif %}
-        {% if image_shape and image_shape != 'default' %} card--image-shape-{{ image_shape }}{% endif %}
       "
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
-      data-price="{{ card_product.price | divided_by: 100.0 | round: 2 }}"
-      data-compare-price="{{ card_product.compare_at_price | default: 0 | divided_by: 100.0 | round: 2 }}"
     >
       <div
         class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"

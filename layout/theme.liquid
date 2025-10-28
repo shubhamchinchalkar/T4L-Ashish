@@ -420,19 +420,8 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-
-
-      /*
-
-   ────────────────────────────────────────────────────────────── 
-   Existing Sale & Offers button (keep your original styles) 
-   ────────────────────────────────────────────────────────────── 
-*/
+      /* Add Pulse + Glow to Sale & Offers button */
       .sale-offers-btn {
-        position: relative;
-        /* needed for pseudo-elements */
-        overflow: hidden;
-        /* hide snow that falls out */
         background-color: #fd1d1b !important;
         color: #fff !important;
         padding: 8px 14px !important;
@@ -443,7 +432,6 @@ body {
         animation: pulseGlow 2s infinite ease-in-out !important;
       }
 
-      /* Pulse-glow (unchanged) */
       @keyframes pulseGlow {
         0% {
           transform: scale(1);
@@ -457,94 +445,6 @@ body {
           transform: scale(1);
           box-shadow: 0 0 5px #fd1d1b;
         }
-      }
-
-
-      /*
-
-   ────────────────────────────────────────────────────────────── 
-   1. Falling snow dendrites (3 flakes, looping forever) 
-   ────────────────────────────────────────────────────────────── 
-*/
-      .sale-offers-btn::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: radial-gradient(circle at 20% 30%, #fff 2px, transparent 2px), radial-gradient(circle at 50% 10%, #fff 1.5px, transparent 1.5px), radial-gradient(circle at 80% 40%, #fff 2.5px, transparent 2.5px);
-        background-size: 20px 20px
-        , 15px 15px
-        , 25px 25px;
-        background-repeat: no-repeat;
-        animation: snowFall 4s linear infinite;
-      }
-      @keyframes snowFall {
-        0% {
-          background-position: 20% -30%
-          , 50% -20%
-          , 80% -40%;
-        }
-        100% {
-          background-position: 20% 120%
-          , 50% 120%
-          , 80% 120%;
-        }
-      }
-
-
-      /*
-
-   ────────────────────────────────────────────────────────────── 
-   2. Tiny Christmas tree (centered at the bottom) 
-   ────────────────────────────────────────────────────────────── 
-*/
-      .sale-offers-btn::after {
-        content: "🎄";
-        position: absolute;
-        bottom: 2px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.9em;
-        line-height: 1;
-        pointer-events: none;
-      }
-
-
-      /*
-
-   ────────────────────────────────────────────────────────────── 
-   3. Ribbon in top-right corner 
-   ────────────────────────────────────────────────────────────── 
-*/
-      .sale-offers-btn > .ribbon {
-        position: absolute;
-        top: -6px;
-        right: -6px;
-        width: 24px;
-        height: 24px;
-        background: #c00;
-        clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
-        transform: rotate(45deg);
-      }
-      .sale-offers-btn > .ribbon::before,
-      .sale-offers-btn > .ribbon::after {
-        content: "";
-        position: absolute;
-        background: #ff0;
-      }
-      .sale-offers-btn > .ribbon::before {
-        top: 4px;
-        left: 4px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-      }
-      .sale-offers-btn > .ribbon::after {
-        top: 12px;
-        left: 4px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
       }
     </style>
 
