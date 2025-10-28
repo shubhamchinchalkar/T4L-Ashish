@@ -420,31 +420,80 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Add Pulse + Glow to Sale & Offers button */
+
+
+      /*
+   ------------------------------------------------- 
+   CHRISTMAS THEME for .sale-offers-btn 
+   -------------------------------------------------
+*/
       .sale-offers-btn {
-        background-color: #fd1d1b !important;
-        color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 4px !important;
-        font-weight: 600 !important;
-        display: inline-block !important;
-        text-decoration: none !important;
-        animation: pulseGlow 2s infinite ease-in-out !important;
+        position: relative;
+        /* needed for pseudo-elements */
+        overflow: hidden;
+        /* hide snow that goes outside */
+        background: #fd1d1b !important;
+        /* keep your original red */
       }
 
-      @keyframes pulseGlow {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+      /* ---- 1. Falling snow (tiny white plates) ---- */
+      .sale-offers-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,.12) 8px, rgba(255,255,255,.12) 16px);
+        animation: snowFall 4s linear infinite;
+        pointer-events: none;
+      }
+      @keyframes snowFall {
+        from {
+          transform: translateY(-100%);
         }
-        50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 20px #fd1d1b;
+        to {
+          transform: translateY(100%);
         }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
-        }
+      }
+
+      /* ---- 2. Tiny Christmas tree (center-bottom) ---- */
+      .sale-offers-btn::after {
+        content: "🎄";
+        font-size: 0.9rem;
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+        text-shadow: 0 0 4px rgba(0, 0, 0, .3);
+      }
+
+      /* ---- 3. Ribbon in top-right corner ---- */
+      .sale-offers-btn > .ribbon {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        width: 24px;
+        height: 24px;
+        background: #c00;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 20% 50%);
+        transform: rotate(45deg);
+        box-shadow: 0 0 6px rgba(0, 0, 0, .4);
+      }
+      .sale-offers-btn > .ribbon::before,
+      .sale-offers-btn > .ribbon::after {
+        content: "";
+        position: absolute;
+        background: #ff0;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .sale-offers-btn > .ribbon::before {
+        top: 4px;
+        left: 4px;
+      }
+      .sale-offers-btn > .ribbon::after {
+        bottom: 4px;
+        right: 4px;
       }
     </style>
 
