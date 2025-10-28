@@ -40,8 +40,17 @@
       assign ratio = 1
     endif
   -%}
+
+  {%- comment -%} Calculate discount percent for this product card. If no compare_at_price, discount = 0. {%- endcomment -%}
+{%- assign discount = 0 -%}
+{%- if card_product.compare_at_price_max and card_product.compare_at_price_max > card_product.price -%}
+  {%- assign raw_diff = card_product.compare_at_price_max | minus: card_product.price -%}
+  {%- assign discount = raw_diff | times: 100 | divided_by: card_product.compare_at_price_max -%}
+  {%- assign discount = discount | round -%}
+{%- endif -%}
+
   
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+ <div class="card-wrapper product-card-wrapper underline-links-hover" data-discount="{{ discount }}">
     <div
       class="
         card card--{{ settings.card_style }}
