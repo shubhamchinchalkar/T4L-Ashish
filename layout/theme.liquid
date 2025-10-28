@@ -420,103 +420,30 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-
-
-      /*
-   ------------------------------------------------------------------ 
-   SALE & OFFERS – CHRISTMAS THEME 
-   Keeps the original position, only changes colours / animation 
-   ------------------------------------------------------------------
-*/
+      /* Add Pulse + Glow to Sale & Offers button */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #c00 0%, #228B22 100%) !important;
-        /* Red → Green */
+        background-color: #fd1d1b !important;
         color: #fff !important;
         padding: 8px 14px !important;
-        border-radius: 6px !important;
-        font-weight: 700 !important;
-        font-family: "Helvetica Neue"
-        , Helvetica
-        , Arial
-        , sans-serif !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.5px !important;
-        position: relative !important;
-        overflow: hidden !important;
+        border-radius: 4px !important;
+        font-weight: 600 !important;
         display: inline-block !important;
         text-decoration: none !important;
-        animation: christmasPulse 2.2s infinite ease-in-out !important;
-        box-shadow: 0 0 8px rgba(255, 255, 255, .4) !important;
+        animation: pulseGlow 2s infinite ease-in-out !important;
       }
 
-      /* Subtle snow-flake “sparkle” that moves across the button */
-      .sale-offers-btn::before {
-        content: "✨";
-        position: absolute;
-        top: 50%;
-        left: -20%;
-        font-size: 1.2em;
-        color: #fff;
-        opacity: 0;
-        animation: snowSparkle 2.2s infinite linear;
-        transform: translateY(-50%);
-      }
-
-      /* Pulse + glow */
-      @keyframes christmasPulse {
+      @keyframes pulseGlow {
         0% {
           transform: scale(1);
-          box-shadow: 0 0 8px rgba(255, 255, 255, .4);
+          box-shadow: 0 0 5px #fd1d1b;
         }
         50% {
-          transform: scale(1.09);
-          box-shadow: 0 0 22px rgba(255, 255, 255, .8)
-          , 0 0 30px #ffd700;
+          transform: scale(1.08);
+          box-shadow: 0 0 20px #fd1d1b;
         }
         100% {
           transform: scale(1);
-          box-shadow: 0 0 8px rgba(255, 255, 255, .4);
-        }
-      }
-
-      /* Snow-flake sparkle moving left → right */
-      @keyframes snowSparkle {
-        0% {
-          left: -20%;
-          opacity: 0;
-        }
-        20% {
-          opacity: 1;
-        }
-        80% {
-          opacity: 1;
-        }
-        100% {
-          left: 120%;
-          opacity: 0;
-        }
-      }
-
-
-      /*
-   ------------------------------------------------------------------ 
-   OPTIONAL: Hover “jingle” effect (tiny shake) 
-   ------------------------------------------------------------------
-*/
-      .sale-offers-btn:hover {
-        animation: christmasPulse 1.8s infinite ease-in-out
-        , jingle 0.6s;
-      }
-      @keyframes jingle {
-        0,
-        100% {
-          transform: translateX(0) rotate(0deg);
-        }
-        25% {
-          transform: translateX(-2px) rotate(-2deg);
-        }
-        75% {
-          transform: translateX(2px) rotate(2deg);
+          box-shadow: 0 0 5px #fd1d1b;
         }
       }
     </style>

@@ -1,7 +1,6 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
-
 {%- style -%}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
@@ -9,7 +8,6 @@
     }
   }
 {%- endstyle -%}
-
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -35,49 +33,6 @@
           {% if collection.description.size > 700 -%}
             <span class="readmore-link">Read More ▼</span>
           {%- endif -%}
-
-          {%- comment -%} 
-            Discount quick-filter banners:
-            Click "Up to 25%" => ?discount=0-25
-            Click "Up to 35%" => ?discount=26-35
-            Click "Up to 50%" => ?discount=36-50 
-          {%- endcomment -%}
-
-          <div class="collection-discount-banners" style="margin:20px 0 28px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-            <a
-              href="?discount=0-25"
-              class="discount-banner discount-range-0-25 link focus-inset"
-              data-discount-min="0"
-              data-discount-max="25"
-              aria-label="Show products discounted up to 25%"
-              style="display:inline-block;padding:12px 16px;border-radius:8px;background:#f6f6f6;border:1px solid #e6e6e6;text-decoration:none;font-weight:700;">
-              Up to 25% off
-            </a>
-
-            <a
-              href="?discount=26-35"
-              class="discount-banner discount-range-26-35 link focus-inset"
-              data-discount-min="26"
-              data-discount-max="35"
-              aria-label="Show products discounted 26% to 35%"
-              style="display:inline-block;padding:12px 16px;border-radius:8px;background:#fdecea;border:1px solid #f6c2bf;text-decoration:none;font-weight:700;">
-              Up to 35% off
-            </a>
-
-            <a
-              href="?discount=36-50"
-              class="discount-banner discount-range-36-50 link focus-inset"
-              data-discount-min="36"
-              data-discount-max="50"
-              aria-label="Show products discounted 36% to 50%"
-              style="display:inline-block;padding:12px 16px;border-radius:8px;background:#eaf6ea;border:1px solid #c7e6c7;text-decoration:none;font-weight:700;">
-              Up to 50% off
-            </a>
-
-            <!-- small "clear filter" button (JS toggles visibility) -->
-            <button class="discount-clear-btn" style="margin-left:12px;display:none;padding:8px 12px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;">Clear discount filter</button>
-          </div>
-
         {%- endif -%}
       {%- endif -%}
     </div>
@@ -86,14 +41,14 @@
       <div class="collection-hero__image-container media gradient">
         <img
           srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
+            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
+            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
+            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+            {{ collection.image | image_url }} {{ collection.image.width }}w
+          "
           src="{{ collection.image | image_url: width: 750 }}"
           sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
           alt="{{ collection.image.alt | escape }}"
@@ -104,24 +59,22 @@
   </div>
 </div>
 
-
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const readMoreButton = document.querySelector('.readmore-link');
-      const description = document.querySelector('.collection-hero__description');
-    
-      readMoreButton.addEventListener('click', () => {
-        if (description.classList.contains('expanded')) {
-          description.classList.remove('expanded');
-          readMoreButton.textContent = 'Read more ▼';
-        } else {
-          description.classList.add('expanded');
-          readMoreButton.textContent = 'Read less ▲';
-        }
-      });
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const readMoreButton = document.querySelector('.readmore-link');
+    const description = document.querySelector('.collection-hero__description');
+  
+    readMoreButton.addEventListener('click', () => {
+      if (description.classList.contains('expanded')) {
+        description.classList.remove('expanded');
+        readMoreButton.textContent = 'Read more ▼';
+      } else {
+        description.classList.add('expanded');
+        readMoreButton.textContent = 'Read less ▲';
+      }
+    });
+  });
 </script>
-
 
 {% schema %}
   {
