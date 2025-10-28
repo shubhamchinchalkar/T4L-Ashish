@@ -420,90 +420,111 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-
-
-      /*
-   ------------------------------------------------- 
-   CHRISTMAS SALE & OFFERS BUTTON 
-   -------------------------------------------------
-*/
+      /* Sale & Offers Button - Original Styles */
       .sale-offers-btn {
-        position: relative;
-        /* for the badge & icon */
-        background: linear-gradient(135deg, #c00 0%, #e63946 100%) !important;
+        background-color: #fd1d1b !important;
         color: #fff !important;
-        padding: 8px 18px 8px 14px !important;
-        /* extra right padding for icon */
-        border-radius: 6px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        padding: 8px 14px !important;
+        border-radius: 4px !important;
+        font-weight: 600 !important;
         display: inline-block !important;
         text-decoration: none !important;
-        overflow: hidden;
-        /* hide overflow of pseudo-elements */
-        animation: christmasPulse 2.2s infinite ease-in-out !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+        animation: pulseGlow 2s infinite ease-in-out !important;
       }
 
-      /* ---- Snowflake icon (pure CSS) ---- */
-      .sale-offers-btn::before {
-        content: "❄";
-        position: absolute;
-        left: 6px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.1em;
-        animation: snowFloat 3s infinite linear;
-      }
-
-      /* ---- “NEW” badge in top-right corner ---- */
-      .sale-offers-btn::after {
-        content: "X-MAS";
-        position: absolute;
-        top: -6px;
-        right: -6px;
-        background: #fff;
-        color: #c00;
-        font-size: 0.65rem;
-        font-weight: 900;
-        padding: 2px 6px;
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        transform: rotate(12deg);
-      }
-
-      /* ---- Christmas pulse (green-red glow) ---- */
-      @keyframes christmasPulse {
+      @keyframes pulseGlow {
         0% {
           transform: scale(1);
-          box-shadow: 0 0 6px #c00;
+          box-shadow: 0 0 5px #fd1d1b;
         }
         50% {
-          transform: scale(1.09);
-          box-shadow: 0 0 22px #0a0
-          , 0 0 30px #c00;
+          transform: scale(1.08);
+          box-shadow: 0 0 20px #fd1d1b;
         }
         100% {
           transform: scale(1);
-          box-shadow: 0 0 6px #c00;
+          box-shadow: 0 0 5px #fd1d1b;
         }
       }
 
-      /* ---- Floating snowflake animation ---- */
-      @keyframes snowFloat {
+      /* Christmas Sales Button Styles */
+      .christmas-sales-btn {
+        background: linear-gradient(45deg, #d63031, #e17055, #fdcb6e) !important;
+        background-size: 300% 300% !important;
+        color: #fff !important;
+        padding: 10px 16px !important;
+        border-radius: 25px !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        display: inline-block !important;
+        text-decoration: none !important;
+        position: relative !important;
+        overflow: hidden !important;
+        animation: christmasShimmer 3s infinite linear
+        , christmasFloat 2s ease-in-out infinite !important;
+        box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4) !important;
+        border: 2px solid #fff !important;
+      }
+
+      .christmas-sales-btn::before {
+        content: '🎄✨' !important;
+        position: absolute !important;
+        left: -30px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        animation: christmasSnow 2s infinite linear !important;
+        font-size: 12px !important;
+      }
+
+      .christmas-sales-btn::after {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: -100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent) !important;
+        animation: christmasShimmer 3s infinite linear !important;
+      }
+
+      @keyframes christmasShimmer {
         0% {
-          transform: translateY(-50%) rotate(0deg);
+          background-position: 0 50% !important;
         }
         100% {
-          transform: translateY(-50%) rotate(360deg);
+          background-position: 300% 50% !important;
         }
       }
 
-      /* ---- Optional hover effect ---- */
-      .sale-offers-btn:hover {
-        background: linear-gradient(135deg, #e63946 0%, #ff5c5c 100%) !important;
-        animation-duration: 1.5s !important;
+      @keyframes christmasFloat {
+        0,
+        100% {
+          transform: translateY(0px) !important;
+        }
+        50% {
+          transform: translateY(-5px) !important;
+        }
+      }
+
+      @keyframes christmasSnow {
+        0% {
+          left: -30px !important;
+        }
+        100% {
+          left: 100% !important;
+        }
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .christmas-sales-btn {
+          padding: 8px 12px !important;
+          font-size: 12px !important;
+        }
+
+        .christmas-sales-btn::before {
+          font-size: 10px !important;
+        }
       }
     </style>
 
