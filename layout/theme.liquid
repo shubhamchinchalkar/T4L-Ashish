@@ -420,83 +420,103 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas Sales Button Styles */
-      .christmas-sales-btn {
-        background: linear-gradient(45deg, #d63031, #e17055, #fdcb6e) !important;
-        background-size: 300% 300% !important;
+
+
+      /*
+   ------------------------------------------------------------------ 
+   SALE & OFFERS – CHRISTMAS THEME 
+   Keeps the original position, only changes colours / animation 
+   ------------------------------------------------------------------
+*/
+      .sale-offers-btn {
+        background: linear-gradient(135deg, #c00 0%, #228B22 100%) !important;
+        /* Red → Green */
         color: #fff !important;
-        padding: 10px 16px !important;
-        border-radius: 25px !important;
+        padding: 8px 14px !important;
+        border-radius: 6px !important;
         font-weight: 700 !important;
-        font-size: 14px !important;
-        display: inline-block !important;
-        text-decoration: none !important;
+        font-family: "Helvetica Neue"
+        , Helvetica
+        , Arial
+        , sans-serif !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
         position: relative !important;
         overflow: hidden !important;
-        animation: christmasShimmer 3s infinite linear
-        , christmasFloat 2s ease-in-out infinite !important;
-        box-shadow: 0 4px 15px rgba(214, 48, 49, 0.4) !important;
-        border: 2px solid #fff !important;
+        display: inline-block !important;
+        text-decoration: none !important;
+        animation: christmasPulse 2.2s infinite ease-in-out !important;
+        box-shadow: 0 0 8px rgba(255, 255, 255, .4) !important;
       }
 
-      .christmas-sales-btn::before {
-        content: '🎄✨' !important;
-        position: absolute !important;
-        left: -30px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        animation: christmasSnow 2s infinite linear !important;
-        font-size: 12px !important;
+      /* Subtle snow-flake “sparkle” that moves across the button */
+      .sale-offers-btn::before {
+        content: "✨";
+        position: absolute;
+        top: 50%;
+        left: -20%;
+        font-size: 1.2em;
+        color: #fff;
+        opacity: 0;
+        animation: snowSparkle 2.2s infinite linear;
+        transform: translateY(-50%);
       }
 
-      .christmas-sales-btn::after {
-        content: '' !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: -100% !important;
-        width: 100% !important;
-        height: 100% !important;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent) !important;
-        animation: christmasShimmer 3s infinite linear !important;
-      }
-
-      @keyframes christmasShimmer {
+      /* Pulse + glow */
+      @keyframes christmasPulse {
         0% {
-          background-position: 0 50% !important;
-        }
-        100% {
-          background-position: 300% 50% !important;
-        }
-      }
-
-      @keyframes christmasFloat {
-        0,
-        100% {
-          transform: translateY(0px) !important;
+          transform: scale(1);
+          box-shadow: 0 0 8px rgba(255, 255, 255, .4);
         }
         50% {
-          transform: translateY(-5px) !important;
-        }
-      }
-
-      @keyframes christmasSnow {
-        0% {
-          left: -30px !important;
+          transform: scale(1.09);
+          box-shadow: 0 0 22px rgba(255, 255, 255, .8)
+          , 0 0 30px #ffd700;
         }
         100% {
-          left: 100% !important;
+          transform: scale(1);
+          box-shadow: 0 0 8px rgba(255, 255, 255, .4);
         }
       }
 
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .christmas-sales-btn {
-          padding: 8px 12px !important;
-          font-size: 12px !important;
+      /* Snow-flake sparkle moving left → right */
+      @keyframes snowSparkle {
+        0% {
+          left: -20%;
+          opacity: 0;
         }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          left: 120%;
+          opacity: 0;
+        }
+      }
 
-        .christmas-sales-btn::before {
-          font-size: 10px !important;
+
+      /*
+   ------------------------------------------------------------------ 
+   OPTIONAL: Hover “jingle” effect (tiny shake) 
+   ------------------------------------------------------------------
+*/
+      .sale-offers-btn:hover {
+        animation: christmasPulse 1.8s infinite ease-in-out
+        , jingle 0.6s;
+      }
+      @keyframes jingle {
+        0,
+        100% {
+          transform: translateX(0) rotate(0deg);
+        }
+        25% {
+          transform: translateX(-2px) rotate(-2deg);
+        }
+        75% {
+          transform: translateX(2px) rotate(2deg);
         }
       }
     </style>
