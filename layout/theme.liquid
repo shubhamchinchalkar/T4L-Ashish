@@ -420,15 +420,8 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-
-
-      /*
-   ============================================================ 
-   🎁 SALE & OFFERS BUTTON — BASE + CHRISTMAS VARIANTS 
-   ============================================================
-*/
-
-      /* ---------- Base Button (Pulse + Glow) ---------- */.sale-offers-btn {
+      /* Add Pulse + Glow to Sale & Offers button */
+      .sale-offers-btn {
         background-color: #fd1d1b !important;
         color: #fff !important;
         padding: 8px 14px !important;
@@ -437,8 +430,6 @@ body {
         display: inline-block !important;
         text-decoration: none !important;
         animation: pulseGlow 2s infinite ease-in-out !important;
-        transition: all 0.3s ease !important;
-        cursor: pointer !important;
       }
 
       @keyframes pulseGlow {
@@ -454,148 +445,6 @@ body {
           transform: scale(1);
           box-shadow: 0 0 5px #fd1d1b;
         }
-      }
-
-
-      /*
-   ============================================================ 
-   🎄 CHRISTMAS VARIANTS 
-   ============================================================
-*/
-
-      /* ---------- Variant 1: Snow + Soft Glow ---------- */.sale-offers-btn.xmas-snow {
-        background: linear-gradient(180deg, #ff3b3b, #c41616) !important;
-        color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 6px !important;
-        font-weight: 700 !important;
-        position: relative !important;
-        overflow: visible !important;
-        box-shadow: 0 4px 18px rgba(197, 25, 25, 0.32) !important;
-      }
-
-      .sale-offers-btn.xmas-snow::after {
-        content: "" !important;
-        position: absolute !important;
-        left: 50% !important;
-        top: -8px !important;
-        width: 220% !important;
-        height: 220% !important;
-        transform: translateX(-50%) rotate(10deg) !important;
-        background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 10%)
-        , radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08), transparent 15%) !important;
-        pointer-events: none !important;
-        filter: blur(6px) !important;
-        opacity: 0.9 !important;
-        animation: snowFloat 6s linear infinite !important;
-      }
-
-      @keyframes snowFloat {
-        0,
-        100% {
-          transform: translateX(-50%) rotate(8deg) translateY(0);
-        }
-        50% {
-          transform: translateX(-50%) rotate(8deg) translateY(6px);
-        }
-      }
-
-      /* ---------- Variant 2: Candy Cane Stripes ---------- */
-      .sale-offers-btn.xmas-candy {
-        background: linear-gradient(90deg, #fff 25%, #e11 25%, #e11 50%, #fff 50%, #fff 75%, #e11 75%) !important;
-        background-size: 40px 40px !important;
-        color: #fff !important;
-        padding: 8px 16px !important;
-        border-radius: 6px !important;
-        font-weight: 800 !important;
-        display: inline-block !important;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) !important;
-        box-shadow: 0 6px 20px rgba(225, 17, 17, 0.16) !important;
-        animation: stripemove 2s linear infinite !important;
-      }
-
-      @keyframes stripemove {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 40px 0;
-        }
-      }
-
-      /* ---------- Variant 3: Twinkling Lights Border ---------- */
-      .sale-offers-btn.xmas-lights {
-        background: #e71f1f !important;
-        color: #fff !important;
-        padding: 9px 16px !important;
-        border-radius: 8px !important;
-        font-weight: 700 !important;
-        position: relative !important;
-        z-index: 1 !important;
-      }
-
-      .sale-offers-btn.xmas-lights::before {
-        content: "" !important;
-        position: absolute !important;
-        inset: -6px !important;
-        border-radius: 12px !important;
-        z-index: -1 !important;
-        box-shadow: 0 0 6px #ffd700
-        , 30px 0 6px #00c4ff
-        , 60px 0 6px #ff6ec7
-        , 90px 0 6px #8cff6a
-        , 120px 0 6px #ffd700 !important;
-        filter: blur(2px) !important;
-        animation: blink 1.8s steps(4, end) infinite !important;
-      }
-
-      @keyframes blink {
-        0,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.35;
-        }
-      }
-
-      /* ---------- Variant 4: Gift Ribbon + Bow ---------- */
-      .sale-offers-btn.xmas-ribbon {
-        background: linear-gradient(180deg, #f13 0%, #b00 100%) !important;
-        color: #fff !important;
-        padding: 9px 16px !important;
-        border-radius: 6px !important;
-        font-weight: 700 !important;
-        position: relative !important;
-        box-shadow: 0 6px 18px rgba(176, 10, 10, 0.2) !important;
-      }
-
-      .sale-offers-btn.xmas-ribbon::before,
-      .sale-offers-btn.xmas-ribbon::after {
-        content: "" !important;
-        position: absolute !important;
-        right: -10px !important;
-        top: -10px !important;
-        border-radius: 4px !important;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25) !important;
-      }
-
-      .sale-offers-btn.xmas-ribbon::before {
-        width: 34px !important;
-        height: 34px !important;
-        background: linear-gradient(135deg, #ffd700 0%, #ffb300 60%) !important;
-        transform: rotate(45deg) !important;
-      }
-
-      .sale-offers-btn.xmas-ribbon::after {
-        width: 16px !important;
-        height: 16px !important;
-        right: -2px !important;
-        top: -2px !important;
-        background: linear-gradient(135deg, #fff 0%, #ffd700 100%) !important;
-        transform: rotate(0deg) !important;
-        border-radius: 2px !important;
-        opacity: 0.95 !important;
       }
     </style>
 
