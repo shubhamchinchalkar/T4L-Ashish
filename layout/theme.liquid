@@ -420,31 +420,90 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Add Pulse + Glow to Sale & Offers button */
+
+
+      /*
+   ------------------------------------------------- 
+   CHRISTMAS SALE & OFFERS BUTTON 
+   -------------------------------------------------
+*/
       .sale-offers-btn {
-        background-color: #fd1d1b !important;
+        position: relative;
+        /* for the badge & icon */
+        background: linear-gradient(135deg, #c00 0%, #e63946 100%) !important;
         color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 4px !important;
-        font-weight: 600 !important;
+        padding: 8px 18px 8px 14px !important;
+        /* extra right padding for icon */
+        border-radius: 6px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         display: inline-block !important;
         text-decoration: none !important;
-        animation: pulseGlow 2s infinite ease-in-out !important;
+        overflow: hidden;
+        /* hide overflow of pseudo-elements */
+        animation: christmasPulse 2.2s infinite ease-in-out !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
       }
 
-      @keyframes pulseGlow {
+      /* ---- Snowflake icon (pure CSS) ---- */
+      .sale-offers-btn::before {
+        content: "❄";
+        position: absolute;
+        left: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.1em;
+        animation: snowFloat 3s infinite linear;
+      }
+
+      /* ---- “NEW” badge in top-right corner ---- */
+      .sale-offers-btn::after {
+        content: "X-MAS";
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: #fff;
+        color: #c00;
+        font-size: 0.65rem;
+        font-weight: 900;
+        padding: 2px 6px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        transform: rotate(12deg);
+      }
+
+      /* ---- Christmas pulse (green-red glow) ---- */
+      @keyframes christmasPulse {
         0% {
           transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          box-shadow: 0 0 6px #c00;
         }
         50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 20px #fd1d1b;
+          transform: scale(1.09);
+          box-shadow: 0 0 22px #0a0
+          , 0 0 30px #c00;
         }
         100% {
           transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          box-shadow: 0 0 6px #c00;
         }
+      }
+
+      /* ---- Floating snowflake animation ---- */
+      @keyframes snowFloat {
+        0% {
+          transform: translateY(-50%) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-50%) rotate(360deg);
+        }
+      }
+
+      /* ---- Optional hover effect ---- */
+      .sale-offers-btn:hover {
+        background: linear-gradient(135deg, #e63946 0%, #ff5c5c 100%) !important;
+        animation-duration: 1.5s !important;
       }
     </style>
 
