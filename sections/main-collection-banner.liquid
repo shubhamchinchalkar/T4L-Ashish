@@ -1,6 +1,7 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
+
 {%- style -%}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
@@ -8,6 +9,7 @@
     }
   }
 {%- endstyle -%}
+
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -35,6 +37,57 @@
           {%- endif -%}
         {%- endif -%}
       {%- endif -%}
+
+      {%- comment -%} 
+        Discount quick-filter banners (Up to 25%, Up to 35%, Up to 50%)
+        Add this inside your collection banner/hero area. 
+      {%- endcomment -%}
+      <div class="collection-discount-banners" aria-hidden="false">
+        <div class="collection-discount-banners__inner">
+          <button
+            class="discount-banner"
+            data-discount-range="0-25"
+            aria-pressed="false"
+            title="Up to 25% off">
+            <div class="discount-banner__title">Up to
+              <strong>25%</strong>
+              off</div>
+            <div class="discount-banner__sub">0% — 25% off</div>
+          </button>
+
+          <button
+            class="discount-banner"
+            data-discount-range="26-35"
+            aria-pressed="false"
+            title="Up to 35% off">
+            <div class="discount-banner__title">Up to
+              <strong>35%</strong>
+              off</div>
+            <div class="discount-banner__sub">26% — 35% off</div>
+          </button>
+
+          <button
+            class="discount-banner"
+            data-discount-range="36-50"
+            aria-pressed="false"
+            title="Up to 50% off">
+            <div class="discount-banner__title">Up to
+              <strong>50%</strong>
+              off</div>
+            <div class="discount-banner__sub">36% — 50% off</div>
+          </button>
+
+          <button
+            class="discount-banner discount-banner--reset"
+            data-discount-range="all"
+            aria-pressed="false"
+            title="Show all">
+            Show all
+          </button>
+        </div>
+      </div>
+
+
     </div>
 
     {%- if section.settings.show_collection_image and collection.image -%}
@@ -59,6 +112,7 @@
   </div>
 </div>
 
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const readMoreButton = document.querySelector('.readmore-link');
@@ -75,6 +129,7 @@
     });
   });
 </script>
+
 
 {% schema %}
   {
