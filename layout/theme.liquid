@@ -421,40 +421,29 @@ body {
 
     <style>
       /* Add Pulse + Glow to Sale & Offers button */
-      .sale-offers-btn.xmas-snow {
-        background: linear-gradient(180deg, #ff3b3b, #c41616) !important;
+      .sale-offers-btn {
+        background-color: #fd1d1b !important;
         color: #fff !important;
         padding: 8px 14px !important;
-        border-radius: 6px !important;
-        font-weight: 700 !important;
-        position: relative !important;
-        overflow: visible !important;
-        box-shadow: 0 4px 18px rgba(197, 25, 25, 0.32) !important;
+        border-radius: 4px !important;
+        font-weight: 600 !important;
+        display: inline-block !important;
+        text-decoration: none !important;
+        animation: pulseGlow 2s infinite ease-in-out !important;
       }
 
-      .sale-offers-btn.xmas-snow::after {
-        content: "" !important;
-        position: absolute !important;
-        left: 50% !important;
-        top: -8px !important;
-        width: 220% !important;
-        height: 220% !important;
-        transform: translateX(-50%) rotate(10deg) !important;
-        background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 10%)
-        , radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08), transparent 15%) !important;
-        pointer-events: none !important;
-        filter: blur(6px) !important;
-        opacity: 0.9 !important;
-        animation: snowFloat 6s linear infinite !important;
-      }
-
-      @keyframes snowFloat {
-        0,
-        100% {
-          transform: translateX(-50%) rotate(8deg) translateY(0);
+      @keyframes pulseGlow {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 5px #fd1d1b;
         }
         50% {
-          transform: translateX(-50%) rotate(8deg) translateY(6px);
+          transform: scale(1.08);
+          box-shadow: 0 0 20px #fd1d1b;
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 5px #fd1d1b;
         }
       }
     </style>
