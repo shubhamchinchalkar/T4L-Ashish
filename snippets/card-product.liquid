@@ -29,26 +29,6 @@
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 {%- if card_product and card_product != empty -%}
-  {%- comment -%}
-  Calculate highest discount percentage across variants for this product
-  and expose it as a data-discount attribute on the card wrapper.
-{%- endcomment -%}
-
-{%- assign highest_discount = 0 -%}
-{%- if card_product and card_product.variants -%}
-  {%- for variant in card_product.variants -%}
-    {%- if variant.compare_at_price and variant.compare_at_price > variant.price -%}
-      {%- assign price_difference = variant.compare_at_price | minus: variant.price -%}
-      {%- assign discount_ratio = price_difference | divided_by: variant.compare_at_price -%}
-      {%- assign discount = discount_ratio | times: 100 | round -%}
-      {%- if discount > highest_discount -%}
-        {%- assign highest_discount = discount -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endif -%}
-
-
   {%- liquid
     assign ratio = 1
     if card_product.featured_media and media_aspect_ratio == 'portrait'
@@ -60,10 +40,6 @@
       assign ratio = 1
     endif
   -%}
-
-  {%- comment -%} then the wrapper div — add data-discount attr (default 0) {%- endcomment -%}
-<div class="card-wrapper product-card-wrapper underline-links-hover" data-discount="{{ highest_discount | default: 0 }}">
-  <!-- existing card markup continues unchanged -->
   
   <div class="card-wrapper product-card-wrapper underline-links-hover">
     <div

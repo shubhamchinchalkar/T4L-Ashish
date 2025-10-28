@@ -35,48 +35,6 @@
           {%- endif -%}
         {%- endif -%}
       {%- endif -%}
-
-      {%- comment -%} 
-        Discount quick-filter banners:
-        clicking adds ?discount=min-max to the current URL (collection URL),
-        JS listens for that param and filters client-side using product card data-discount. 
-      {%- endcomment -%}
-      <div class="collection-discount-banners" style="margin:1.25rem 0 0;">
-        <div class="page-width" style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a
-            href="?discount=0-25"
-            class="discount-banner"
-            data-range="0-25"
-            aria-label="Up to 25% off"
-            style="display:inline-flex; align-items:center; padding:10px 14px; border-radius:8px; text-decoration:none; background:#ffeceb; color:#b71919; font-weight:700;">
-            Up to 25% off
-          </a>
-          <a
-            href="?discount=26-35"
-            class="discount-banner"
-            data-range="26-35"
-            aria-label="Up to 35% off"
-            style="display:inline-flex; align-items:center; padding:10px 14px; border-radius:8px; text-decoration:none; background:#fff4e6; color:#b85a00; font-weight:700;">
-            Up to 35% off
-          </a>
-          <a
-            href="?discount=36-50"
-            class="discount-banner"
-            data-range="36-50"
-            aria-label="Up to 50% off"
-            style="display:inline-flex; align-items:center; padding:10px 14px; border-radius:8px; text-decoration:none; background:#e8fff0; color:#0b7a3f; font-weight:700;">
-            Up to 50% off
-          </a>
-          <a
-            href="?"
-            class="discount-banner-clear"
-            aria-label="Clear discount filter"
-            style="display:inline-flex; align-items:center; padding:10px 14px; border-radius:8px; text-decoration:none; border:1px solid #ddd; color:#333; font-weight:600;">
-            Clear filter
-          </a>
-        </div>
-      </div>
-      {# END DISCOUNT BANNERS #}
     </div>
 
     {%- if section.settings.show_collection_image and collection.image -%}
@@ -105,97 +63,17 @@
   document.addEventListener('DOMContentLoaded', () => {
     const readMoreButton = document.querySelector('.readmore-link');
     const description = document.querySelector('.collection-hero__description');
-    if (readMoreButton && description) {
-      readMoreButton.addEventListener('click', () => {
-        if (description.classList.contains('expanded')) {
-          description.classList.remove('expanded');
-          readMoreButton.textContent = 'Read more ▼';
-        } else {
-          description.classList.add('expanded');
-          readMoreButton.textContent = 'Read less ▲';
-        }
-      });
-    }
-  });
-</script>
-
-<script defer>
-  (function(){
-  function parseRangeParam() {
-    try {
-      var qp = new URLSearchParams(window.location.search);
-      var v = qp.get('discount');
-      if(!v) return null;
-      var parts = v.split('-');
-      if(parts.length !== 2) return null;
-      var min = parseInt(parts[0],10);
-      var max = parseInt(parts[1],10);
-      if(isNaN(min) || isNaN(max)) return null;
-      return {min: min, max: max};
-    } catch (e) {
-      return null;
-    }
-  }
   
-  function updateFiltering() {
-    var range = parseRangeParam();
-    var productCards = document.querySelectorAll('.card-wrapper.product-card-wrapper');
-    if(!productCards || productCards.length === 0) {
-      productCards = document.querySelectorAll('[data-discount]');
-    }
-  
-    if(!range) {
-      Array.prototype.forEach.call(productCards, function(card){
-        card.style.display = '';
-      });
-      return;
-    }
-  
-    Array.prototype.forEach.call(productCards, function(card){
-      var d = card.getAttribute('data-discount');
-      if(d === null) {
-        card.style.display = '';
-        return;
-      }
-      var disc = parseInt(d,10) || 0;
-      if(disc >= range.min && disc <= range.max) {
-        card.style.display = '';
+    readMoreButton.addEventListener('click', () => {
+      if (description.classList.contains('expanded')) {
+        description.classList.remove('expanded');
+        readMoreButton.textContent = 'Read more ▼';
       } else {
-        card.style.display = 'none';
+        description.classList.add('expanded');
+        readMoreButton.textContent = 'Read less ▲';
       }
     });
-  
-    var grid = document.querySelector('[data-section-type="main-collection-product-grid"], .collection-products, .product-grid, .grid');
-    if(grid) grid.scrollIntoView({behavior: 'smooth', block: 'start'});
-  }
-  
-  document.addEventListener('DOMContentLoaded', function(){
-    updateFiltering();
-  
-    var clearBtn = document.querySelector('.discount-banner-clear');
-    if(clearBtn) {
-      clearBtn.addEventListener('click', function(e){
-        e.preventDefault();
-        var base = window.location.protocol + '//' + window.location.host + window.location.pathname;
-        history.pushState({}, '', base);
-        updateFiltering();
-      });
-    }
-  
-    var productContainer = document.querySelector('main') || document.body;
-    if(productContainer && window.MutationObserver) {
-      var observer = new MutationObserver(function(mutations){
-        window.clearTimeout(window._discountFilterTimeout);
-        window._discountFilterTimeout = setTimeout(updateFiltering, 120);
-      });
-      observer.observe(productContainer, {childList: true, subtree: true});
-    }
   });
-  
-  window.addEventListener('popstate', function(){
-    setTimeout(updateFiltering, 50);
-  });
-  })();
 </script>
 
 {% schema %}
