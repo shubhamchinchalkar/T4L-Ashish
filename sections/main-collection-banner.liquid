@@ -1,6 +1,7 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
+
 {%- style -%}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
@@ -8,6 +9,7 @@
     }
   }
 {%- endstyle -%}
+
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -35,6 +37,55 @@
           {%- endif -%}
         {%- endif -%}
       {%- endif -%}
+
+      <!-- Discount quick filters (added) -->
+      <div
+        class="collection-discount-banners page-width"
+        aria-label="Discount quick filters"
+        style="margin-top:1.25rem;">
+        <div class="discount-banners-inner" style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button
+            class="discount-banner"
+            data-min="0"
+            data-max="25"
+            type="button"
+            aria-pressed="false"
+            title="Up to 25% off">
+            <div class="db-label">Save</div>
+            <div class="db-percent">Up to 25% off</div>
+          </button>
+
+          <button
+            class="discount-banner"
+            data-min="26"
+            data-max="35"
+            type="button"
+            aria-pressed="false"
+            title="26% to 35% off">
+            <div class="db-label">Save</div>
+            <div class="db-percent">26%–35% off</div>
+          </button>
+
+          <button
+            class="discount-banner"
+            data-min="36"
+            data-max="50"
+            type="button"
+            aria-pressed="false"
+            title="36% to 50% off">
+            <div class="db-label">Save</div>
+            <div class="db-percent">36%–50% off</div>
+          </button>
+
+          <button
+            id="discount-clear"
+            type="button"
+            style="display:none;margin-left:8px;"
+            aria-hidden="true">Clear discount</button>
+        </div>
+      </div>
+    <!-- /Discount quick filters -->
+
     </div>
 
     {%- if section.settings.show_collection_image and collection.image -%}
@@ -59,6 +110,7 @@
   </div>
 </div>
 
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const readMoreButton = document.querySelector('.readmore-link');
@@ -75,6 +127,7 @@
     });
   });
 </script>
+
 
 {% schema %}
   {
