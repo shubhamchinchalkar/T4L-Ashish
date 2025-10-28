@@ -56,55 +56,6 @@
           height="{{ collection.image.height }}">
       </div>
     {%- endif -%}
-
-    {%- comment -%} Discount quick-filter banners: show/hide products by discount percent {%- endcomment -%}
-    <div class="collection-discount-banners page-width">
-      <div class="collection-discount-banners__inner">
-        <button
-          type="button"
-          class="discount-banner"
-          data-min="0"
-          data-max="25"
-          aria-pressed="false">
-          <div class="discount-banner__label">Up to
-            <strong>25% off</strong>
-          </div>
-          <div class="discount-banner__sub">Show 0% – 25% off</div>
-        </button>
-
-        <button
-          type="button"
-          class="discount-banner"
-          data-min="26"
-          data-max="35"
-          aria-pressed="false">
-          <div class="discount-banner__label">Up to
-            <strong>35% off</strong>
-          </div>
-          <div class="discount-banner__sub">Show 26% – 35% off</div>
-        </button>
-
-        <button
-          type="button"
-          class="discount-banner"
-          data-min="36"
-          data-max="50"
-          aria-pressed="false">
-          <div class="discount-banner__label">Up to
-            <strong>50% off</strong>
-          </div>
-          <div class="discount-banner__sub">Show 36% – 50% off</div>
-        </button>
-
-        <button
-          type="button"
-          class="discount-banner discount-banner--clear"
-          data-clear="true"
-          aria-pressed="false">
-          Clear
-        </button>
-      </div>
-    </div>
   </div>
 </div>
 
