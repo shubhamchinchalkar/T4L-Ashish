@@ -591,11 +591,6 @@
     },
     "orders": {
       "buy_again": "Reorder"
-    },
-    "general": {
-  "wishlist": "Wishlist",
-  "add_to_wishlist": "Add to wishlist"
-}
-
+    }
   }
 }
