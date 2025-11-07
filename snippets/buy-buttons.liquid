@@ -63,17 +63,6 @@
             <span>{{ 'products.product.add_to_cart' | t }}</span>
           </button>
 
-          <!-- Wishlist button for product (added by Ashish) -->
-          <a
-            href="/pages/wishlist"
-            class="product-form__wishlist"
-            role="button"
-            aria-label="{{ 'general.add_to_wishlist' | t }}"
-            data-product-id="{{ product.id }}">
-            <span class="svg-wrapper">{{ 'icon-heart.svg' | inline_asset_content }}</span>
-            <span class="product-form__wishlist-label">{{ 'general.add_to_wishlist' | t }}</span>
-          </a>
-
           {%- if block.settings.show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
@@ -154,7 +143,7 @@
               id="ProductSubmitButton-{{ section_id }}"
               type="submit"
               name="add"
-              class="product-form__submit button button--full-width button--primary"
+              class="product-form__submit button button--full-width button--primary{%- comment -%}{% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}{%- endcomment -%}"
 
 
               {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout or product.selected_or_first_available_variant == null %}
@@ -171,18 +160,6 @@
               </span>
               {%- render 'loading-spinner' -%}
             </button>
-
-            <!-- Wishlist button for product (added by Ashish) -->
-            <a
-              href="/pages/wishlist"
-              class="product-form__wishlist"
-              role="button"
-              aria-label="{{ 'general.add_to_wishlist' | t }}"
-              data-product-id="{{ product.id }}">
-              <span class="svg-wrapper">{{ 'icon-heart.svg' | inline_asset_content }}</span>
-              <span class="product-form__wishlist-label">{{ 'general.add_to_wishlist' | t }}</span>
-            </a>
-
             {%- if show_dynamic_checkout -%}
               {{ form | payment_button }}
             {%- endif -%}

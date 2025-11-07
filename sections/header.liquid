@@ -2,8 +2,6 @@
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'component-wishlist.css' | asset_url }}" media="print" onload="this.media='all'">
-
 
 
 
@@ -348,12 +346,6 @@
           </div>
         {%- endif -%}
       </a>
-      <!-- Wishlist header icon (added by Ashish) -->
-<a href="/pages/wishlist" class="header__icon header__icon--wishlist link focus-inset" id="wishlist-header-icon" aria-label="{{ 'general.wishlist' | t }}">
-  <span class="svg-wrapper">{{ 'icon-heart.svg' | inline_asset_content }}</span>
-  <span class="visually-hidden">{{ 'general.wishlist' | t }}</span>
-</a>
-
     </div>
   </header>
                <!-- Mobile Search Bar --> 
