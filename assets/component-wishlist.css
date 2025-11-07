@@ -1,0 +1,60 @@
+/* assets/component-wishlist.css
+   Small, non-invasive styles for header wishlist icon and product wishlist button.
+   Safe and scoped: class names match markup added below.
+*/
+
+.header__icon--wishlist {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  margin-left: 0.5rem;
+}
+
+/* mimic cart bubble spacing if used */
+.header__icon--wishlist .svg-wrapper {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+/* product page button style — adapt to your theme classes if you want different styling */
+.product-form__wishlist {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  user-select: none;
+}
+
+.product-form__wishlist .svg-wrapper {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+/* Make sure wishlist button sits nicely near product-form submit */
+.product-form__buttons .product-form__wishlist {
+  margin-left: 0.8rem;
+}
+
+/* Small responsive tweak: on very small widths, stack or shrink */
+@media (max-width: 420px) {
+  .product-form__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .product-form__buttons .product-form__wishlist {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}

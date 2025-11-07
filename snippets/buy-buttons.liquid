@@ -1,14 +1,14 @@
-{% comment %}
+{% comment %} 
   Renders product buy-buttons.
-  Accepts:
-  - product: {Object} product object.
-  - block: {Object} passing the block information.
-  - product_form_id: {String} product form id.
-  - section_id: {String} id of section to which this snippet belongs.
+  Accepts: 
+  - product: {Object} product object. 
+  - block: {Object} passing the block information. 
+  - product_form_id: {String} product form id. 
+  - section_id: {String} id of section to which this snippet belongs. 
   - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
-
+ 
   Usage:
-  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
+  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %} 
 {% endcomment %}
 
 {% assign is_call_for_price = product.selected_or_first_available_variant.metafields.custom.call_to_enquire %}
@@ -28,37 +28,51 @@
 {% endif %}
 
 {% if is_call_for_price %}
-  {% render 'custom-product-availability', section_id: section_id, block: block, type: 'buy-buttons' %}
+  {% render 'custom-product-availability'
+    , section_id: section_id
+    , block: block
+    , type: 'buy-buttons' %}
 {% elsif is_parent_product %}
   <div {{ block.shopify_attributes }}>
-    <product-form
-      class="product-form"
-      data-section-id="{{ section.id }}"
-    >
-      {%- form 'product',
-        product,
-        id: product_form_id,
-        class: 'form',
-        novalidate: 'novalidate',
-        data-type: 'add-to-cart-form'
+    <product-form class="product-form" data-section-id="{{ section.id }}">
+      {%- form 'product'
+        ,
+ product
+        ,
+ id: product_form_id
+        ,
+ class: 'form'
+        ,
+ novalidate: 'novalidate'
+        ,
+ data-type: 'add-to-cart-form'
       -%}
         <input
           type="hidden"
           name="id"
           value="{{ product.selected_or_first_available_variant.id }}"
           disabled
-          class="product-variant-id"
-        >
+          class="product-variant-id">
         <div class="product-form__buttons">
           <p class="form__message" role="alert">Please select an option above first</p>
           <button
             type="submit"
             name="add"
             class="product-form__submit button button--full-width button--primary"
-            disabled
-          >
+            disabled>
             <span>{{ 'products.product.add_to_cart' | t }}</span>
           </button>
+
+          <!-- Wishlist button for product (added by Ashish) -->
+          <a
+            href="/pages/wishlist"
+            class="product-form__wishlist"
+            role="button"
+            aria-label="{{ 'general.add_to_wishlist' | t }}"
+            data-product-id="{{ product.id }}">
+            <span class="svg-wrapper">{{ 'icon-heart.svg' | inline_asset_content }}</span>
+            <span class="product-form__wishlist-label">{{ 'general.add_to_wishlist' | t }}</span>
+          </a>
 
           {%- if block.settings.show_dynamic_checkout -%}
             {{ form | payment_button }}
@@ -85,37 +99,45 @@
       <product-form
         class="product-form"
         data-hide-errors="{{ gift_card_recipient_feature_active }}"
-        data-section-id="{{ section.id }}"
-      >
-        <div class="product-form__error-message-wrapper" role="alert" hidden>
+        data-section-id="{{ section.id }}">
+        <div
+          class="product-form__error-message-wrapper"
+          role="alert"
+          hidden>
           <span class="svg-wrapper">
             {{- 'icon-error.svg' | inline_asset_content -}}
           </span>
           <span class="product-form__error-message"></span>
         </div>
 
-        {%- form 'product',
-          product,
-          id: product_form_id,
-          class: 'form',
-          novalidate: 'novalidate',
-          data-type: 'add-to-cart-form'
+        {%- form 'product'
+          ,
+ product
+          ,
+ id: product_form_id
+          ,
+ class: 'form'
+          ,
+ novalidate: 'novalidate'
+          ,
+ data-type: 'add-to-cart-form'
         -%}
           <input
             type="hidden"
             name="id"
             value="{{ product.selected_or_first_available_variant.id }}"
-            {% if product.selected_or_first_available_variant.available == false
-              or quantity_rule_soldout
-              or product.selected_or_first_available_variant == null
-            %}
-              disabled
+
+
+            {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout or product.selected_or_first_available_variant == null %}
+            disabled
             {% endif %}
-            class="product-variant-id"
-          >
+            class="product-variant-id">
 
           {%- if gift_card_recipient_feature_active -%}
-            {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+            {%- render 'gift-card-recipient-form'
+              , product: product
+              , form: form
+              , section: section -%}
           {%- endif -%}
 
           <div class="product-form__buttons">
@@ -132,14 +154,12 @@
               id="ProductSubmitButton-{{ section_id }}"
               type="submit"
               name="add"
-              class="product-form__submit button button--full-width button--primary{%- comment -%}{% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}{%- endcomment -%}"
-              {% if product.selected_or_first_available_variant.available == false
-                or quantity_rule_soldout
-                or product.selected_or_first_available_variant == null
-              %}
-                disabled
-              {% endif %}
-            >
+              class="product-form__submit button button--full-width button--primary"
+
+
+              {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout or product.selected_or_first_available_variant == null %}
+              disabled
+              {% endif %}>
               <span>
                 {%- if product.selected_or_first_available_variant == null -%}
                   {{ 'products.product.unavailable' | t }}
@@ -151,6 +171,18 @@
               </span>
               {%- render 'loading-spinner' -%}
             </button>
+
+            <!-- Wishlist button for product (added by Ashish) -->
+            <a
+              href="/pages/wishlist"
+              class="product-form__wishlist"
+              role="button"
+              aria-label="{{ 'general.add_to_wishlist' | t }}"
+              data-product-id="{{ product.id }}">
+              <span class="svg-wrapper">{{ 'icon-heart.svg' | inline_asset_content }}</span>
+              <span class="product-form__wishlist-label">{{ 'general.add_to_wishlist' | t }}</span>
+            </a>
+
             {%- if show_dynamic_checkout -%}
               {{ form | payment_button }}
             {%- endif -%}
@@ -164,8 +196,7 @@
             type="submit"
             name="add"
             class="product-form__submit button button--full-width button--primary"
-            disabled
-          >
+            disabled>
             {{ 'products.product.sold_out' | t }}
           </button>
         </div>
@@ -176,19 +207,18 @@
       {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
       {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
-        | where: 'pick_up_enabled', true
+ | where: 'pick_up_enabled', true
       -%}
 
       <pickup-availability
         class="product__pickup-availabilities quick-add-hidden"
         {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
-          available
+        available
         {% endif %}
         data-root-url="{{ routes.root_url }}"
         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
         data-has-only-default-variant="{{ product.has_only_default_variant }}"
-        data-product-page-color-scheme="gradient color-{{ section.settings.color_scheme }}"
-      >
+        data-product-page-color-scheme="gradient color-{{ section.settings.color_scheme }}">
         <template>
           <pickup-availability-preview class="pickup-availability-preview">
             <span class="svg-wrapper">
