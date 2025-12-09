@@ -420,30 +420,79 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Add Pulse + Glow to Sale & Offers button */
+      /* Premium Christmas Sale & Offers Button */
       .sale-offers-btn {
-        background-color: #fd1d1b !important;
-        color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 4px !important;
-        font-weight: 600 !important;
-        display: inline-block !important;
+        background: linear-gradient(135deg, #b80f2a, #0f5a2c) !important;
+        color: #ffffff !important;
+        padding: 10px 18px 10px 36px !important;
+        border-radius: 10px !important;
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        display: inline-flex !important;
+        align-items: center !important;
         text-decoration: none !important;
-        animation: pulseGlow 2s infinite ease-in-out !important;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        /* Clear clean border */
+
+        /* Glow animation */
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.6)
+        , 0 0 26px rgba(255, 0, 0, 0.5)
+        , 0 0 26px rgba(0, 255, 0, 0.5);
+        animation: premiumGlow 2.8s ease-in-out infinite;
       }
 
-      @keyframes pulseGlow {
+      /* Christmas Tree Icon */
+      .sale-offers-btn::before {
+        content: '🎄';
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #FFD700;
+      }
+
+      /* Clean falling snow */
+      .sale-offers-btn::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 2px, transparent 3px), radial-gradient(circle, rgba(255, 255, 255, 0.7) 1.6px, transparent 2.5px), radial-gradient(circle, rgba(255, 255, 255, 0.9) 1.4px, transparent 2px);
+        background-size: 60px 60px;
+        pointer-events: none;
+        opacity: 0.35;
+        animation: snowFall 6s linear infinite;
+      }
+
+      /* Snow animation */
+      @keyframes snowFall {
         0% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
-        }
-        50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 20px #fd1d1b;
+          transform: translateY(-40px);
         }
         100% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          transform: translateY(40px);
+        }
+      }
+
+      /* Premium Glow Effect */
+      @keyframes premiumGlow {
+        0% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.4)
+          , 0 0 14px rgba(255, 55, 55, 0.5)
+          , 0 0 14px rgba(0, 255, 100, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(255, 255, 255, 0.85)
+          , 0 0 26px rgba(255, 0, 0, 0.7)
+          , 0 0 26px rgba(0, 255, 0, 0.7)
+          , 0 0 40px rgba(255, 255, 255, 0.3);
+        }
+        100% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.4)
+          , 0 0 14px rgba(255, 55, 55, 0.5)
+          , 0 0 14px rgba(0, 255, 100, 0.5);
         }
       }
     </style>
