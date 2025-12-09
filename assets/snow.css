@@ -1,0 +1,56 @@
+/* assets/snow.css - namespaced to avoid collisions (ash-snow-*) */
+
+.ash-snow-overlay {
+  pointer-events: none;               /* allow clicks through to the search bar */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 50;                         /* sits above the input but below other important UI (adjust if needed) */
+}
+
+.ash-snow-flake {
+  position: absolute;
+  top: -2rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.9;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.05));
+  transform: translate3d(0,0,0);
+  animation-name: ash-snow-fall, ash-snow-wobble, ash-snow-fade;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* fall: translateY from -10% to 110% */
+@keyframes ash-snow-fall {
+  0%   { transform: translateY(-10vh) translateX(0); }
+  100% { transform: translateY(110vh) translateX(0); }
+}
+
+/* subtle horizontal wobble using translateX */
+@keyframes ash-snow-wobble {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(12px); }
+  100% { transform: translateX(-8px); }
+}
+
+/* fade slightly near the end */
+@keyframes ash-snow-fade {
+  0%   { opacity: 0.95; }
+  80%  { opacity: 0.95; }
+  100% { opacity: 0.2; }
+}
+
+/* small responsive tweaks */
+@media (max-width: 480px) {
+  .ash-snow-flake { width: 0.45rem; height: 0.45rem; }
+}
+
+/* optional: allow toggling the effect via body class */
+body.no-snow .ash-snow-overlay { display: none !important; }
