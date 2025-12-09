@@ -420,48 +420,35 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with falling snow and tree */
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
-        /* Deep red to forest green gradient */
         color: #fff !important;
-        /* White text for contrast */
         padding: 10px 16px 10px 30px !important;
-        /* Extra left padding for tree icon */
         border-radius: 8px !important;
-        /* Rounded corners for a festive look */
         font-weight: 700 !important;
-        /* Bold text */
         font-size: 14px !important;
-        /* Slightly smaller font for balance */
         display: inline-flex !important;
-        /* Flex to align tree and text */
         align-items: center !important;
-        /* Center content vertically */
         text-decoration: none !important;
         position: relative;
-        /* For snow and tree positioning */
         overflow: hidden !important;
-        /* Contain snow animation */
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
-        /* Soft static snowy glow */
+        animation: christmasGlow 2s ease-in-out infinite
+        , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon using pseudo-element */
+      /* Christmas tree icon */
       .sale-offers-btn::before {
         content: '🎄';
-        /* Unicode Christmas tree */
         position: absolute;
         left: 8px;
         top: 50%;
         transform: translateY(-50%);
         font-size: 16px;
-        /* Small tree size */
         color: #FFD700;
-        /* Gold for festive accent */
       }
 
-      /* Falling dendrite snow effect */
+      /* Falling snow */
       .sale-offers-btn::after {
         content: '';
         position: absolute;
@@ -471,14 +458,12 @@ body {
         height: 100%;
         background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
         background-size: 50px 50px;
-        /* Snow pattern size */
-        animation: snowFall 6s linear infinite !important;
-        /* Smooth falling snow */
+        animation: snowFall 6s linear infinite;
         opacity: 0.4;
-        /* Subtle snow visibility */
+        pointer-events: none;
       }
 
-      /* Snow falling animation */
+      /* Snowfall */
       @keyframes snowFall {
         0% {
           transform: translateY(-50px);
@@ -486,6 +471,35 @@ body {
         100% {
           transform: translateY(50px);
         }
+      }
+
+      /* Pulsing glow effect */
+      @keyframes christmasGlow {
+        0% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
+          , 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9)
+          , 0 0 30px rgba(255, 0, 0, 0.9)
+          , 0 0 40px rgba(0, 255, 0, 0.7);
+        }
+        100% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
+          , 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+      }
+
+      /* Blinking text */
+      @keyframes textBlink {
+        0,
+        100% {
+          color: #ffffff;
+        }
+        50% {
+          color: #fffa9c;
+        };
+        /* soft golden blink */
       }
     </style>
 
