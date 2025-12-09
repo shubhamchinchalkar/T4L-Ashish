@@ -1,0 +1,29 @@
+{%- comment -%}
+snippets/christmas-search.liquid
+Pure-CSS hat version (no external image)
+{%- endcomment -%}
+
+<div class="xmas-search-wrapper">
+  <form action="/search" method="get" role="search" class="xmas-search" aria-label="Search site">
+    <input
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="Browse 50,000+ products..."
+      aria-label="Search for products"
+      autocomplete="off"
+    />
+
+    <button type="submit" class="search-btn" aria-label="Search">
+      <!-- magnifier icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.505 4.505 0 0 1 9.5 14z"></path>
+      </svg>
+    </button>
+
+    <span class="visually-hidden">Search</span>
+
+    <!-- small white pom-pom element for the hat (CSS positioned) -->
+    <span class="hat-pom" aria-hidden="true"></span>
+  </form>
+</div>
