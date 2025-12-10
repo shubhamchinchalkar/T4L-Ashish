@@ -433,7 +433,6 @@ body {
         text-decoration: none !important;
         position: relative;
         overflow: visible !important;
-        /* allows hat outside */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
@@ -449,34 +448,44 @@ body {
         color: #FFD700;
       }
 
-      /* Santa Hat */
-      .sale-offers-btn .santa-hat {
+      /* Santa Hat (CSS ONLY — uses background-image) */
+      .sale-offers-btn::after {
+        content: "";
         position: absolute;
-        top: -20px;
-        /* distance above button */
+        top: -22px;
+        /* move above button */
         right: -18px;
-        /* distance outside right */
+        /* move outside button */
         width: 36px;
-        /* resized for perfect proportion */
-        height: auto;
-        pointer-events: none;
+        /* hat size */
+        height: 36px;
+        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
         transform: rotate(12deg);
         /* cute tilt */
+        pointer-events: none;
+        z-index: 5;
       }
 
-      /* Falling snow */
-      .sale-offers-btn::after {
-        content: '';
+      /* Falling snow overlay */
+      .sale-offers-btn .snow-layer {
+        pointer-events: none;
+      }
+
+      /* Snowfall animation layer (extra element so hat is not replaced) */
+      .sale-offers-btn span.snow {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        pointer-events: none;
         background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
         background-size: 50px 50px;
         animation: snowFall 6s linear infinite;
         opacity: 0.4;
-        pointer-events: none;
       }
 
       /* Snowfall */
@@ -489,7 +498,7 @@ body {
         }
       }
 
-      /* Pulsing glow effect */
+      /* Pulsing glow */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -517,13 +526,6 @@ body {
         }
       }
     </style>
-
-
-    <!-- HTML BUTTON -->
-    <a href="#" class="sale-offers-btn">
-      Sale & Offers
-      <img class="santa-hat" src="https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383" />
-    </a>
 
 
   </head>
