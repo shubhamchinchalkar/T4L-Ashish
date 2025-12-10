@@ -502,9 +502,23 @@ body {
         }
       }
 
-      /* ---------------------------------------------- */
-      /* MOBILE ONLY: Center the Sale & Offers Button   */
-      /* ---------------------------------------------- */@media (max-width: 767px) {
+      /* Tiny Santa cap positioned outside the top-right corner */
+      .sale-offers-btn .santa-hat {
+        position: absolute;
+        top: -12px;
+        /* slightly above the button */
+        right: -10px;
+        /* slightly outside the button */
+        font-size: 20px;
+        /* size of the santa cap */
+        pointer-events: none;
+        transform: rotate(15deg);
+        /* natural angle */
+        z-index: 10;
+      }
+
+      /* MOBILE ONLY: Center the Sale & Offers button */
+      @media (max-width: 767px) {
         .sale-offers-btn {
           margin-left: auto !important;
           margin-right: auto !important;
@@ -513,7 +527,7 @@ body {
           align-self: center !important;
         }
 
-        /* If wrapped in a container, center that too */
+        /* If wrapped in container */
         .sale-offers-btn-container,
         .sale-offers-btn-wrapper {
           width: 100% !important;
