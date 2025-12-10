@@ -420,8 +420,10 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
-      .sale-offers-btn {
+
+      /* ---------------------------------------------------- */
+      /* MAIN BUTTON STYLES                                   */
+      /* ---------------------------------------------------- */.sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
         color: #fff !important;
         padding: 10px 16px 10px 30px !important;
@@ -432,12 +434,12 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: hidden !important;
+        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon */
+      /* Christmas tree icon (kept as your ::before element) */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -448,8 +450,32 @@ body {
         color: #FFD700;
       }
 
-      /* Falling snow */
-      .sale-offers-btn::after {
+
+      /* ---------------------------------------------------- */
+      /* NEW – TINY SANTA HAT (USING ::after)                */
+      /* ---------------------------------------------------- */.sale-offers-btn::after {
+        content: '🎅';
+        position: absolute;
+        top: -14px;
+        /* above button */
+        right: -12px;
+        /* outside right edge */
+        font-size: 20px;
+        /* tiny santa cap */
+        transform: rotate(-20deg);
+        z-index: 5;
+        pointer-events: none;
+      }
+
+
+      /* ---------------------------------------------------- */
+      /* SNOWFALL MOVED TO WRAPPER (to free ::after)         */
+      /* ---------------------------------------------------- */.sale-offers-btn-wrapper {
+        display: inline-block;
+        position: relative;
+      }
+
+      .sale-offers-btn-wrapper::after {
         content: '';
         position: absolute;
         top: 0;
@@ -463,8 +489,10 @@ body {
         pointer-events: none;
       }
 
-      /* Snowfall animation */
-      @keyframes snowFall {
+
+      /* ---------------------------------------------------- */
+      /* ANIMATIONS                                           */
+      /* ---------------------------------------------------- */@keyframes snowFall {
         0% {
           transform: translateY(-50px);
         }
@@ -473,7 +501,6 @@ body {
         }
       }
 
-      /* Pulsing glow effect */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -490,7 +517,6 @@ body {
         }
       }
 
-      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -498,27 +524,19 @@ body {
         }
         50% {
           color: #fffa9c;
-          /* soft golden blink */
         }
       }
 
-      /* Tiny Santa cap positioned outside the top-right corner */
-      .sale-offers-btn .santa-hat {
-        position: absolute;
-        top: -12px;
-        /* slightly above the button */
-        right: -10px;
-        /* slightly outside the button */
-        font-size: 20px;
-        /* size of the santa cap */
-        pointer-events: none;
-        transform: rotate(15deg);
-        /* natural angle */
-        z-index: 10;
-      }
 
-      /* MOBILE ONLY: Center the Sale & Offers button */
-      @media (max-width: 767px) {
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
+        .sale-offers-btn-wrapper {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
+
         .sale-offers-btn {
           margin-left: auto !important;
           margin-right: auto !important;
@@ -526,15 +544,8 @@ body {
           justify-content: center !important;
           align-self: center !important;
         }
-
-        /* If wrapped in container */
-        .sale-offers-btn-container,
-        .sale-offers-btn-wrapper {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-        }
       }
+
     </style>
 
 
