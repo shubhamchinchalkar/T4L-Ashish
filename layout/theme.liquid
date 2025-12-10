@@ -437,7 +437,7 @@ body {
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon (left inside button) */
+      /* Christmas tree icon */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -448,7 +448,7 @@ body {
         color: #FFD700;
       }
 
-      /* SNOW layer */
+      /* Falling snow */
       .sale-offers-btn::after {
         content: '';
         position: absolute;
@@ -463,24 +463,6 @@ body {
         pointer-events: none;
       }
 
-      /* NEW: Santa Hat outside top-right corner */
-      .sale-offers-btn .santa-hat {
-        content: "";
-        position: absolute;
-        width: 22px;
-        height: 22px;
-        right: -8px;
-        /* sits slightly outside */
-        top: -10px;
-        /* sits above the button corner */
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-image: url('https://cdn-icons-png.flaticon.com/512/991/991922.png');
-        pointer-events: none;
-        z-index: 3;
-        transform: rotate(10deg);
-      }
-
       /* Snowfall animation */
       @keyframes snowFall {
         0% {
@@ -491,7 +473,7 @@ body {
         }
       }
 
-      /* Glow */
+      /* Pulsing glow effect */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -508,7 +490,7 @@ body {
         }
       }
 
-      /* Blink */
+      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -519,8 +501,9 @@ body {
         }
       }
 
-      /* MOBILE — center button */
-      @media (max-width: 767px) {
+      /* ------------------------------------------------------------ */
+      /* MOBILE ONLY: Center the Sale & Offers Button                 */
+      /* ------------------------------------------------------------ */@media (max-width: 767px) {
         .sale-offers-btn {
           margin-left: auto !important;
           margin-right: auto !important;
@@ -528,8 +511,40 @@ body {
           justify-content: center !important;
           align-self: center !important;
         }
+
+        .sale-offers-btn-wrapper {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
       }
 
+      /* ------------------------------------------------------------ */
+      /* SANTA HAT (outside top-right corner of button)               */
+      /* ------------------------------------------------------------ */
+
+      /* Wrapper must be positioned relative */.sale-offers-btn-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Santa hat */
+      .sale-offers-btn-wrapper::after {
+        content: "";
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        top: -12px;
+        /* Above button corner */
+        right: -12px;
+        /* Outside button */
+        background-image: url('https://cdn-icons-png.flaticon.com/512/991/991922.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: 50;
+        pointer-events: none;
+        transform: rotate(12deg);
+      }
     </style>
 
 
