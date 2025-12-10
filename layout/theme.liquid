@@ -420,7 +420,7 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Main button (your original code – unchanged) */
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
         color: #fff !important;
@@ -449,9 +449,28 @@ body {
         color: #FFD700;
       }
 
-      /* Falling snow */
+      /* SANTA HAT placed on top-right */
       .sale-offers-btn::after {
-        content: '';
+        content: "";
+        position: absolute;
+        width: 32px;
+        /* adjust size */
+        height: 32px;
+        /* adjust size */
+        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
+        background-size: contain;
+        background-repeat: no-repeat;
+        top: -20px;
+        /* adjust vertical position */
+        right: -10px;
+        /* adjust horizontal position */
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      /* Snowfall overlay */
+      .snow-layer {
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -462,60 +481,10 @@ body {
         animation: snowFall 6s linear infinite;
         opacity: 0.4;
         pointer-events: none;
+        z-index: 2;
       }
 
-      /* SANTA HAT USING PURE CSS */
-      .santa-hat {
-        position: absolute;
-        top: -22px;
-        right: -10px;
-        width: 32px;
-        height: 22px;
-        transform: rotate(18deg);
-        z-index: 20;
-      }
-
-      /* Red triangle */
-      .santa-hat::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 0;
-        height: 0;
-        border-left: 16px solid transparent;
-        border-right: 16px solid transparent;
-        border-bottom: 26px solid #d6001c;
-        /* red part */
-        border-radius: 4px;
-      }
-
-      /* White fluffy base */
-      .santa-hat::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: -2px;
-        width: 36px;
-        height: 10px;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
-      }
-
-      /* White ball (extra element for best shape) */
-      .santa-hat .ball {
-        position: absolute;
-        bottom: 18px;
-        right: -6px;
-        width: 10px;
-        height: 10px;
-        background: #fff;
-        border-radius: 50%;
-        box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-      }
-
-      /* Snowfall animation */
+      /* Snowfall */
       @keyframes snowFall {
         0% {
           transform: translateY(-50px);
@@ -525,7 +494,7 @@ body {
         }
       }
 
-      /* Glow */
+      /* Pulsing glow effect */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -542,7 +511,7 @@ body {
         }
       }
 
-      /* Blinking */
+      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -550,8 +519,10 @@ body {
         }
         50% {
           color: #fffa9c;
-        }
+        };
+        /* soft golden blink */
       }
+
     </style>
 
 
