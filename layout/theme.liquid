@@ -420,31 +420,86 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Add Pulse + Glow to Sale & Offers button */
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
-        background-color: #fd1d1b !important;
+        background: linear-gradient(135deg, #a30820, #154734) !important;
         color: #fff !important;
-        padding: 8px 14px !important;
-        border-radius: 4px !important;
-        font-weight: 600 !important;
-        display: inline-block !important;
+        padding: 10px 16px 10px 30px !important;
+        border-radius: 8px !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        display: inline-flex !important;
+        align-items: center !important;
         text-decoration: none !important;
-        animation: pulseGlow 2s infinite ease-in-out !important;
+        position: relative;
+        overflow: hidden !important;
+        animation: christmasGlow 2s ease-in-out infinite
+        , textBlink 1.8s ease-in-out infinite;
       }
 
-      @keyframes pulseGlow {
+      /* Christmas tree icon */
+      .sale-offers-btn::before {
+        content: '🎄';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: #FFD700;
+      }
+
+      /* Falling snow */
+      .sale-offers-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
+        background-size: 50px 50px;
+        animation: snowFall 6s linear infinite;
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      /* Snowfall */
+      @keyframes snowFall {
         0% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
-        }
-        50% {
-          transform: scale(1.08);
-          box-shadow: 0 0 20px #fd1d1b;
+          transform: translateY(-50px);
         }
         100% {
-          transform: scale(1);
-          box-shadow: 0 0 5px #fd1d1b;
+          transform: translateY(50px);
         }
+      }
+
+      /* Pulsing glow effect */
+      @keyframes christmasGlow {
+        0% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
+          , 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+        50% {
+          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9)
+          , 0 0 30px rgba(255, 0, 0, 0.9)
+          , 0 0 40px rgba(0, 255, 0, 0.7);
+        }
+        100% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
+          , 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+      }
+
+      /* Blinking text */
+      @keyframes textBlink {
+        0,
+        100% {
+          color: #ffffff;
+        }
+        50% {
+          color: #fffa9c;
+        };
+        /* soft golden blink */
       }
     </style>
 
