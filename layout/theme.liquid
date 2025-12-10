@@ -420,131 +420,104 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
+
+
+      /*
+   ============================================ 
+   Christmas Sale & Offers Button 
+   Gradient + Glow + Pulse + Snowfall + Santa Hat 
+   ============================================
+*/
+
       .sale-offers-btn {
-        background: linear-gradient(135deg, #a30820, #154734) !important;
+        position: relative;
+        background: linear-gradient(135deg, #c41e3a 0%, #228b22 100%);
         color: #fff !important;
-        padding: 10px 16px 10px 30px !important;
-        border-radius: 8px !important;
-        font-weight: 700 !important;
-        font-size: 14px !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        text-decoration: none !important;
-        position: relative;
-        overflow: hidden !important;
-        animation: christmasGlow 2s ease-in-out infinite
-        , textBlink 1.8s ease-in-out infinite;
-      }
-
-      /* Christmas tree icon */
-      .sale-offers-btn::before {
-        content: '🎄';
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 16px;
-        color: #FFD700;
-      }
-
-      /* Falling snow */
-      .sale-offers-btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
-        background-size: 50px 50px;
-        animation: snowFall 6s linear infinite;
-        opacity: 0.4;
-        pointer-events: none;
-      }
-
-      /* Snowfall animation */
-      @keyframes snowFall {
-        0% {
-          transform: translateY(-50px);
-        }
-        100% {
-          transform: translateY(50px);
-        }
-      }
-
-      /* Pulsing glow effect */
-      @keyframes christmasGlow {
-        0% {
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
-          , 0 0 20px rgba(255, 0, 0, 0.6);
-        }
-        50% {
-          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9)
-          , 0 0 30px rgba(255, 0, 0, 0.9)
-          , 0 0 40px rgba(0, 255, 0, 0.7);
-        }
-        100% {
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
-          , 0 0 20px rgba(255, 0, 0, 0.6);
-        }
-      }
-
-      /* Blinking text */
-      @keyframes textBlink {
-        0,
-        100% {
-          color: #ffffff;
-        }
-        50% {
-          color: #fffa9c;
-        }
-      }
-
-      /* ------------------------------------------------------------ */
-      /* MOBILE ONLY: Center the Sale & Offers Button                 */
-      /* ------------------------------------------------------------ */@media (max-width: 767px) {
-        .sale-offers-btn {
-          margin-left: auto !important;
-          margin-right: auto !important;
-          display: flex !important;
-          justify-content: center !important;
-          align-self: center !important;
-        }
-
-        .sale-offers-btn-wrapper {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-        }
-      }
-
-      /* ------------------------------------------------------------ */
-      /* SANTA HAT (outside top-right corner of button)               */
-      /* ------------------------------------------------------------ */
-
-      /* Wrapper must be positioned relative */.sale-offers-btn-wrapper {
-        position: relative;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-weight: 700;
         display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+        animation: pulseGlow 2.2s infinite ease-in-out;
+        overflow: visible;
+        /* REQUIRED for the hat to appear outside */
       }
 
-      /* Santa hat */
-      .sale-offers-btn-wrapper::after {
+      /* Glow + pulse effect */
+      @keyframes pulseGlow {
+        0% {
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+          transform: scale(1);
+        }
+        50% {
+          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9);
+          transform: scale(1.05);
+        }
+        100% {
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+          transform: scale(1);
+        }
+      }
+
+      /* Hover lift */
+      .sale-offers-btn:hover {
+        transform: scale(1.06);
+      }
+
+
+      /*
+   ============================================ 
+   Santa Hat on the Top-Right Corner 
+   ============================================
+*/
+      .sale-offers-btn::after {
         content: "";
         position: absolute;
-        width: 26px;
-        height: 26px;
-        top: -12px;
-        /* Above button corner */
+        top: -14px;
+        /* move hat up */
         right: -12px;
-        /* Outside button */
-        background-image: url('https://cdn-icons-png.flaticon.com/512/991/991922.png');
+        /* move hat right */
+        width: 34px;
+        height: 34px;
+        background-image: url("https://cdn-icons-png.flaticon.com/512/990/990478.png");
         background-size: contain;
         background-repeat: no-repeat;
-        z-index: 50;
         pointer-events: none;
-        transform: rotate(12deg);
+        z-index: 10;
       }
+
+
+      /*
+   ============================================ 
+   Falling Snow Effect 
+   ============================================
+*/
+      .sale-offers-btn::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: 0;
+        width: 100%;
+        height: 200%;
+        pointer-events: none;
+        background-image: url("https://i.ibb.co/7Wt9Vcp/snowfall.png");
+        background-size: cover;
+        opacity: 0.65;
+        animation: snowfall 4s linear infinite;
+        z-index: 5;
+      }
+
+      @keyframes snowfall {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 0 140px;
+        }
+      }
+
     </style>
 
 
