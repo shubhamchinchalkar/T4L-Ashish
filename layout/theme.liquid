@@ -448,19 +448,6 @@ body {
         color: #FFD700;
       }
 
-      /* Santa hat outside the button (top-right) */
-      .sale-offers-btn .santa-hat {
-        content: '🎅';
-        position: absolute;
-        right: -12px;
-        top: -18px;
-        font-size: 22px;
-        transform: rotate(20deg);
-        pointer-events: none;
-        /* Prevents blocking clicks */
-        z-index: 5;
-      }
-
       /* Falling snow */
       .sale-offers-btn::after {
         content: '';
@@ -476,6 +463,7 @@ body {
         pointer-events: none;
       }
 
+      /* Snowfall */
       @keyframes snowFall {
         0% {
           transform: translateY(-50px);
@@ -485,6 +473,7 @@ body {
         }
       }
 
+      /* Pulsing glow effect */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -501,6 +490,7 @@ body {
         }
       }
 
+      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -508,25 +498,8 @@ body {
         }
         50% {
           color: #fffa9c;
-        }
-      }
-
-      /* Mobile: Center the button */
-      @media (max-width: 767px) {
-        .sale-offers-btn {
-          margin-left: auto !important;
-          margin-right: auto !important;
-          display: flex !important;
-          justify-content: center !important;
-          align-self: center !important;
-        }
-
-        .sale-offers-btn-container,
-        .sale-offers-btn-wrapper {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-        }
+        };
+        /* soft golden blink */
       }
     </style>
 
