@@ -419,9 +419,13 @@ body {
     </script>
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
+    Santa hatt
+
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
-      .sale-offers-btn {
+
+      /* ---------------------------------------------------- */
+      /* MAIN BUTTON STYLES                                   */
+      /* ---------------------------------------------------- */.sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
         color: #fff !important;
         padding: 10px 16px 10px 30px !important;
@@ -432,13 +436,12 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: hidden !important;
-        /* keep crystal snow inside */
+        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon */
+      /* Christmas tree icon (kept as your ::before element) */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -449,67 +452,49 @@ body {
         color: #FFD700;
       }
 
-      /* Santa Hat (CSS ONLY — uses background-image) */
-      .sale-offers-btn::after {
-        content: "";
+
+      /* ---------------------------------------------------- */
+      /* NEW – TINY SANTA HAT (USING ::after)                */
+      /* ---------------------------------------------------- */.sale-offers-btn::after {
+        content: '🎅';
         position: absolute;
-        top: -22px;
-        right: -18px;
-        width: 36px;
-        height: 36px;
-        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        transform: rotate(12deg);
-        pointer-events: none;
+        top: -14px;
+        /* above button */
+        right: -12px;
+        /* outside right edge */
+        font-size: 20px;
+        /* tiny santa cap */
+        transform: rotate(-20deg);
         z-index: 5;
+        pointer-events: none;
       }
 
-      /* Existing soft snowflake layer */
-      .sale-offers-btn span.snow {
+
+      /* ---------------------------------------------------- */
+      /* SNOWFALL MOVED TO WRAPPER (to free ::after)         */
+      /* ---------------------------------------------------- */.sale-offers-btn-wrapper {
+        display: inline-block;
+        position: relative;
+      }
+
+      .sale-offers-btn-wrapper::after {
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        pointer-events: none;
         background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
         background-size: 50px 50px;
         animation: snowFall 6s linear infinite;
         opacity: 0.4;
-      }
-
-      /* ❄️ New Crystal Snowflakes */
-      .sale-offers-btn span.crystal-snow {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        width: 100%;
-        height: 150%;
         pointer-events: none;
-        background: radial-gradient(circle, #ffffff 2px, transparent 3px), radial-gradient(circle, #c9f2ff 1.5px, transparent 3px), radial-gradient(circle, #e4ffff 2px, transparent 3px), radial-gradient(circle, #ffffff 1.8px, transparent 3px), radial-gradient(circle, #d9f9ff 2px, transparent 3px);
-        background-size: 60px 60px;
-        animation: crystalSnowFall 4.5s linear infinite;
-        opacity: 0.9;
-        mix-blend-mode: screen;
-        z-index: 2;
       }
 
-      /* Crystal Snow Falling Animation */
-      @keyframes crystalSnowFall {
-        0% {
-          transform: translateY(-60px);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(60px);
-          opacity: 1;
-        }
-      }
 
-      /* Snowfall */
-      @keyframes snowFall {
+      /* ---------------------------------------------------- */
+      /* ANIMATIONS                                           */
+      /* ---------------------------------------------------- */@keyframes snowFall {
         0% {
           transform: translateY(-50px);
         }
@@ -518,7 +503,6 @@ body {
         }
       }
 
-      /* Pulsing glow */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -535,7 +519,6 @@ body {
         }
       }
 
-      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -545,6 +528,26 @@ body {
           color: #fffa9c;
         }
       }
+
+
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
+        .sale-offers-btn-wrapper {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
+
+        .sale-offers-btn {
+          margin-left: auto !important;
+          margin-right: auto !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-self: center !important;
+        }
+      }
+
     </style>
 
 
