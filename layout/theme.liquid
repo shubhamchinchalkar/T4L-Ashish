@@ -433,7 +433,7 @@ body {
         text-decoration: none !important;
         position: relative;
         overflow: visible !important;
-        /* allow hat outside */
+        /* allows hat outside */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
@@ -449,28 +449,24 @@ body {
         color: #FFD700;
       }
 
-      /* SANTA HAT placed on top-right */
-      .sale-offers-btn::after {
-        content: "";
+      /* Santa Hat */
+      .sale-offers-btn .santa-hat {
         position: absolute;
-        width: 32px;
-        /* adjust size */
-        height: 32px;
-        /* adjust size */
-        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
-        background-size: contain;
-        background-repeat: no-repeat;
         top: -20px;
-        /* adjust vertical position */
-        right: -10px;
-        /* adjust horizontal position */
-        z-index: 5;
+        /* distance above button */
+        right: -18px;
+        /* distance outside right */
+        width: 36px;
+        /* resized for perfect proportion */
+        height: auto;
         pointer-events: none;
+        transform: rotate(12deg);
+        /* cute tilt */
       }
 
-      /* Snowfall overlay */
-      .snow-layer {
-        content: "";
+      /* Falling snow */
+      .sale-offers-btn::after {
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -481,7 +477,6 @@ body {
         animation: snowFall 6s linear infinite;
         opacity: 0.4;
         pointer-events: none;
-        z-index: 2;
       }
 
       /* Snowfall */
@@ -519,11 +514,16 @@ body {
         }
         50% {
           color: #fffa9c;
-        };
-        /* soft golden blink */
+        }
       }
-
     </style>
+
+
+    <!-- HTML BUTTON -->
+    <a href="#" class="sale-offers-btn">
+      Sale & Offers
+      <img class="santa-hat" src="https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383" />
+    </a>
 
 
   </head>
