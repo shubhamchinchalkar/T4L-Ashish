@@ -437,7 +437,7 @@ body {
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon */
+      /* Christmas tree icon (left inside button) */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -448,20 +448,7 @@ body {
         color: #FFD700;
       }
 
-      /* Santa hat outside the button (top-right) */
-      .sale-offers-btn .santa-hat {
-        content: '🎅';
-        position: absolute;
-        right: -12px;
-        top: -18px;
-        font-size: 22px;
-        transform: rotate(20deg);
-        pointer-events: none;
-        /* Prevents blocking clicks */
-        z-index: 5;
-      }
-
-      /* Falling snow */
+      /* SNOW layer */
       .sale-offers-btn::after {
         content: '';
         position: absolute;
@@ -476,6 +463,25 @@ body {
         pointer-events: none;
       }
 
+      /* NEW: Santa Hat outside top-right corner */
+      .sale-offers-btn .santa-hat {
+        content: "";
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        right: -8px;
+        /* sits slightly outside */
+        top: -10px;
+        /* sits above the button corner */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url('https://cdn-icons-png.flaticon.com/512/991/991922.png');
+        pointer-events: none;
+        z-index: 3;
+        transform: rotate(10deg);
+      }
+
+      /* Snowfall animation */
       @keyframes snowFall {
         0% {
           transform: translateY(-50px);
@@ -485,6 +491,7 @@ body {
         }
       }
 
+      /* Glow */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -501,6 +508,7 @@ body {
         }
       }
 
+      /* Blink */
       @keyframes textBlink {
         0,
         100% {
@@ -511,7 +519,7 @@ body {
         }
       }
 
-      /* Mobile: Center the button */
+      /* MOBILE — center button */
       @media (max-width: 767px) {
         .sale-offers-btn {
           margin-left: auto !important;
@@ -520,14 +528,8 @@ body {
           justify-content: center !important;
           align-self: center !important;
         }
-
-        .sale-offers-btn-container,
-        .sale-offers-btn-wrapper {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-        }
       }
+
     </style>
 
 
