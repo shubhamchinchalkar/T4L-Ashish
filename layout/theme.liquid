@@ -432,7 +432,8 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
+        overflow: hidden !important;
+        /* keep crystal snow inside */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
@@ -453,28 +454,19 @@ body {
         content: "";
         position: absolute;
         top: -22px;
-        /* move above button */
         right: -18px;
-        /* move outside button */
         width: 36px;
-        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        /* cute tilt */
         pointer-events: none;
         z-index: 5;
       }
 
-      /* Falling snow overlay */
-      .sale-offers-btn .snow-layer {
-        pointer-events: none;
-      }
-
-      /* Snowfall animation layer (extra element so hat is not replaced) */
+      /* Existing soft snowflake layer */
       .sale-offers-btn span.snow {
         position: absolute;
         top: 0;
@@ -486,6 +478,34 @@ body {
         background-size: 50px 50px;
         animation: snowFall 6s linear infinite;
         opacity: 0.4;
+      }
+
+      /* ❄️ New Crystal Snowflakes */
+      .sale-offers-btn span.crystal-snow {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        width: 100%;
+        height: 150%;
+        pointer-events: none;
+        background: radial-gradient(circle, #ffffff 2px, transparent 3px), radial-gradient(circle, #c9f2ff 1.5px, transparent 3px), radial-gradient(circle, #e4ffff 2px, transparent 3px), radial-gradient(circle, #ffffff 1.8px, transparent 3px), radial-gradient(circle, #d9f9ff 2px, transparent 3px);
+        background-size: 60px 60px;
+        animation: crystalSnowFall 4.5s linear infinite;
+        opacity: 0.9;
+        mix-blend-mode: screen;
+        z-index: 2;
+      }
+
+      /* Crystal Snow Falling Animation */
+      @keyframes crystalSnowFall {
+        0% {
+          transform: translateY(-60px);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(60px);
+          opacity: 1;
+        }
       }
 
       /* Snowfall */
