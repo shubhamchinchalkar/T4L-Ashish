@@ -421,9 +421,9 @@ body {
 
 
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
+      /* Christmas-themed Sale & Offers button with glow + blinking */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #f1193a, #17573e) !important;
+        background: linear-gradient(135deg, #f0405b, #1a6347) !important;
         color: #fff !important;
         padding: 10px 16px 10px 30px !important;
         border-radius: 8px !important;
@@ -464,84 +464,6 @@ body {
         transform: rotate(12deg);
         pointer-events: none;
         z-index: 5;
-      }
-
-      /* Snowfall animation layer */
-      .sale-offers-btn span.snow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
-        background-size: 50px 50px;
-        animation: snowFall 6s linear infinite;
-        opacity: 0.4;
-      }
-
-      /* Crystal Snowflakes – INSIDE the button */
-      .sale-offers-btn span.crystal-snow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 3;
-        /* below button text, above background */
-
-        background-image: radial-gradient(circle, rgba(255,255,255,0.95) 0px, transparent 4px), radial-gradient(circle, rgba(255, 255, 255, 0.85) 0px, transparent 4px), radial-gradient(circle, rgba(255, 255, 255, 0.75) 0px, transparent 4px);
-
-        background-size: 12px 12px
-        , 16px 16px
-        , 20px 20px;
-
-        background-position: 10% -20px
-        , 50% -30px
-        , 80% -40px;
-
-        animation: crystalSnowFall 7s linear infinite
-        , crystalSnowDrift 4s ease-in-out infinite;
-        opacity: 0.55;
-      }
-
-      /* Snowfall */
-      @keyframes snowFall {
-        0% {
-          transform: translateY(-50px);
-        }
-        100% {
-          transform: translateY(50px);
-        }
-      }
-
-      /* Crystal snow vertical fall */
-      @keyframes crystalSnowFall {
-        0% {
-          background-position: 10% -30px
-          , 50% -40px
-          , 80% -50px;
-        }
-        100% {
-          background-position: 10% 110%
-          , 50% 120%
-          , 80% 130%;
-        }
-      }
-
-      /* Crystal snow subtle left-right drift */
-      @keyframes crystalSnowDrift {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(6px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
       }
 
       /* Pulsing glow */
