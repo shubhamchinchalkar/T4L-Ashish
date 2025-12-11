@@ -4,7 +4,7 @@
   top: -20px;
   right: -1px;
   pointer-events: none;
-  z-index: 999999;
+  z-index: 9999;
 }
 
 .snow-overlay-container img {
@@ -16,12 +16,12 @@
 @media (max-width: 768px) {
 
   .snow-overlay-container {
-    top: -4px !important;
+    top: -6px !important;
     right: 6px !important;
-    z-index: 999999 !important;
+    z-index: 9999 !important;
   }
 
   .snow-overlay-container img {
-    width: 80px !important;
+    width: 90px !important;
   }
 }
