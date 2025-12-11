@@ -420,11 +420,11 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
+      /* ---- MAIN BUTTON ------------------------------------------------ */
       .sale-offers-btn {
         background: linear-gradient(135deg, #ec2442, #169c69) !important;
         color: #fff !important;
-        padding: 10px 16px 10px 30px !important;
+        padding: 10px 20px 10px 40px !important;
         border-radius: 8px !important;
         font-weight: 700 !important;
         font-size: 14px !important;
@@ -432,45 +432,113 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
+        overflow: visible !important;
+        /* keep hat visible */
       }
 
-      /* Christmas tree icon */
+      /* inner wrapper to ensure layout padding stays consistent */
+      .sale-btn-inner {
+        display: inline-block;
+        width: 100%;
+      }
+
+      /* ---- SNOW AREA (THIS KEEPS SNOW INSIDE THE BUTTON) ---------------- */
+      .snow-area {
+        display: inline-block;
+        position: relative;
+        overflow: hidden !important;
+        /* CRITICAL: clamps snow inside button */
+        padding: 0 6px;
+        /* little inner padding so snow doesn't touch edges */
+        z-index: 5;
+      }
+
+      /* snowflake visuals inside the snow-area only */
+      .snow-area .snowflake {
+        position: absolute;
+        top: -24px;
+        color: #ffffff;
+        font-size: 12px;
+        opacity: 0.95;
+        pointer-events: none;
+        animation: snowInside linear infinite;
+        filter: drop-shadow(0 0 2px rgba(255,255,255,0.85));
+        z-index: 6;
+      }
+
+      /* spread snow across the width — nth-child controls left/start */
+      .snow-area .snowflake:nth-of-type(1) {
+        left: 8%;
+        animation-duration: 3.2s;
+        animation-delay: 0s;
+      }
+      .snow-area .snowflake:nth-of-type(2) {
+        left: 26%;
+        animation-duration: 3.8s;
+        animation-delay: 0.25s;
+      }
+      .snow-area .snowflake:nth-of-type(3) {
+        left: 44%;
+        animation-duration: 3.0s;
+        animation-delay: 0.5s;
+      }
+      .snow-area .snowflake:nth-of-type(4) {
+        left: 62%;
+        animation-duration: 3.6s;
+        animation-delay: 0.75s;
+      }
+      .snow-area .snowflake:nth-of-type(5) {
+        left: 84%;
+        animation-duration: 4.0s;
+        animation-delay: 1s;
+      }
+
+      /* falling motion */
+      @keyframes snowInside {
+        0% {
+          transform: translateY(-28px) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        60% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(48px) rotate(150deg) scale(0.9);
+          opacity: 0;
+        }
+      }
+
+      /* ---- CHRISTMAS TREE ICON (LEFT) -------------------------------- */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
-        left: 8px;
+        left: 10px;
         top: 50%;
         transform: translateY(-50%);
         font-size: 16px;
-        color: #FFD700;
+        z-index: 10;
       }
 
-      /* Santa Hat (CSS ONLY — uses background-image) */
+      /* ---- SANTA HAT (OUTSIDE THE BUTTON, VISIBLE) --------------------- */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
-        top: -16px;
-        /* move above button */
-        right: -23px;
-        /* move outside button */
+        top: -20px !important;
+        right: -25px !important;
         width: 36px;
-        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        /* cute tilt */
         pointer-events: none;
-        z-index: 5;
+        z-index: 9999 !important;
       }
 
-
-      /* Pulsing glow */
+      /* ---- GLOW & BLINK ------------------------------------------------ */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -486,8 +554,6 @@ body {
           , 0 0 20px rgba(255, 0, 0, 0.6);
         }
       }
-
-      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -498,23 +564,30 @@ body {
         }
       }
 
-      /* ---------------------------------------------------- */
-      /* MOBILE ONLY: Center button on small screens         */
-      /* ---------------------------------------------------- */@media (max-width: 767px) {
-        .sale-offers-btn-wrapper {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-        }
-
+      /* ---- MOBILE CENTRE (if needed) ---------------------------------- */
+      @media (max-width: 767px) {
         .sale-offers-btn {
-          margin-left: auto !important;
-          margin-right: auto !important;
-          display: flex !important;
-          justify-content: center !important;
-          align-self: center !important;
+          margin: 8px 0;
+        }
+        .snow-area {
+          padding: 0 8px;
         }
       }
+
+      /* ---- OPTIONAL: Change button position (adjust values below) ----- */
+      /* Move the button right/left/up/down by changing margin values. */.sale-offers-btn {
+        margin-left: 20px;
+        /* move right — change number as needed */
+        margin-top: 2px;
+        /* move down — use negative to move up */
+      }
+
+
+      /*
+   If you want to absolutely position it inside header, you can use: 
+   .sale-offers-btn { position: absolute; right: 24px; top: 12px; } 
+   Be careful: that can overlap other elements — only use if you're comfortable.
+*/
 
     </style>
 
