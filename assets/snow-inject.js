@@ -2,7 +2,7 @@
 
 (function(){
 
-  var SNOW_IMAGE = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Untitled-4.png?v=1765455277";
+  var SNOW_IMAGE = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Snow.png?v=1765459385";
 
   var selectors = [
     'form[action="/search"]',
