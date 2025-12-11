@@ -1,8 +1,8 @@
 {% comment %} 
-      Renders a standard dropdown style menu for the header.
-     
-      Usage:
-      {% render 'header-dropdown-menu' %} 
+        Renders a standard dropdown style menu for the header.
+       
+        Usage:
+        {% render 'header-dropdown-menu' %} 
 {% endcomment %}
 
 {%- comment -%} Prevent duplicate if merchant already added a menu item named "Sale & Offers" {%- endcomment -%}
@@ -94,7 +94,7 @@
 
       {%- assign _link_title = link.title | strip | downcase -%}
       {%- if sale_offers_enabled and _link_title == 'accessories' -%}
-        <li class="list-menu__item">
+        <li class="list-menu__item sale-offers-escape-wrapper">
           <div class="sale-offers-btn-wrapper">
             <a
               href="/collections/on-sale"
@@ -102,7 +102,7 @@
               title="Sale & Offers">
               Sale & Offers
 
-              <!-- Snowflake elements (keep these inside the anchor) -->
+              <!-- Snowflake elements (inside the anchor) -->
               <span class="snowflake flake1">❄</span>
               <span class="snowflake flake2">❅</span>
               <span class="snowflake flake3">❆</span>
@@ -111,7 +111,6 @@
             </a>
           </div>
         </li>
-
       {%- endif -%}
 
 
