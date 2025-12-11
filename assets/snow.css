@@ -13,16 +13,27 @@
 }
 
 /* --- MOBILE SNOW POSITION & SIZE (ONLY FOR MOBILE) --- */
+/* Add space on top so snow becomes visible on mobile */
 @media (max-width: 768px) {
-
-  .snow-overlay-container {
-    top: -10px;     /* adjust for mobile */
-    right: -2px;    /* adjust for mobile */
-  }
-
-  .snow-overlay-container img {
-    width: 120px;   /* bigger for mobile visibility */
-    height: auto;
+  form[action="/search"],
+  .search-bar,
+  .search,
+  .search-form,
+  #SearchForm {
+    padding-top: 20px !important;  /* adjust if needed */
   }
 }
 
+/* Mobile snow size + position */
+@media (max-width: 768px) {
+
+  .snow-overlay-container {
+    top: -2px;     /* closer to top, so it shows */
+    right: 6px;    /* adjust if needed */
+  }
+
+  .snow-overlay-container img {
+    width: 100px;   /* perfect size for mobile */
+    height: auto;
+  }
+}
