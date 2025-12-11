@@ -3,7 +3,7 @@
 .snow-overlay-container {
   position: absolute;
   top: -20px;        /* adjust up/down */
-  right: -8px;      /* adjust left/right */
+  right: -20px;      /* adjust left/right */
   pointer-events: none;
   z-index: 50;
 }
