@@ -1,8 +1,8 @@
 {% comment %} 
-  Renders a megamenu for the header.
- 
-  Usage:
-  {% render 'header-mega-menu' %} 
+    Renders a megamenu for the header.
+   
+    Usage:
+    {% render 'header-mega-menu' %} 
 {% endcomment %}
 
 {%- comment -%} Prevent duplicate if merchant already added a menu item named "Sale & Offers" {%- endcomment -%}
@@ -105,8 +105,17 @@
             href="/collections/on-sale"
             class="header__menu-item list-menu__item link sale-offers-btn small-hide"
             title="Sale & Offers">
-            Sale & Offers
+            <!-- Snow layer (keeps snow inside the button) -->
+            <span class="snow-layer" aria-hidden="true">
+              {% for i in (1..12) %}
+                <span class="snowflake" style="left: {{ 6 | times: forloop.index }}%; animation-delay: {{ forloop.index | times: 0.22 }}s;"></span>
+              {% endfor %}
+            </span>
+
+            <!-- Visible button label -->
+            <span class="sale-offers-label">Sale &amp; Offers</span>
           </a>
+
         </li>
       {%- endif -%}
 
