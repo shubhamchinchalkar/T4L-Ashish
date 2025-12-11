@@ -9,7 +9,7 @@
 }
 
 .snow-overlay-container img {
-  width: 60px;      /* make smaller or larger */
+  width: 200px;      /* make smaller or larger */
   height: auto;
   opacity: 1;
 }
