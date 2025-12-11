@@ -1,8 +1,8 @@
 {% comment %} 
-  Renders a megamenu for the header.
- 
-  Usage:
-  {% render 'header-mega-menu' %} 
+    Renders a megamenu for the header.
+   
+    Usage:
+    {% render 'header-mega-menu' %} 
 {% endcomment %}
 
 {%- comment -%} Prevent duplicate if merchant already added a menu item named "Sale & Offers" {%- endcomment -%}
@@ -98,20 +98,22 @@
         {%- endif -%}
       </li>
 
-      {%- assign _link_title = link.title | strip | downcase -%}
-      {%- if sale_offers_enabled and _link_title == 'accessories' -%}
+      {%- if sale_offers_enabled and link.title | strip | downcase == 'accessories' -%}
         <li class="list-menu__item">
           <a
             href="/collections/on-sale"
             class="header__menu-item list-menu__item link sale-offers-btn small-hide"
             title="Sale & Offers">
-            Sale & Offers
-            <!-- snowflakes inside the button -->
-            <span class="snowflake">❄</span>
-            <span class="snowflake">❅</span>
-            <span class="snowflake">❆</span>
-            <span class="snowflake">❄</span>
-            <span class="snowflake">❅</span>
+            <span class="sale-label">Sale & Offers</span>
+
+            <!-- snow-wrap: absolutely-positioned, clips snow only -->
+            <span class="snow-wrap" aria-hidden="true">
+              <span class="snowflake">❄</span>
+              <span class="snowflake">❅</span>
+              <span class="snowflake">❆</span>
+              <span class="snowflake">❄</span>
+              <span class="snowflake">❅</span>
+            </span>
           </a>
         </li>
       {%- endif -%}
