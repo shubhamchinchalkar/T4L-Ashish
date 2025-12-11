@@ -432,12 +432,13 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
+        overflow: hidden !important;
+        /* keep snow inside */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon */
+      /* Tree icon */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -448,30 +449,88 @@ body {
         color: #FFD700;
       }
 
-      /* Santa Hat (CSS ONLY — uses background-image) */
+      /* Santa Hat */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -16px;
-        /* move above button */
         right: -23px;
-        /* move outside button */
         width: 36px;
-        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        /* cute tilt */
         pointer-events: none;
         z-index: 5;
       }
 
+      /* -------------------------------------------------- */
+      /*  ❄ Falling dendrite snow inside the button        */
+      /* -------------------------------------------------- */.sale-offers-btn .snowflake {
+        position: absolute;
+        top: -10px;
+        font-size: 10px;
+        color: #ffffff;
+        opacity: 0.9;
+        animation: fall 2.5s linear infinite;
+        pointer-events: none;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        will-change: transform
+        , opacity;
+      }
 
-      /* Pulsing glow */
-      @keyframes christmasGlow {
+      /* Random-ish horizontal placement & staggered delays */
+      .sale-offers-btn .flake1 {
+        left: 8%;
+        animation-delay: 0s;
+        transform-origin: center;
+      }
+      .sale-offers-btn .flake2 {
+        left: 26%;
+        animation-delay: 0.35s;
+        transform-origin: center;
+      }
+      .sale-offers-btn .flake3 {
+        left: 48%;
+        animation-delay: 0.7s;
+        transform-origin: center;
+      }
+      .sale-offers-btn .flake4 {
+        left: 70%;
+        animation-delay: 1.05s;
+        transform-origin: center;
+      }
+      .sale-offers-btn .flake5 {
+        left: 92%;
+        animation-delay: 1.4s;
+        transform-origin: center;
+      }
+
+      /* Dendrite-style fall (translate + rotate + fade) */
+      @keyframes fall {
+        0% {
+          transform: translateY(-8px) rotate(0deg) scale(0.95);
+          opacity: 1;
+        }
+        40% {
+          transform: translateY(8px) rotate(30deg) scale(1.05);
+          opacity: 0.95;
+        }
+        70% {
+          transform: translateY(22px) rotate(90deg) scale(0.95);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(36px) rotate(180deg) scale(0.9);
+          opacity: 0;
+        }
+      }
+
+      /* ------------------------------------------------------- */
+      /* Glow + Blink animations (unchanged, preserved)         */
+      /* ------------------------------------------------------- */@keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
           , 0 0 20px rgba(255, 0, 0, 0.6);
@@ -487,7 +546,6 @@ body {
         }
       }
 
-      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
@@ -498,9 +556,8 @@ body {
         }
       }
 
-      /* ---------------------------------------------------- */
-      /* MOBILE ONLY: Center button on small screens         */
-      /* ---------------------------------------------------- */@media (max-width: 767px) {
+      /* MOBILE: center button on small screens */
+      @media (max-width: 767px) {
         .sale-offers-btn-wrapper {
           width: 100% !important;
           display: flex !important;
@@ -515,7 +572,6 @@ body {
           align-self: center !important;
         }
       }
-
     </style>
 
 
