@@ -422,7 +422,7 @@ body {
     <style>
       /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #e63a54, #186e4d) !important;
+        background: linear-gradient(135deg, #e73b55, #187954) !important;
         color: #fff !important;
         padding: 10px 16px 10px 30px !important;
         border-radius: 8px !important;
@@ -432,8 +432,7 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: hidden !important;
-        /* ensure snow stays inside */
+        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
@@ -453,9 +452,9 @@ body {
       .sale-offers-btn::after {
         content: "";
         position: absolute;
-        top: -14px;
+        top: -16px;
         /* move above button */
-        right: -22px;
+        right: -23px;
         /* move outside button */
         width: 36px;
         /* hat size */
@@ -470,14 +469,33 @@ body {
         z-index: 5;
       }
 
-      /* Falling snow overlay (CSS-only background animation, NO pseudo-elements) */
-      .sale-offers-btn {
-        background-image: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.9) 0 2px, transparent 3px), radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.9) 0 2px, transparent 3px), radial-gradient(circle at 70% 5%, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px), radial-gradient(circle at 90% 25%, rgba(255, 255, 255, 0.9) 0 2px, transparent 3px), radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px), radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.9) 0 2px, transparent 3px), radial-gradient(circle at 85% 60%, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px);
-        background-size: 140px 140px;
-        background-repeat: repeat;
-        animation: christmasGlow 2s ease-in-out infinite
-        , textBlink 1.8s ease-in-out infinite
-        , snowfallLayer 4s linear infinite;
+      /* Falling snow overlay */
+      .sale-offers-btn .snow-layer {
+        pointer-events: none;
+      }
+
+      /* Snowfall animation layer (extra element so hat is not replaced) */
+      .sale-offers-btn span.snow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
+        background-size: 50px 50px;
+        animation: snowFall 6s linear infinite;
+        opacity: 0.4;
+      }
+
+      /* Snowfall */
+      @keyframes snowFall {
+        0% {
+          transform: translateY(-50px);
+        }
+        100% {
+          transform: translateY(50px);
+        }
       }
 
       /* Pulsing glow */
@@ -508,19 +526,9 @@ body {
         }
       }
 
-      /* Snowfall animation */
-      @keyframes snowfallLayer {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: -20px 40px;
-        };
-        /* diagonal falling motion */
-      }
-
-      /* MOBILE ONLY: Center button on small screens */
-      @media (max-width: 767px) {
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
         .sale-offers-btn-wrapper {
           width: 100% !important;
           display: flex !important;
@@ -535,6 +543,7 @@ body {
           align-self: center !important;
         }
       }
+
     </style>
 
 
