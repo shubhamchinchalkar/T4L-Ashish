@@ -493,8 +493,8 @@ body {
           color: #fffa9c;
         }
       }
-      /* Falling snow */
-      .sale-offers-btn::before, {
+      /* Falling dendrite snow effect */
+      .sale-offers-btn::after {
         content: '';
         position: absolute;
         top: 0;
@@ -503,12 +503,14 @@ body {
         height: 100%;
         background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
         background-size: 50px 50px;
-        animation: snowFall 6s linear infinite;
+        /* Snow pattern size */
+        animation: snowFall 6s linear infinite !important;
+        /* Smooth falling snow */
         opacity: 0.4;
-        pointer-events: none;
+        /* Subtle snow visibility */
       }
 
-      /* Snowfall */
+      /* Snow falling animation */
       @keyframes snowFall {
         0% {
           transform: translateY(-50px);
