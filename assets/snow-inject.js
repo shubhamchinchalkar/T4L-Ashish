@@ -1,16 +1,18 @@
-/* FINAL — Works for your exact Tiles4Less mobile header search bar */
+/* Snow image applied correctly to mobile & desktop search bar */
 
 (function(){
 
   var SNOW_IMAGE = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Snow.png?v=1765459385";
 
-  // *** CORRECT selector for your mobile header search bar ***
+  // Desktop + mobile selectors
   var selectors = [
-    '.search-header__input-wrapper',   // MOBILE HEADER ✔
-    '.field',                          // modal fallback
-    '.search-modal__form .field',
-    '.search-bar',
-    '.header__search'
+    '.field',                              // MOBILE — correct container
+    'form[action="/search"] .field',       // fallback
+    '.search-modal__form .field',          // MOBILE
+    '.search-bar',                         // desktop options
+    '.site-header__search',
+    '.header__search',
+    '.search-form'
   ];
 
   function createOverlay(){
@@ -27,11 +29,13 @@
   }
 
   function applySnow(target){
+    // Ensure parent is positioned
     var computed = window.getComputedStyle(target);
     if (computed.position === "static"){
       target.style.position = "relative";
     }
 
+    // Prevent duplicates
     if (!target.querySelector('.snow-overlay-container')) {
       target.appendChild(createOverlay());
     }
@@ -45,18 +49,17 @@
     return null;
   }
 
-  // Repeated attempts because header search loads late on mobile
-  let tries = 0;
+  // Retry because mobile modal loads late
+  let attempts = 0;
   function tryAttach(){
-    const target = findTarget();
+    let target = findTarget();
     if (target){
       applySnow(target);
-    } else if (tries < 20){
-      tries++;
+    } else if (attempts < 15){
+      attempts++;
       setTimeout(tryAttach, 200);
     }
   }
 
   document.addEventListener("DOMContentLoaded", tryAttach);
-
 })();

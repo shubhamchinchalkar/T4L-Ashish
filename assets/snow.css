@@ -8,7 +8,7 @@
 }
 
 .snow-overlay-container img {
-  width: 300px;
+  width: 400px;
   height: auto;
 }
 
@@ -17,11 +17,11 @@
 
   .snow-overlay-container {
     top: -6px !important;
-    right: 8px !important;
+    right: 6px !important;
     z-index: 9999 !important;
   }
 
   .snow-overlay-container img {
-    width: 80px !important;
+    width: 90px !important;
   }
 }
