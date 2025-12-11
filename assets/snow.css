@@ -1,22 +1,31 @@
-/* Small snow image positioned at top-right corner of search bar */
+/* Small snow image positioned at top-right corner of search bar (DESKTOP) */
 
 .snow-overlay-container {
   position: absolute;
-  top: -20px;        /* adjust up/down */
-  right: -1px;      /* adjust left/right */
+  top: -20px;       /* desktop vertical position */
+  right: -1px;      /* desktop horizontal position */
   pointer-events: none;
   z-index: 50;
 }
 
 .snow-overlay-container img {
-  width: 400px;      /* make smaller or larger */
+  width: 400px;     /* desktop snow width */
   height: auto;
   opacity: 1;
 }
 
-/* Make snow smaller on mobile */
+/* --------------------------- */
+/* 📱 MOBILE VIEW ADJUSTMENTS */
+/* --------------------------- */
+
 @media (max-width: 768px) {
+
+  .snow-overlay-container {
+    top: -5px;      /* adjust for mobile */
+    right: -5px;    /* adjust for mobile */
+  }
+
   .snow-overlay-container img {
-    width: 40px;
+    width: 150px;   /* mobile snow size */
   }
 }
