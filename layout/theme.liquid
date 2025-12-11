@@ -420,7 +420,17 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
+      /* ---------- Sale & Offers button (glow + blink + hat + snow) ---------- */
+
+      .sale-offers-btn-wrapper {
+        position: relative;
+        display: inline-block;
+        overflow: visible !important;
+        /* allow Santa hat to show outside the button */
+        z-index: 2;
+        /* keep wrapper above background */
+      }
+
       .sale-offers-btn {
         background: linear-gradient(135deg, #ec2442, #169c69) !important;
         color: #fff !important;
@@ -433,12 +443,13 @@ body {
         text-decoration: none !important;
         position: relative;
         overflow: hidden !important;
-        /* keep snow inside */
+        /* keep snow inside the button */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
+        -webkit-font-smoothing: antialiased;
       }
 
-      /* Tree icon */
+      /* Tree icon inside button */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -447,14 +458,18 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
+        pointer-events: none;
+        z-index: 4;
       }
 
-      /* Santa Hat */
+      /* Santa Hat (visible because wrapper overflow is visible) */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -16px;
+        /* adjust to nudge hat up/down */
         right: -23px;
+        /* adjust to move hat left/right */
         width: 36px;
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
@@ -466,49 +481,44 @@ body {
         z-index: 5;
       }
 
-      /* -------------------------------------------------- */
-      /*  ❄ Falling dendrite snow inside the button        */
-      /* -------------------------------------------------- */.sale-offers-btn .snowflake {
+      /* ---------- Snowflakes (inside the button) ---------- */
+
+      .sale-offers-btn .snowflake {
         position: absolute;
-        top: -10px;
+        top: -8px;
         font-size: 10px;
         color: #ffffff;
-        opacity: 0.9;
-        animation: fall 2.5s linear infinite;
+        opacity: 0.95;
+        animation: fall 2.8s linear infinite;
         pointer-events: none;
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
         will-change: transform
         , opacity;
       }
 
-      /* Random-ish horizontal placement & staggered delays */
+      /* horizontal positions + staggered delays */
       .sale-offers-btn .flake1 {
         left: 8%;
         animation-delay: 0s;
-        transform-origin: center;
       }
       .sale-offers-btn .flake2 {
         left: 26%;
         animation-delay: 0.35s;
-        transform-origin: center;
       }
       .sale-offers-btn .flake3 {
         left: 48%;
         animation-delay: 0.7s;
-        transform-origin: center;
       }
       .sale-offers-btn .flake4 {
         left: 70%;
         animation-delay: 1.05s;
-        transform-origin: center;
       }
       .sale-offers-btn .flake5 {
         left: 92%;
         animation-delay: 1.4s;
-        transform-origin: center;
       }
 
-      /* Dendrite-style fall (translate + rotate + fade) */
+      /* Dendrite-style fall animation (translate + rotate + fade) */
       @keyframes fall {
         0% {
           transform: translateY(-8px) rotate(0deg) scale(0.95);
@@ -528,9 +538,9 @@ body {
         }
       }
 
-      /* ------------------------------------------------------- */
-      /* Glow + Blink animations (unchanged, preserved)         */
-      /* ------------------------------------------------------- */@keyframes christmasGlow {
+      /* ---------- Glow + Blink (unchanged behavior) ---------- */
+
+      @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
           , 0 0 20px rgba(255, 0, 0, 0.6);
@@ -556,7 +566,7 @@ body {
         }
       }
 
-      /* MOBILE: center button on small screens */
+      /* ---------- MOBILE: keep centering behavior ---------- */
       @media (max-width: 767px) {
         .sale-offers-btn-wrapper {
           width: 100% !important;
