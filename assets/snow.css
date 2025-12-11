@@ -12,16 +12,17 @@
   height: auto;
 }
 
-/* Mobile */
+/* --- MOBILE SNOW POSITION & SIZE (ONLY FOR MOBILE) --- */
 @media (max-width: 768px) {
 
   .snow-overlay-container {
-    top: -6px !important;
-    right: 6px !important;
-    z-index: 9999 !important;
+    top: -10px;     /* adjust for mobile */
+    right: -2px;    /* adjust for mobile */
   }
 
   .snow-overlay-container img {
-    width: 90px !important;
+    width: 120px;   /* bigger for mobile visibility */
+    height: auto;
   }
 }
+
