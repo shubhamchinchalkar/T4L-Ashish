@@ -1,17 +1,22 @@
-/* Full-width snow overlay for search bar */
+/* Small snow image positioned at top-right corner of search bar */
 
-.search-snow-overlay {
+.snow-overlay-container {
   position: absolute;
-  top: -2px;       /* adjust to sit flush */
-  left: 0;
-  width: 100%;
+  top: -6px;        /* adjust up/down */
+  right: -4px;      /* adjust left/right */
   pointer-events: none;
-  z-index: 20;
+  z-index: 50;
 }
 
-.search-snow-overlay img{
-  width: 100%;
+.snow-overlay-container img {
+  width: 60px;      /* make smaller or larger */
   height: auto;
-  display: block;
   opacity: 1;
+}
+
+/* Make snow smaller on mobile */
+@media (max-width: 768px) {
+  .snow-overlay-container img {
+    width: 40px;
+  }
 }

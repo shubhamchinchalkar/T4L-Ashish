@@ -1,4 +1,4 @@
-/* Full-width snow overlay injection */
+/* Small snow image applied to top-right of search bar */
 
 (function(){
 
@@ -6,6 +6,7 @@
 
   var selectors = [
     'form[action="/search"]',
+    '#SearchForm',
     '.search-bar',
     '.site-header__search',
     '.header__search',
@@ -15,7 +16,7 @@
 
   function createOverlay(){
     var wrap = document.createElement("div");
-    wrap.className = "search-snow-overlay";
+    wrap.className = "snow-overlay-container";
 
     var img = document.createElement("img");
     img.src = SNOW_IMAGE;
@@ -26,13 +27,12 @@
     return wrap;
   }
 
-  function applySnow(inputBox){
-    var style = window.getComputedStyle(inputBox);
-    if (style.position === "static") {
-      inputBox.style.position = "relative";
+  function applySnow(target){
+    var computed = window.getComputedStyle(target);
+    if (computed.position === "static"){
+      target.style.position = "relative";
     }
-
-    inputBox.appendChild(createOverlay());
+    target.appendChild(createOverlay());
   }
 
   function findTarget(){
