@@ -420,7 +420,7 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
+      /* === Existing Sale & Offers styles (keeps glow, blink, icon, hat) === */
       .sale-offers-btn {
         background: linear-gradient(135deg, #ec2442, #169c69) !important;
         color: #fff !important;
@@ -464,11 +464,9 @@ body {
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        /* cute tilt */
         pointer-events: none;
         z-index: 5;
       }
-
 
       /* Pulsing glow */
       @keyframes christmasGlow {
@@ -515,6 +513,89 @@ body {
           align-self: center !important;
         }
       }
+
+      /* ---------------------------------------------------- */
+      /* Falling dendrite snow INSIDE the Sale & Offers button */
+      /* ---------------------------------------------------- */.sale-offers-btn {
+        /* ensure snow stays clipped inside */
+        overflow: hidden !important;
+      }
+
+      .sale-offers-btn .snowflake {
+        position: absolute;
+        top: -24px;
+        color: #ffffff;
+        font-size: 10px;
+        opacity: 0.95;
+        pointer-events: none;
+        animation: snowFall linear infinite;
+        filter: drop-shadow(0 0 2px rgba(255,255,255,0.9));
+        transform-origin: center;
+        z-index: 4;
+      }
+
+      /* Variants for natural spread — tweak left/top/durations as needed */
+      .sale-offers-btn .snowflake:nth-child(1) {
+        left: 6%;
+        animation-duration: 3.2s;
+        font-size: 12px;
+        animation-delay: 0s;
+        transform: rotate(0deg);
+      }
+      .sale-offers-btn .snowflake:nth-child(2) {
+        left: 20%;
+        animation-duration: 3.8s;
+        font-size: 10px;
+        animation-delay: 0.4s;
+        transform: rotate(10deg);
+      }
+      .sale-offers-btn .snowflake:nth-child(3) {
+        left: 38%;
+        animation-duration: 3.0s;
+        font-size: 9px;
+        animation-delay: 0.2s;
+        transform: rotate(-8deg);
+      }
+      .sale-offers-btn .snowflake:nth-child(4) {
+        left: 58%;
+        animation-duration: 3.6s;
+        font-size: 11px;
+        animation-delay: 0.6s;
+        transform: rotate(6deg);
+      }
+      .sale-offers-btn .snowflake:nth-child(5) {
+        left: 78%;
+        animation-duration: 4.0s;
+        font-size: 12px;
+        animation-delay: 0.8s;
+        transform: rotate(-4deg);
+      }
+
+      /* Dendrite look: use different snow characters and a tiny scale jitter */
+      @keyframes snowFall {
+        0% {
+          transform: translateY(-30px) rotate(0deg) scale(0.95);
+          opacity: 1;
+        }
+        30% {
+          transform: translateY(6px) rotate(30deg) scale(1.05);
+          opacity: 0.95;
+        }
+        60% {
+          transform: translateY(22px) rotate(90deg) scale(0.98);
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(48px) rotate(160deg) scale(0.9);
+          opacity: 0;
+        }
+      }
+
+      /* optional: subtle accumulation glow on bottom edge */
+      .sale-offers-btn::before,
+      .sale-offers-btn::after {
+        z-index: 5;
+      } /* keeps icon/hat above flakes if necessary */
 
     </style>
 

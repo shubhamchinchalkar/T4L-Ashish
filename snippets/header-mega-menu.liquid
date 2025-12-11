@@ -1,8 +1,8 @@
 {% comment %} 
-  Renders a megamenu for the header.
- 
-  Usage:
-  {% render 'header-mega-menu' %} 
+    Renders a megamenu for the header.
+   
+    Usage:
+    {% render 'header-mega-menu' %} 
 {% endcomment %}
 
 {%- comment -%} Prevent duplicate if merchant already added a menu item named "Sale & Offers" {%- endcomment -%}
@@ -13,6 +13,7 @@
     {%- assign sale_offers_enabled = false -%}
   {%- endif -%}
 {%- endfor -%}
+
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
@@ -106,9 +107,18 @@
             class="header__menu-item list-menu__item link sale-offers-btn small-hide"
             title="Sale & Offers">
             Sale & Offers
+
+            <!-- Dendrite snowflakes INSIDE the button -->
+            <span class="snowflake">❄</span>
+            <span class="snowflake">❅</span>
+            <span class="snowflake">❆</span>
+            <span class="snowflake">❄</span>
+            <span class="snowflake">❅</span>
+
           </a>
         </li>
       {%- endif -%}
+
 
     {%- endfor -%}
   </ul>
