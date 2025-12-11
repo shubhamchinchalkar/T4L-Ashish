@@ -1,8 +1,8 @@
 {% comment %} 
-  Renders a standard dropdown style menu for the header.
- 
-  Usage:
-  {% render 'header-dropdown-menu' %} 
+    Renders a standard dropdown style menu for the header.
+   
+    Usage:
+    {% render 'header-dropdown-menu' %} 
 {% endcomment %}
 
 {%- comment -%} Prevent duplicate if merchant already added a menu item named "Sale & Offers" {%- endcomment -%}
@@ -98,13 +98,17 @@
             href="/collections/on-sale"
             class="header__menu-item list-menu__item link sale-offers-btn small-hide"
             title="Sale & Offers">
-            Sale & Offers
-            <!-- snowflakes inside the button -->
-            <span class="snowflake">❄</span>
-            <span class="snowflake">❅</span>
-            <span class="snowflake">❆</span>
-            <span class="snowflake">❄</span>
-            <span class="snowflake">❅</span>
+            <!-- label sits above snow so it stays visible -->
+            <span class="sale-label">Sale & Offers</span>
+
+            <!-- snow-wrap clips snow only (keeps hat visible outside) -->
+            <span class="snow-wrap" aria-hidden="true">
+              <span class="snowflake">❄</span>
+              <span class="snowflake">❅</span>
+              <span class="snowflake">❆</span>
+              <span class="snowflake">❄</span>
+              <span class="snowflake">❅</span>
+            </span>
           </a>
         </li>
       {%- endif -%}
