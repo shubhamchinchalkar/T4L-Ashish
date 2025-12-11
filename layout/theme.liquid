@@ -421,29 +421,7 @@ body {
 
 
     <style>
-      /* Wrapper for Santa Hat */
-      .sale-offers-btn-wrapper {
-        position: relative;
-        display: inline-block;
-      }
-
-      /* Santa hat (TOP RIGHT OUTSIDE BUTTON) */
-      .sale-offers-btn-wrapper::after {
-        content: "";
-        position: absolute;
-        top: -14px;
-        right: -12px;
-        width: 34px;
-        height: 34px;
-        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
-        background-size: contain;
-        background-repeat: no-repeat;
-        z-index: 20;
-        /* high layer so it's always visible */
-        pointer-events: none;
-      }
-
-      /* Button */
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
         color: #fff !important;
@@ -455,37 +433,12 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
+        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
-        z-index: 5;
-        overflow: visible !important;
-        /* IMPORTANT — allows hat to show */
       }
 
-      /* NEW: Snowfall container INSIDE button (so overflow hidden not needed on main button) */
-      .sale-offers-btn .snow-layer {
-        content: "";
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 2;
-      }
-
-      .sale-offers-btn .snow-layer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
-        background-size: 50px 50px;
-        animation: snowFall 6s linear infinite;
-        opacity: 0.45;
-      }
-
-      /* Tree icon */
+      /* Christmas tree icon */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -494,7 +447,46 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
-        z-index: 10;
+      }
+
+      /* Santa Hat (CSS ONLY — uses background-image) */
+      .sale-offers-btn::after {
+        content: "";
+        position: absolute;
+        top: -22px;
+        /* move above button */
+        right: -18px;
+        /* move outside button */
+        width: 36px;
+        /* hat size */
+        height: 36px;
+        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: rotate(12deg);
+        /* cute tilt */
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      /* Falling snow overlay */
+      .sale-offers-btn .snow-layer {
+        pointer-events: none;
+      }
+
+      /* Snowfall animation layer (extra element so hat is not replaced) */
+      .sale-offers-btn span.snow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
+        background-size: 50px 50px;
+        animation: snowFall 6s linear infinite;
+        opacity: 0.4;
       }
 
       /* Snowfall */
@@ -507,7 +499,7 @@ body {
         }
       }
 
-      /* Glow */
+      /* Pulsing glow */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -534,8 +526,6 @@ body {
           color: #fffa9c;
         }
       }
-
-
     </style>
 
 
