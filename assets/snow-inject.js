@@ -1,18 +1,17 @@
-/* Snow image applied to top-right of search bar (desktop + mobile) */
+/* Snow image applied correctly to mobile & desktop search bar */
 
 (function(){
 
   var SNOW_IMAGE = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Snow.png?v=1765459385";
 
-  // Desktop + Mobile selectors
+  // Desktop + mobile selectors
   var selectors = [
-    'form[action="/search"]',
-    '#SearchForm',
-    '.search-bar',
+    '.field',                              // MOBILE — correct container
+    'form[action="/search"] .field',       // fallback
+    '.search-modal__form .field',          // MOBILE
+    '.search-bar',                         // desktop options
     '.site-header__search',
     '.header__search',
-    '.header__inline-search',
-    '.search-modal__form',
     '.search-form'
   ];
 
@@ -30,11 +29,16 @@
   }
 
   function applySnow(target){
+    // Ensure parent is positioned
     var computed = window.getComputedStyle(target);
     if (computed.position === "static"){
       target.style.position = "relative";
     }
-    target.appendChild(createOverlay());
+
+    // Prevent duplicates
+    if (!target.querySelector('.snow-overlay-container')) {
+      target.appendChild(createOverlay());
+    }
   }
 
   function findTarget(){
@@ -45,18 +49,17 @@
     return null;
   }
 
-  // Try multiple times because mobile search loads late
+  // Retry because mobile modal loads late
   let attempts = 0;
   function tryAttach(){
     let target = findTarget();
     if (target){
       applySnow(target);
-    } else if (attempts < 10){
+    } else if (attempts < 15){
       attempts++;
-      setTimeout(tryAttach, 300);
+      setTimeout(tryAttach, 200);
     }
   }
 
   document.addEventListener("DOMContentLoaded", tryAttach);
-
 })();

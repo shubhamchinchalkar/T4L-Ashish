@@ -1,4 +1,4 @@
-/* Desktop positioning */
+/* Desktop */
 .snow-overlay-container {
   position: absolute;
   top: -20px;
@@ -16,12 +16,12 @@
 @media (max-width: 768px) {
 
   .snow-overlay-container {
-    top: -8px !important;      /* pull inside visible area */
-    right: 8px !important;     /* move away from edge */
-    z-index: 9999 !important;  /* ensure visibility above header */
+    top: -6px !important;
+    right: 6px !important;
+    z-index: 9999 !important;
   }
 
   .snow-overlay-container img {
-    width: 90px !important;    /* perfect size for your layout */
+    width: 90px !important;
   }
 }
