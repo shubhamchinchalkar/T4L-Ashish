@@ -432,12 +432,13 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
+        overflow: hidden !important;
+        /* IMPORTANT for snow inside */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Christmas tree icon */
+      /* Christmas tree emoji */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -446,29 +447,84 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
+        z-index: 3;
       }
 
-      /* Santa Hat (CSS ONLY — uses background-image) */
+      /* Santa Hat */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -16px;
-        /* move above button */
         right: -23px;
-        /* move outside button */
         width: 36px;
-        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        /* cute tilt */
         pointer-events: none;
         z-index: 5;
       }
 
+      /* -------------------------------------------------- */
+      /* ❄ INSIDE-BUTTON DENDRITE SNOW EFFECT              */
+      /* -------------------------------------------------- */.sale-offers-btn .snowflake {
+        position: absolute;
+        top: -10px;
+        color: #ffffff;
+        font-size: 10px;
+        opacity: 0.95;
+        user-select: none;
+        pointer-events: none;
+        animation-name: snowFall;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        z-index: 1;
+      }
+
+      /* We'll randomise positions/speeds using nth-child in CSS */
+      .sale-offers-btn .snowflake:nth-child(1) {
+        left: 20%;
+        animation-duration: 2.8s;
+        transform-origin: center;
+      }
+      .sale-offers-btn .snowflake:nth-child(2) {
+        left: 35%;
+        animation-duration: 3.6s;
+        font-size: 12px;
+      }
+      .sale-offers-btn .snowflake:nth-child(3) {
+        left: 50%;
+        animation-duration: 2.2s;
+        font-size: 9px;
+      }
+      .sale-offers-btn .snowflake:nth-child(4) {
+        left: 65%;
+        animation-duration: 3.2s;
+        font-size: 11px;
+      }
+      .sale-offers-btn .snowflake:nth-child(5) {
+        left: 80%;
+        animation-duration: 2.6s;
+        font-size: 10px;
+      }
+
+      /* Falling animation (dendrite-like motion via rotate + slight x offset) */
+      @keyframes snowFall {
+        0% {
+          transform: translateY(-10px) translateX(0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        60% {
+          transform: translateY(22px) translateX(4px) rotate(90deg) scale(1.05);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(44px) translateX(8px) rotate(180deg) scale(0.95);
+          opacity: 0.25;
+        }
+      }
 
       /* Pulsing glow */
       @keyframes christmasGlow {
@@ -515,7 +571,6 @@ body {
           align-self: center !important;
         }
       }
-
     </style>
 
 

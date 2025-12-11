@@ -1,8 +1,8 @@
-{% comment %}
+{% comment %} 
   Renders a megamenu for the header.
-
+ 
   Usage:
-  {% render 'header-mega-menu' %}
+  {% render 'header-mega-menu' %} 
 {% endcomment %}
 
 {%- comment -%} Prevent duplicate if merchant already added a menu item named "Sale & Offers" {%- endcomment -%}
@@ -21,16 +21,12 @@
         {%- if link.links != blank -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
-              <summary
-                id="HeaderMenu-{{ link.handle }}"
-                class="header__menu-item list-menu__item link focus-inset"
-              >
+              <summary id="HeaderMenu-{{ link.handle }}" class="header__menu-item list-menu__item link focus-inset">
                 <a href="{{ link.url }}">
                   <span
                     {%- if link.child_active %}
-                      class="header__active-menu-item"
-                    {% endif %}
-                  >
+                    class="header__active-menu-item"
+                    {% endif %}>
                     {{- link.title | escape -}}
                   </span>
                   {{- 'icon-caret.svg' | inline_asset_content -}}
@@ -40,12 +36,8 @@
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
-                tabindex="-1"
-              >
-                <ul
-                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
-                  role="list"
-                >
+                tabindex="-1">
+                <ul class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}" role="list">
                   {%- for childlink in link.links -%}
                     <li>
                       <a
@@ -53,9 +45,8 @@
                         href="{{ childlink.url }}"
                         class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
                         {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
+                        aria-current="page"
+                        {% endif %}>
                         {{ childlink.title | escape }}
                       </a>
                       {%- if childlink.links != blank -%}
@@ -67,9 +58,8 @@
                                 href="{{ grandchildlink.url }}"
                                 class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
                                 {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
-                              >
+                                aria-current="page"
+                                {% endif %}>
                                 {{ grandchildlink.title | escape }}
                               </a>
                             </li>
@@ -96,14 +86,12 @@
             href="{{ link.url }}"
             class="header__menu-item list-menu__item link link--text focus-inset"
             {% if link.current %}
-              aria-current="page"
-            {% endif %}
-          >
+            aria-current="page"
+            {% endif %}>
             <span
               {%- if link.current %}
-                class="header__active-menu-item"
-              {% endif %}
-            >
+              class="header__active-menu-item"
+              {% endif %}>
               {{- link.title | escape -}}
             </span>
           </a>
@@ -116,12 +104,18 @@
           <a
             href="/collections/on-sale"
             class="header__menu-item list-menu__item link sale-offers-btn small-hide"
-            title="Sale & Offers"
-          >
+            title="Sale & Offers">
             Sale & Offers
+            <!-- snowflakes inside the button -->
+            <span class="snowflake">❄</span>
+            <span class="snowflake">❅</span>
+            <span class="snowflake">❆</span>
+            <span class="snowflake">❄</span>
+            <span class="snowflake">❅</span>
           </a>
         </li>
       {%- endif -%}
+
 
     {%- endfor -%}
   </ul>
