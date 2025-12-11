@@ -419,11 +419,10 @@ body {
     </script>
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
-
     <style>
-      /* Christmas-themed Sale & Offers button with glow + blinking */
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
-        background: linear-gradient(135deg, #f0405b, #1a6347) !important;
+        background: linear-gradient(135deg, #a30820, #154734) !important;
         color: #fff !important;
         padding: 10px 16px 10px 30px !important;
         border-radius: 8px !important;
@@ -449,21 +448,54 @@ body {
         color: #FFD700;
       }
 
-      /* Santa Hat */
+      /* Santa Hat (CSS ONLY — uses background-image) */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -22px;
+        /* move above button */
         right: -18px;
+        /* move outside button */
         width: 36px;
+        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
+        /* cute tilt */
         pointer-events: none;
         z-index: 5;
+      }
+
+      /* Falling snow overlay */
+      .sale-offers-btn .snow-layer {
+        pointer-events: none;
+      }
+
+      /* Snowfall animation layer (extra element so hat is not replaced) */
+      .sale-offers-btn span.snow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
+        background-size: 50px 50px;
+        animation: snowFall 6s linear infinite;
+        opacity: 0.4;
+      }
+
+      /* Snowfall */
+      @keyframes snowFall {
+        0% {
+          transform: translateY(-50px);
+        }
+        100% {
+          transform: translateY(50px);
+        }
       }
 
       /* Pulsing glow */
@@ -491,6 +523,24 @@ body {
         }
         50% {
           color: #fffa9c;
+        }
+      }
+
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
+        .sale-offers-btn-wrapper {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
+
+        .sale-offers-btn {
+          margin-left: auto !important;
+          margin-right: auto !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-self: center !important;
         }
       }
 
