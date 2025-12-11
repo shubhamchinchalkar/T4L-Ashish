@@ -1,4 +1,4 @@
-/* Desktop */
+/* Desktop positioning */
 .snow-overlay-container {
   position: absolute;
   top: -20px;
@@ -12,28 +12,16 @@
   height: auto;
 }
 
-/* --- MOBILE SNOW POSITION & SIZE (ONLY FOR MOBILE) --- */
-/* Add space on top so snow becomes visible on mobile */
-@media (max-width: 768px) {
-  form[action="/search"],
-  .search-bar,
-  .search,
-  .search-form,
-  #SearchForm {
-    padding-top: 20px !important;  /* adjust if needed */
-  }
-}
-
-/* Mobile snow size + position */
+/* Mobile */
 @media (max-width: 768px) {
 
   .snow-overlay-container {
-    top: -2px;     /* closer to top, so it shows */
-    right: 6px;    /* adjust if needed */
+    top: -8px !important;      /* pull inside visible area */
+    right: 8px !important;     /* move away from edge */
+    z-index: 9999 !important;  /* ensure visibility above header */
   }
 
   .snow-overlay-container img {
-    width: 100px;   /* perfect size for mobile */
-    height: auto;
+    width: 90px !important;    /* perfect size for your layout */
   }
 }
