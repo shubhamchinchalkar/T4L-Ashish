@@ -1,16 +1,18 @@
-/* Small snow image applied to top-right of search bar */
+/* Snow image applied to top-right of search bar (desktop + mobile) */
 
 (function(){
 
   var SNOW_IMAGE = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Snow.png?v=1765459385";
 
+  // Desktop + Mobile selectors
   var selectors = [
     'form[action="/search"]',
     '#SearchForm',
     '.search-bar',
     '.site-header__search',
     '.header__search',
-    '.search',
+    '.header__inline-search',
+    '.search-modal__form',
     '.search-form'
   ];
 
@@ -43,11 +45,18 @@
     return null;
   }
 
-  document.addEventListener("DOMContentLoaded", function(){
-    setTimeout(function(){
-      var target = findTarget();
-      if (target) applySnow(target);
-    }, 150);
-  });
+  // Try multiple times because mobile search loads late
+  let attempts = 0;
+  function tryAttach(){
+    let target = findTarget();
+    if (target){
+      applySnow(target);
+    } else if (attempts < 10){
+      attempts++;
+      setTimeout(tryAttach, 300);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", tryAttach);
 
 })();

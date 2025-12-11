@@ -1,32 +1,27 @@
-/* Small snow image positioned at top-right corner of search bar (DESKTOP) */
-
+/* Desktop positioning */
 .snow-overlay-container {
   position: absolute;
-  top: -20px;       /* desktop vertical position */
-  right: -1px;      /* desktop horizontal position */
+  top: -20px;
+  right: -1px;
   pointer-events: none;
-  z-index: 50;
+  z-index: 9999;
 }
 
 .snow-overlay-container img {
-  width: 400px;     /* desktop snow width */
+  width: 400px;
   height: auto;
-  opacity: 1;
 }
 
-/* --------------------------- */
-/* 📱 MOBILE VIEW — OPTIMIZED */
-/* --------------------------- */
-
+/* Mobile */
 @media (max-width: 768px) {
 
   .snow-overlay-container {
-    top: -2px;      /* sits neatly on the top edge */
-    right: 4px;     /* pulls slightly inward to avoid edge clipping */
+    top: -8px !important;      /* pull inside visible area */
+    right: 8px !important;     /* move away from edge */
+    z-index: 9999 !important;  /* ensure visibility above header */
   }
 
   .snow-overlay-container img {
-    width: 85px;    /* perfect size for your mobile search bar */
+    width: 90px !important;    /* perfect size for your layout */
   }
 }
-
