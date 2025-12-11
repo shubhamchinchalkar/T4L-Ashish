@@ -420,143 +420,102 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* ---------- MENU: Force inline layout and vertical alignment ---------- */
-
-      /* Make the main inline menu behave as a horizontal flex row */
-      .header__inline-menu,
-      .header__menu-list, /* some themes use this */
-      .header__menu {
-        /* fallback selector */
-        display: flex !important;
-        align-items: center !important;
-        gap: 0.5rem;
-        /* small gap between items; adjust if needed */
-      }
-
-      /* Ensure each menu <li> stays inline-block and vertically centered */
-      .list-menu__item {
-        display: inline-flex !important;
-        align-items: center !important;
-        vertical-align: middle !important;
-        margin: 0 !important;
-        /* remove extra margins that push height */
-        padding: 0 !important;
-        /* keep spacing consistent */
-        line-height: 1 !important;
-      }
-
-      /* Specific class for our custom li to avoid touching others (if you added sale-offers-li) */
-      .sale-offers-li {
-        display: inline-flex !important;
-        align-items: center !important;
-        vertical-align: middle !important;
-      }
-
-      /* ---------- BUTTON: keep inline and remove vertical shift ---------- */
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
+        background: linear-gradient(135deg, #ec2442, #169c69) !important;
+        color: #fff !important;
+        padding: 10px 16px 10px 30px !important;
+        border-radius: 8px !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
         display: inline-flex !important;
         align-items: center !important;
-        justify-content: center !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        height: auto !important;
-        /* don't let the hat increase li height */
-        line-height: 1 !important;
-        position: relative !important;
-        overflow: visible !important;
-        /* hat visible; snow clipped by container */
-        z-index: 20;
-        /* keep button above menu background */
-      }
-
-      /* Keep visible text above flakes */
-      .sale-offers-text {
+        text-decoration: none !important;
         position: relative;
-        z-index: 30;
+        overflow: visible !important;
+        animation: christmasGlow 2s ease-in-out infinite
+        , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* ---------- HAT: absolutely positioned so it doesn't affect flow ---------- */
+      /* Christmas tree icon */
+      .sale-offers-btn::before {
+        content: '🎄';
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: #FFD700;
+      }
+
+      /* Santa Hat (CSS ONLY — uses background-image) */
       .sale-offers-btn::after {
-        position: absolute !important;
-        top: -16px !important;
-        right: -23px !important;
+        content: "";
+        position: absolute;
+        top: -16px;
+        /* move above button */
+        right: -23px;
+        /* move outside button */
         width: 36px;
+        /* hat size */
         height: 36px;
+        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        pointer-events: none;
-        z-index: 9999 !important;
-        /* ensure it doesn't cause the li to grow */
-        display: block;
-      }
-
-      /* If pseudo-element previously caused layout shift, force no-impact: */
-      .sale-offers-li,
-      .sale-offers-li * {
-        min-height: 0 !important;
-      }
-
-      /* ---------- SNOW CONTAINER: clip snow inside button (doesn't affect layout) ---------- */
-      .sale-offers-btn .snow-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden !important;
-        /* CRITICAL: clip snowflakes inside */
+        /* cute tilt */
         pointer-events: none;
         z-index: 5;
-        /* below text (text z-index is 30) */
-        border-radius: inherit;
       }
 
-      /* snowflake styles remain */
-      .sale-offers-btn .snow-container .snowflake {
-        position: absolute;
-        top: -28px;
-        color: #ffffff;
-        font-size: 12px;
-        opacity: 0.95;
-        pointer-events: none;
-        animation: snowFall linear infinite;
-        filter: drop-shadow(0 0 2px rgba(255,255,255,0.85));
-        z-index: 6;
-      }
 
-      /* ---------- ensure the entire header/menu doesn't expand by the hat ---------- */
-      /* limit header row height to the normal nav height (adjust 64px to your nav height) */.header {
-        /* only apply if safe for your theme - adjust value if needed */
-        max-height: none;
-        /* avoid hard restriction unless required */
-      }
-
-      /* If menu items are vertically stacked by CSS elsewhere, force single line */
-      .header__inline-menu > .list-menu__item,
-      .header__menu-list > .list-menu__item {
-        white-space: nowrap !important;
-      }
-
-      /* ---------- small screen tweaks (optional) ---------- */
-      @media (max-width: 767px) {
-        .header__inline-menu,
-        .header__menu-list {
-          display: block !important;
-          /* mobile stacked menu is OK */
+      /* Pulsing glow */
+      @keyframes christmasGlow {
+        0% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
+          , 0 0 20px rgba(255, 0, 0, 0.6);
         }
-        /* keep sale-offers button responsive */
+        50% {
+          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9)
+          , 0 0 30px rgba(255, 0, 0, 0.9)
+          , 0 0 40px rgba(0, 255, 0, 0.7);
+        }
+        100% {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
+          , 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+      }
+
+      /* Blinking text */
+      @keyframes textBlink {
+        0,
+        100% {
+          color: #ffffff;
+        }
+        50% {
+          color: #fffa9c;
+        }
+      }
+
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
+        .sale-offers-btn-wrapper {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
+
         .sale-offers-btn {
-          margin: 8px 0 !important;
-        }
-        .sale-offers-btn::after {
-          right: -18px !important;
-          top: -16px !important;
-          width: 30px;
-          height: 30px;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-self: center !important;
         }
       }
+
     </style>
 
 
