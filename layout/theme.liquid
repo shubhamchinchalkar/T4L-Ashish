@@ -420,7 +420,13 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-      /* === Existing Sale & Offers styles (keeps glow, blink, icon, hat) === */
+
+
+      /*
+   ============================================ 
+   SALE & OFFERS BUTTON MAIN STYLE 
+   ============================================
+*/
       .sale-offers-btn {
         background: linear-gradient(135deg, #ec2442, #169c69) !important;
         color: #fff !important;
@@ -432,12 +438,19 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
+
+        /* IMPORTANT FIX — allow Santa hat to show */
+        overflow: visible !important;
       }
 
-      /* Christmas tree icon */
+
+      /*
+   ============================================ 
+   CHRISTMAS TREE ICON (LEFT SIDE) 
+   ============================================
+*/
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -446,18 +459,21 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
+        z-index: 10;
       }
 
-      /* Santa Hat (CSS ONLY — uses background-image) */
+
+      /*
+   ============================================ 
+   SANTA HAT (RIGHT SIDE) 
+   ============================================
+*/
       .sale-offers-btn::after {
         content: "";
         position: absolute;
-        top: -16px;
-        /* move above button */
-        right: -23px;
-        /* move outside button */
+        top: -20px !important;
+        right: -25px !important;
         width: 36px;
-        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
@@ -465,10 +481,16 @@ body {
         background-position: center;
         transform: rotate(12deg);
         pointer-events: none;
-        z-index: 5;
+        z-index: 9999 !important;
+        /* Ensures hat is visible */
       }
 
-      /* Pulsing glow */
+
+      /*
+   ============================================ 
+   GLOW EFFECT 
+   ============================================
+*/
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
@@ -485,7 +507,12 @@ body {
         }
       }
 
-      /* Blinking text */
+
+      /*
+   ============================================ 
+   TEXT BLINK EFFECT 
+   ============================================
+*/
       @keyframes textBlink {
         0,
         100% {
@@ -496,106 +523,85 @@ body {
         }
       }
 
-      /* ---------------------------------------------------- */
-      /* MOBILE ONLY: Center button on small screens         */
-      /* ---------------------------------------------------- */@media (max-width: 767px) {
-        .sale-offers-btn-wrapper {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-        }
 
-        .sale-offers-btn {
-          margin-left: auto !important;
-          margin-right: auto !important;
-          display: flex !important;
-          justify-content: center !important;
-          align-self: center !important;
-        }
-      }
+      /*
+   ============================================ 
+   FALLING SNOWFLAKES INSIDE BUTTON 
+   ============================================
+*/
 
-      /* ---------------------------------------------------- */
-      /* Falling dendrite snow INSIDE the Sale & Offers button */
-      /* ---------------------------------------------------- */.sale-offers-btn {
-        /* ensure snow stays clipped inside */
-        overflow: hidden !important;
-      }
-
-      .sale-offers-btn .snowflake {
+      /* Keep snowflakes inside button while hat remains outside */.sale-offers-btn .snowflake {
         position: absolute;
-        top: -24px;
+        top: -25px;
         color: #ffffff;
-        font-size: 10px;
-        opacity: 0.95;
+        font-size: 12px;
+        opacity: 0.9;
         pointer-events: none;
         animation: snowFall linear infinite;
-        filter: drop-shadow(0 0 2px rgba(255,255,255,0.9));
-        transform-origin: center;
-        z-index: 4;
+        filter: drop-shadow(0 0 2px rgba(255,255,255,0.8));
+        z-index: 5;
       }
 
-      /* Variants for natural spread — tweak left/top/durations as needed */
+      /* Variations for natural effect */
       .sale-offers-btn .snowflake:nth-child(1) {
-        left: 6%;
+        left: 10%;
         animation-duration: 3.2s;
-        font-size: 12px;
         animation-delay: 0s;
-        transform: rotate(0deg);
       }
       .sale-offers-btn .snowflake:nth-child(2) {
-        left: 20%;
+        left: 25%;
         animation-duration: 3.8s;
-        font-size: 10px;
-        animation-delay: 0.4s;
-        transform: rotate(10deg);
+        animation-delay: 0.3s;
       }
       .sale-offers-btn .snowflake:nth-child(3) {
-        left: 38%;
+        left: 45%;
         animation-duration: 3.0s;
-        font-size: 9px;
-        animation-delay: 0.2s;
-        transform: rotate(-8deg);
+        animation-delay: 0.1s;
       }
       .sale-offers-btn .snowflake:nth-child(4) {
-        left: 58%;
+        left: 65%;
         animation-duration: 3.6s;
-        font-size: 11px;
-        animation-delay: 0.6s;
-        transform: rotate(6deg);
+        animation-delay: 0.4s;
       }
       .sale-offers-btn .snowflake:nth-child(5) {
-        left: 78%;
+        left: 80%;
         animation-duration: 4.0s;
-        font-size: 12px;
-        animation-delay: 0.8s;
-        transform: rotate(-4deg);
+        animation-delay: 0.6s;
       }
 
-      /* Dendrite look: use different snow characters and a tiny scale jitter */
       @keyframes snowFall {
         0% {
-          transform: translateY(-30px) rotate(0deg) scale(0.95);
+          transform: translateY(-25px) rotate(0deg);
           opacity: 1;
         }
-        30% {
-          transform: translateY(6px) rotate(30deg) scale(1.05);
-          opacity: 0.95;
-        }
-        60% {
-          transform: translateY(22px) rotate(90deg) scale(0.98);
-          opacity: 0.9;
+        50% {
+          opacity: 0.85;
         }
         100% {
-          transform: translateY(48px) rotate(160deg) scale(0.9);
+          transform: translateY(50px) rotate(150deg);
           opacity: 0;
         }
       }
 
-      /* optional: subtle accumulation glow on bottom edge */
-      .sale-offers-btn::before,
-      .sale-offers-btn::after {
-        z-index: 5;
-      } /* keeps icon/hat above flakes if necessary */
+
+      /*
+   ============================================ 
+   MOBILE RESPONSIVE CENTERING 
+   ============================================
+*/
+      @media (max-width: 767px) {
+        .sale-offers-btn-wrapper {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+
+        .sale-offers-btn {
+          margin-left: auto;
+          margin-right: auto;
+          justify-content: center;
+        }
+      }
 
     </style>
 
