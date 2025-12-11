@@ -15,17 +15,18 @@
 }
 
 /* --------------------------- */
-/* 📱 MOBILE VIEW ADJUSTMENTS */
+/* 📱 MOBILE VIEW — OPTIMIZED */
 /* --------------------------- */
 
 @media (max-width: 768px) {
 
   .snow-overlay-container {
-    top: -5px;      /* adjust for mobile */
-    right: -5px;    /* adjust for mobile */
+    top: -2px;      /* sits neatly on the top edge */
+    right: 4px;     /* pulls slightly inward to avoid edge clipping */
   }
 
   .snow-overlay-container img {
-    width: 150px;   /* mobile snow size */
+    width: 85px;    /* perfect size for your mobile search bar */
   }
 }
+
