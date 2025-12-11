@@ -420,108 +420,85 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
+      /* ---------- MENU: Force inline layout and vertical alignment ---------- */
 
+      /* Make the main inline menu behave as a horizontal flex row */
+      .header__inline-menu,
+      .header__menu-list, /* some themes use this */
+      .header__menu {
+        /* fallback selector */
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem;
+        /* small gap between items; adjust if needed */
+      }
 
-      /*
-
-   --------------------------- 
-   SALE & OFFERS — FULL CSS 
-   Paste this inside <head> 
-   --------------------------- 
-*/
-
-      .sale-offers-btn {
-        background: linear-gradient(135deg, #ec2442, #169c69) !important;
-        color: #fff !important;
-        padding: 10px 16px 10px 36px !important;
-        /* leave space for tree icon */
-        border-radius: 8px !important;
-        font-weight: 700 !important;
-        font-size: 14px !important;
+      /* Ensure each menu <li> stays inline-block and vertically centered */
+      .list-menu__item {
         display: inline-flex !important;
         align-items: center !important;
-        text-decoration: none !important;
-        position: relative;
-        /* Allow hat outside; snow will be clipped by .snow-container */
-        overflow: visible !important;
-        /* Keep effects */
-        animation: christmasGlow 2s ease-in-out infinite
-        , textBlink 1.8s ease-in-out infinite;
-        -webkit-font-smoothing: antialiased;
+        vertical-align: middle !important;
+        margin: 0 !important;
+        /* remove extra margins that push height */
+        padding: 0 !important;
+        /* keep spacing consistent */
+        line-height: 1 !important;
       }
 
-      /* visible text separate so it stays above snow */
+      /* Specific class for our custom li to avoid touching others (if you added sale-offers-li) */
+      .sale-offers-li {
+        display: inline-flex !important;
+        align-items: center !important;
+        vertical-align: middle !important;
+      }
+
+      /* ---------- BUTTON: keep inline and remove vertical shift ---------- */
+      .sale-offers-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        height: auto !important;
+        /* don't let the hat increase li height */
+        line-height: 1 !important;
+        position: relative !important;
+        overflow: visible !important;
+        /* hat visible; snow clipped by container */
+        z-index: 20;
+        /* keep button above menu background */
+      }
+
+      /* Keep visible text above flakes */
       .sale-offers-text {
         position: relative;
-        z-index: 10;
-        margin-left: 4px;
-        /* small gap from tree icon */
+        z-index: 30;
       }
 
-      /* Tree icon (left) */
-      .sale-offers-btn::before {
-        content: '🎄';
-        position: absolute;
-        left: 8px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 16px;
-        color: #FFD700;
-        z-index: 11;
-      }
-
-      /* Santa hat (right) - visible outside because button overflow is visible */
+      /* ---------- HAT: absolutely positioned so it doesn't affect flow ---------- */
       .sale-offers-btn::after {
-        content: "";
-        position: absolute;
+        position: absolute !important;
         top: -16px !important;
         right: -23px !important;
         width: 36px;
         height: 36px;
-        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
         pointer-events: none;
         z-index: 9999 !important;
+        /* ensure it doesn't cause the li to grow */
+        display: block;
       }
 
-      /* Glow and blink */
-      @keyframes christmasGlow {
-        0% {
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
-          , 0 0 20px rgba(255, 0, 0, 0.6);
-        }
-        50% {
-          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9)
-          , 0 0 30px rgba(255, 0, 0, 0.9)
-          , 0 0 40px rgba(0, 255, 0, 0.7);
-        }
-        100% {
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
-          , 0 0 20px rgba(255, 0, 0, 0.6);
-        }
+      /* If pseudo-element previously caused layout shift, force no-impact: */
+      .sale-offers-li,
+      .sale-offers-li * {
+        min-height: 0 !important;
       }
 
-      @keyframes textBlink {
-        0,
-        100% {
-          color: #ffffff;
-        }
-        50% {
-          color: #fffa9c;
-        }
-      }
-
-
-      /*
-
-   --------------------------- 
-   SNOW CONTAINER — CLIPS SNOW 
-   (keeps flakes inside button) 
-   --------------------------- 
-*/
+      /* ---------- SNOW CONTAINER: clip snow inside button (doesn't affect layout) ---------- */
       .sale-offers-btn .snow-container {
         position: absolute;
         top: 0;
@@ -529,95 +506,57 @@ body {
         width: 100%;
         height: 100%;
         overflow: hidden !important;
-        /* CRITICAL: clips flakes inside */
+        /* CRITICAL: clip snowflakes inside */
         pointer-events: none;
-        z-index: 3;
-        /* under text (text z-index is 10) */
+        z-index: 5;
+        /* below text (text z-index is 30) */
         border-radius: inherit;
-        /* match button rounding */
       }
 
-      /* Snowflakes inside the container */
+      /* snowflake styles remain */
       .sale-offers-btn .snow-container .snowflake {
         position: absolute;
         top: -28px;
-        /* start above container */
         color: #ffffff;
         font-size: 12px;
         opacity: 0.95;
         pointer-events: none;
         animation: snowFall linear infinite;
         filter: drop-shadow(0 0 2px rgba(255,255,255,0.85));
-        transform-origin: center;
-        z-index: 4;
-        /* above container background but below text */
+        z-index: 6;
       }
 
-      /* natural spread variations */
-      .sale-offers-btn .snow-container .snowflake:nth-child(1) {
-        left: 8%;
-        animation-duration: 3.2s;
-        animation-delay: 0s;
-        font-size: 12px;
-      }
-      .sale-offers-btn .snow-container .snowflake:nth-child(2) {
-        left: 24%;
-        animation-duration: 3.8s;
-        animation-delay: 0.3s;
-        font-size: 11px;
-      }
-      .sale-offers-btn .snow-container .snowflake:nth-child(3) {
-        left: 44%;
-        animation-duration: 3.0s;
-        animation-delay: 0.1s;
-        font-size: 10px;
-      }
-      .sale-offers-btn .snow-container .snowflake:nth-child(4) {
-        left: 64%;
-        animation-duration: 3.6s;
-        animation-delay: 0.4s;
-        font-size: 11px;
-      }
-      .sale-offers-btn .snow-container .snowflake:nth-child(5) {
-        left: 84%;
-        animation-duration: 4.0s;
-        animation-delay: 0.6s;
-        font-size: 13px;
+      /* ---------- ensure the entire header/menu doesn't expand by the hat ---------- */
+      /* limit header row height to the normal nav height (adjust 64px to your nav height) */.header {
+        /* only apply if safe for your theme - adjust value if needed */
+        max-height: none;
+        /* avoid hard restriction unless required */
       }
 
-      @keyframes snowFall {
-        0% {
-          transform: translateY(-28px) rotate(0deg) scale(0.98);
-          opacity: 1;
-        }
-        45% {
-          transform: translateY(8px) rotate(40deg) scale(1.04);
-          opacity: 0.95;
-        }
-        75% {
-          transform: translateY(26px) rotate(100deg) scale(0.99);
-          opacity: 0.9;
-        }
-        100% {
-          transform: translateY(54px) rotate(160deg) scale(0.92);
-          opacity: 0;
-        }
+      /* If menu items are vertically stacked by CSS elsewhere, force single line */
+      .header__inline-menu > .list-menu__item,
+      .header__menu-list > .list-menu__item {
+        white-space: nowrap !important;
       }
 
-      /* responsive: center and keep layout tidy */
+      /* ---------- small screen tweaks (optional) ---------- */
       @media (max-width: 767px) {
-        .sale-offers-btn-wrapper {
-          width: 100%;
-          display: flex;
-          justify-content: center;
+        .header__inline-menu,
+        .header__menu-list {
+          display: block !important;
+          /* mobile stacked menu is OK */
         }
+        /* keep sale-offers button responsive */
         .sale-offers-btn {
-          margin-left: auto;
-          margin-right: auto;
-          justify-content: center;
+          margin: 8px 0 !important;
+        }
+        .sale-offers-btn::after {
+          right: -18px !important;
+          top: -16px !important;
+          width: 30px;
+          height: 30px;
         }
       }
-
     </style>
 
 
