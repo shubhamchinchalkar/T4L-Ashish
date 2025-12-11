@@ -498,6 +498,57 @@ body {
         }
       }
 
+      /* Snowflakes inside the button */
+      .sale-offers-btn {
+        position: relative;
+        /* ensure pseudo-elements are relative to button */
+        overflow: hidden;
+        /* keep snow inside button */
+      }
+
+      /* Layer 1 */
+      .sale-offers-btn::before {
+        content: '❄ ❅ ❄ ❆ ❄';
+        position: absolute;
+        top: -10px;
+        left: 0;
+        width: 100%;
+        font-size: 10px;
+        color: #fff;
+        opacity: 0.8;
+        white-space: nowrap;
+        pointer-events: none;
+        animation: snowFall 3s linear infinite;
+      }
+
+      /* Layer 2 */
+      .sale-offers-btn::after {
+        content: '❄ ❅ ❄ ❆';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        width: 100%;
+        font-size: 8px;
+        color: #fff;
+        opacity: 0.6;
+        white-space: nowrap;
+        pointer-events: none;
+        animation: snowFall 4s linear infinite reverse;
+      }
+
+      /* Snow falling animation */
+      @keyframes snowFall {
+        0% {
+          transform: translateY(-20px) translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(40px) translateX(6px);
+          opacity: 0;
+        }
+      }
+
+
       /* ---------------------------------------------------- */
       /* MOBILE ONLY: Center button on small screens         */
       /* ---------------------------------------------------- */@media (max-width: 767px) {
