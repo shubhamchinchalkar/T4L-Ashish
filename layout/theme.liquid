@@ -421,6 +421,32 @@ body {
 
 
     <style>
+
+      /* WRAPPER — required for the Santa hat */
+      .sale-offers-btn-wrapper {
+        position: relative;
+        display: inline-block;
+        /* Keeps layout intact */
+      }
+
+      /* Santa hat positioned outside top-right */
+      .sale-offers-btn-wrapper::after {
+        content: "";
+        position: absolute;
+        top: -12px;
+        /* Adjust vertical offset */
+        right: -10px;
+        /* Adjust horizontal offset */
+        width: 30px;
+        /* Hat size */
+        height: 30px;
+        background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        z-index: 5;
+      }
+
       /* Christmas-themed Sale & Offers button with glow + blinking + snow */
       .sale-offers-btn {
         background: linear-gradient(135deg, #a30820, #154734) !important;
@@ -449,7 +475,7 @@ body {
         color: #FFD700;
       }
 
-      /* Falling snow */
+      /* Falling snow overlay */
       .sale-offers-btn::after {
         content: '';
         position: absolute;
@@ -502,6 +528,7 @@ body {
         };
         /* soft golden blink */
       }
+
     </style>
 
 
