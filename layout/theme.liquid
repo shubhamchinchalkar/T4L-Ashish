@@ -432,7 +432,8 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
+        overflow: hidden !important;
+        /* needed for snow */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
@@ -446,29 +447,41 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
+        z-index: 3;
       }
 
-      /* Santa Hat (CSS ONLY — uses background-image) */
+      /* Santa Hat */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -16px;
-        /* move above button */
         right: -23px;
-        /* move outside button */
         width: 36px;
-        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
-        /* cute tilt */
         pointer-events: none;
         z-index: 5;
       }
 
+      /* Snowflakes inside button */
+      .sale-offers-btn .snowflakes {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
+        background-size: 50px 50px;
+        animation: snowFall 6s linear infinite;
+        opacity: 0.4;
+        z-index: 2;
+        pointer-events: none;
+      }
 
       /* Pulsing glow */
       @keyframes christmasGlow {
@@ -498,56 +511,15 @@ body {
         }
       }
 
-      /* Snowflakes inside the button */
-      .sale-offers-btn {
-        position: relative;
-        /* ensure pseudo-elements are relative to button */
-        overflow: hidden;
-        /* keep snow inside button */
-      }
-
-      /* Layer 1 */
-      .sale-offers-btn::before {
-        content: '❄ ❅ ❄ ❆ ❄';
-        position: absolute;
-        top: -10px;
-        left: 0;
-        width: 100%;
-        font-size: 10px;
-        color: #fff;
-        opacity: 0.8;
-        white-space: nowrap;
-        pointer-events: none;
-        animation: snowFall 3s linear infinite;
-      }
-
-      /* Layer 2 */
-      .sale-offers-btn::after {
-        content: '❄ ❅ ❄ ❆';
-        position: absolute;
-        top: -20px;
-        left: 0;
-        width: 100%;
-        font-size: 8px;
-        color: #fff;
-        opacity: 0.6;
-        white-space: nowrap;
-        pointer-events: none;
-        animation: snowFall 4s linear infinite reverse;
-      }
-
       /* Snow falling animation */
       @keyframes snowFall {
         0% {
-          transform: translateY(-20px) translateX(0);
-          opacity: 1;
+          transform: translateY(-50px);
         }
         100% {
-          transform: translateY(40px) translateX(6px);
-          opacity: 0;
+          transform: translateY(50px);
         }
       }
-
 
       /* ---------------------------------------------------- */
       /* MOBILE ONLY: Center button on small screens         */
@@ -557,7 +529,6 @@ body {
           display: flex !important;
           justify-content: center !important;
         }
-
         .sale-offers-btn {
           margin-left: auto !important;
           margin-right: auto !important;
@@ -566,7 +537,6 @@ body {
           align-self: center !important;
         }
       }
-
     </style>
 
 
