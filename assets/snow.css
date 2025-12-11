@@ -1,26 +1,17 @@
-/* assets/snow.css */
+/* Full-width snow overlay for search bar */
 
-.snow-overlay-container{
+.search-snow-overlay {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -2px;       /* adjust to sit flush */
+  left: 0;
+  width: 100%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 20;
 }
 
-.snow-overlay-container img{
-  width: 80px;
+.search-snow-overlay img{
+  width: 100%;
   height: auto;
-  opacity: 0.95;
-  animation: snowFloat 5s ease-in-out infinite;
-}
-
-@keyframes snowFloat{
-  0%   { transform: translateY(0) rotate(0deg); }
-  50%  { transform: translateY(-6px) rotate(4deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-
-@media (max-width: 740px){
-  .snow-overlay-container img{ width: 56px; }
+  display: block;
+  opacity: 1;
 }
