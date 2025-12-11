@@ -420,10 +420,8 @@ body {
     <link rel="stylesheet" href="{{ 'custom.css' | asset_url }}">
 
     <style>
-
-      /* --------------------------------------------------------- */
-      /*  SALE & OFFERS BUTTON — MAIN STYLING (UNCHANGED LOOK)     */
-      /* --------------------------------------------------------- */.sale-offers-btn {
+      /* Christmas-themed Sale & Offers button with glow + blinking + snow */
+      .sale-offers-btn {
         background: linear-gradient(135deg, #ec2442, #169c69) !important;
         color: #fff !important;
         padding: 10px 16px 10px 30px !important;
@@ -433,22 +431,13 @@ body {
         display: inline-flex !important;
         align-items: center !important;
         text-decoration: none !important;
-
-        /* IMPORTANT — fix position shifting */
-        position: relative !important;
-        overflow: hidden !important;
-        margin: 0 !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        vertical-align: middle !important;
-
-        /* Glow + Blink */
+        position: relative;
+        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Tree icon */
+      /* Christmas tree icon */
       .sale-offers-btn::before {
         content: '🎄';
         position: absolute;
@@ -457,100 +446,32 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
-        z-index: 5;
       }
 
-      /* Santa hat */
+      /* Santa Hat (CSS ONLY — uses background-image) */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -16px;
+        /* move above button */
         right: -23px;
+        /* move outside button */
         width: 36px;
+        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
+        /* cute tilt */
         pointer-events: none;
-        z-index: 6;
+        z-index: 5;
       }
 
 
-      /* --------------------------------------------------------- */
-      /*                SNOW INSIDE BUTTON                         */
-      /* --------------------------------------------------------- */
-
-      /* Base snowflake styles — WON’T affect button position */.snowflake {
-        position: absolute !important;
-        top: -12px !important;
-        color: #fff;
-        opacity: 0.9;
-        pointer-events: none !important;
-        z-index: 4;
-        animation: fall 2.7s linear infinite
-        , drift 3s ease-in-out infinite;
-      }
-
-      /* Individual positions + delays (stable layout) */
-      .sf1 {
-        left: 10%;
-        font-size: 10px;
-        animation-delay: 0.0s;
-      }
-      .sf2 {
-        left: 25%;
-        font-size: 8px;
-        animation-delay: 0.4s;
-      }
-      .sf3 {
-        left: 45%;
-        font-size: 9px;
-        animation-delay: 0.7s;
-      }
-      .sf4 {
-        left: 65%;
-        font-size: 7px;
-        animation-delay: 1s;
-      }
-      .sf5 {
-        left: 80%;
-        font-size: 10px;
-        animation-delay: 1.3s;
-      }
-
-      /* Falling animation */
-      @keyframes fall {
-        0% {
-          transform: translateY(-10px);
-          opacity: 1;
-        }
-        90% {
-          opacity: .8;
-        }
-        100% {
-          transform: translateY(40px);
-          opacity: 0;
-        }
-      }
-
-      /* Subtle drift (dendrite effect) */
-      @keyframes drift {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(-4px);
-        }
-        100% {
-          transform: translateX(3px);
-        }
-      }
-
-      /* --------------------------------------------------------- */
-      /*   Glow + Blink Animations (keep original design)          */
-      /* --------------------------------------------------------- */@keyframes christmasGlow {
+      /* Pulsing glow */
+      @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
           , 0 0 20px rgba(255, 0, 0, 0.6);
@@ -566,27 +487,32 @@ body {
         }
       }
 
+      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
-          color: #fff;
+          color: #ffffff;
         }
         50% {
           color: #fffa9c;
         }
       }
 
-      /* --------------------------------------------------------- */
-      /* MOBILE FIX                                                 */
-      /* --------------------------------------------------------- */@media (max-width: 767px) {
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
         .sale-offers-btn-wrapper {
           width: 100% !important;
           display: flex !important;
           justify-content: center !important;
         }
+
         .sale-offers-btn {
           margin-left: auto !important;
           margin-right: auto !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-self: center !important;
         }
       }
 
