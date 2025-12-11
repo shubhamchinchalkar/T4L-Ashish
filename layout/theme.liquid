@@ -432,11 +432,9 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: hidden !important;
-        /* ensures snow stays inside */
+        overflow: visible !important;
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
-        z-index: 1;
       }
 
       /* Christmas tree icon */
@@ -448,61 +446,66 @@ body {
         transform: translateY(-50%);
         font-size: 16px;
         color: #FFD700;
-        z-index: 5;
       }
 
-      /* Santa Hat */
+      /* Santa Hat (CSS ONLY — uses background-image) */
       .sale-offers-btn::after {
         content: "";
         position: absolute;
         top: -14px;
-        right: -20px;
+        /* move above button */
+        right: -25px;
+        /* move outside button */
         width: 36px;
+        /* hat size */
         height: 36px;
         background-image: url('https://cdn.shopify.com/s/files/1/0250/6198/2261/files/santa-hat.png?v=1765375383');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
         transform: rotate(12deg);
+        /* cute tilt */
         pointer-events: none;
-        z-index: 6;
+        z-index: 5;
       }
 
-      /* Snow layer */
-      .sale-offers-btn .snow {
+      /* Falling snow overlay */
+      .sale-offers-btn .snow-layer {
+        pointer-events: none;
+      }
+
+      /* Snowfall animation layer (extra element so hat is not replaced) */
+      .sale-offers-btn span.snow {
         position: absolute;
-        top: -100%;
+        top: 0;
         left: 0;
         width: 100%;
-        height: 300%;
+        height: 100%;
         pointer-events: none;
-        z-index: 3;
-        opacity: 0.7;
-
-        background: radial-gradient(circle, #fff 2.5px, transparent 3px), radial-gradient(circle, #fff 1.8px, transparent 3px), radial-gradient(circle, #fff 2px, transparent 3px), radial-gradient(circle, #fff 1.5px, transparent 3px);
-
-        background-size: 60px 60px;
-        animation: snowFall 4.5s linear infinite;
+        background: radial-gradient(circle at 10px 10px, #fff 2px, transparent 3px), radial-gradient(circle at 20px 30px, #fff 1.5px, transparent 2.5px), radial-gradient(circle at 15px 50px, #fff 1px, transparent 2px), radial-gradient(circle at 25px 20px, #fff 1.2px, transparent 2px);
+        background-size: 50px 50px;
+        animation: snowFall 6s linear infinite;
+        opacity: 0.4;
       }
 
-      /* Snowfall animation */
+      /* Snowfall */
       @keyframes snowFall {
         0% {
           transform: translateY(-50px);
         }
         100% {
-          transform: translateY(150px);
+          transform: translateY(50px);
         }
       }
 
-      /* Glow */
+      /* Pulsing glow */
       @keyframes christmasGlow {
         0% {
           box-shadow: 0 0 10px rgba(255, 255, 255, 0.6)
           , 0 0 20px rgba(255, 0, 0, 0.6);
         }
         50% {
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.9)
+          box-shadow: 0 0 18px rgba(255, 255, 255, 0.9)
           , 0 0 30px rgba(255, 0, 0, 0.9)
           , 0 0 40px rgba(0, 255, 0, 0.7);
         }
@@ -512,24 +515,26 @@ body {
         }
       }
 
-      /* Text blink */
+      /* Blinking text */
       @keyframes textBlink {
         0,
         100% {
-          color: #fff;
+          color: #ffffff;
         }
         50% {
           color: #fffa9c;
         }
       }
 
-      /* Mobile centering */
-      @media (max-width: 767px) {
+      /* ---------------------------------------------------- */
+      /* MOBILE ONLY: Center button on small screens         */
+      /* ---------------------------------------------------- */@media (max-width: 767px) {
         .sale-offers-btn-wrapper {
           width: 100% !important;
           display: flex !important;
           justify-content: center !important;
         }
+
         .sale-offers-btn {
           margin-left: auto !important;
           margin-right: auto !important;
@@ -538,6 +543,7 @@ body {
           align-self: center !important;
         }
       }
+
     </style>
 
 
