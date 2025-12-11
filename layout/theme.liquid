@@ -432,7 +432,8 @@ body {
         align-items: center !important;
         text-decoration: none !important;
         position: relative;
-        overflow: visible !important;
+        overflow: hidden !important;
+        /* ensure snow stays inside */
         animation: christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
@@ -469,9 +470,14 @@ body {
         z-index: 5;
       }
 
-      /* Falling snow overlay */
-      .sale-offers-btn .snow-layer {
-        pointer-events: none;
+      /* Falling snow overlay (CSS-only background animation, NO pseudo-elements) */
+      .sale-offers-btn {
+        background-image: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.9) 0 2px, transparent 3px), radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.9) 0 2px, transparent 3px), radial-gradient(circle at 70% 5%, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px), radial-gradient(circle at 90% 25%, rgba(255, 255, 255, 0.9) 0 2px, transparent 3px), radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px), radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.9) 0 2px, transparent 3px), radial-gradient(circle at 85% 60%, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px);
+        background-size: 140px 140px;
+        background-repeat: repeat;
+        animation: christmasGlow 2s ease-in-out infinite
+        , textBlink 1.8s ease-in-out infinite
+        , snowfallLayer 4s linear infinite;
       }
 
       /* Pulsing glow */
@@ -502,65 +508,19 @@ body {
         }
       }
 
-      /* Snowflakes inside button — CSS ONLY, no extra HTML */
-      .sale-offers-btn {
-        position: relative;
-        overflow: hidden !important;
-        /* keeps snow inside */
-      }
-
-      /* Snow layer using animated background gradients */
-      .sale-offers-btn::snow {
-        content: "";
-      }
-
-      /* Use ::before and ::after as animated snow layers */
-      .sale-offers-btn::before,
-      .sale-offers-btn::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background-repeat: repeat;
-        background-size: 150px 150px;
-        opacity: 0.85;
-      }
-
-      /* Small snow particles layer */
-      .sale-offers-btn::before {
-        background-image: radial-gradient(2px 2px at 10px 10px, white 90%, transparent), radial-gradient(2px 2px at 40px 20px, white 90%, transparent), radial-gradient(2px 2px at 80px 5px, white 90%, transparent), radial-gradient(2px 2px at 120px 30px, white 90%, transparent), radial-gradient(2px 2px at 60px 50px, white 90%, transparent);
-        animation: snowSmall 3.5s linear infinite;
-      }
-
-      /* Medium snow particles layer */
-      .sale-offers-btn::after {
-        background-image: radial-gradient(3px 3px at 20px 5px, white 90%, transparent), radial-gradient(3px 3px at 70px 25px, white 90%, transparent), radial-gradient(3px 3px at 110px 40px, white 90%, transparent), radial-gradient(3px 3px at 50px 15px, white 90%, transparent);
-        animation: snowMedium 4.5s linear infinite;
-      }
-
-      /* Animations */
-      @keyframes snowSmall {
+      /* Snowfall animation */
+      @keyframes snowfallLayer {
         0% {
           background-position: 0 0;
         }
         100% {
-          background-position: -10px 40px;
-        }
+          background-position: -20px 40px;
+        };
+        /* diagonal falling motion */
       }
 
-      @keyframes snowMedium {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: -15px 50px;
-        }
-      }
-
-
-      /* ---------------------------------------------------- */
-      /* MOBILE ONLY: Center button on small screens         */
-      /* ---------------------------------------------------- */@media (max-width: 767px) {
+      /* MOBILE ONLY: Center button on small screens */
+      @media (max-width: 767px) {
         .sale-offers-btn-wrapper {
           width: 100% !important;
           display: flex !important;
@@ -575,7 +535,6 @@ body {
           align-self: center !important;
         }
       }
-
     </style>
 
 
