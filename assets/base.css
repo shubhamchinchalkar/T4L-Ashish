@@ -4419,7 +4419,7 @@ product-info .breadcrumbs{
 }
 
 /* ============================================
-   WORKING GLITTER CANDY CANE BORDER
+   THICK CANDY CANE BORDER + GLOW + GLITTER
    ============================================ */
 
 .field.search__input-wrapper,
@@ -4428,15 +4428,17 @@ form[action="/search"] .field {
   z-index: 1;
 }
 
-/* Create border container */
+/* Border wrapper */
 .field.search__input-wrapper::before,
 form[action="/search"] .field::before {
   content: "";
   position: absolute;
-  inset: -3.7px; /* border thickness */
-  border-radius: 10px;
 
-  /* Candy Cane Stripes + Glitter Overlay */
+  /* THICK border */
+  inset: -12px; /* adjust thickness */
+  border-radius: 16px;
+
+  /* Candy Cane stripes + glitter */
   background:
     repeating-linear-gradient(
       45deg,
@@ -4444,15 +4446,21 @@ form[action="/search"] .field::before {
       #ffffff 12px 24px
     ),
     radial-gradient(circle, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0) 70%);
-  
-  background-size: 200% 200%;
 
+  background-size: 200% 200%;
   animation: glitterBorder 20s linear infinite;
+
+  /* Soft glowing effect */
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 0, 0, 0.4);
+
   z-index: -1;
   pointer-events: none;
 }
 
-/* Animation for glitter */
+/* Glitter animation */
 @keyframes glitterBorder {
   0% {
     background-position: 0% 0%;
