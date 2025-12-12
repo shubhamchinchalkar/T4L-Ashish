@@ -516,32 +516,56 @@ body {
         }
       }
 
-      /* ---------------------------------------------------------- */
-      /* ❄️ MINI SNOW INSIDE BUTTON — DOES NOT TOUCH ::after (Santa Hat) */
-      /* ---------------------------------------------------------- */.sale-offers-btn {
+      /* ❄ MINI SNOW INSIDE BUTTON — SAFE, DOES NOT REMOVE THE SANTA HAT */
+      .sale-offers-btn {
         position: relative !important;
         overflow: hidden !important;
 
-        /* Create snowflakes using repeating background text */
-        background-image: linear-gradient(transparent, transparent)
-        , url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' height='20' width='100'><text x='0' y='14' font-size='12' fill='white'>❅ ❄ ❆ ❄ ❅</text></svg>");
+        /* Your existing styles stay untouched here */
 
-        background-repeat: no-repeat
-        , repeat-x;
-        background-position: 0 -10px
-        , 0 0;
-        animation: snowMove 3s linear infinite;
+        /* Add animated snow using background only */
+        background-image: /* layer 1 - bigger flakes */
+        url("data:image/svg+xml;utf8, \ <svg xmlns='http://www.w3.org/2000/svg' width='120' height='30'>\ <text x='0' y='20' font-size='12' fill='white'>❅ ❄ ❆ ❄ ❅ ❆</text>\ </svg>"), /* layer 2 - smaller flakes */
+        url("data:image/svg+xml;utf8, \ <svg xmlns='http://www.w3.org/2000/svg' width='120' height='30'>\ <text x='0' y='20' font-size='8' fill='white'>❄ ❆ ❅ ❄ ❆ ❅</text>\ </svg>"), /* keep your original gradient background UNDERNEATH */
+        linear-gradient(135deg, #ec2442, #169c69);
+
+        background-repeat: repeat-x
+        , repeat-x
+        , no-repeat;
+        background-size: auto
+        , auto
+        , cover;
+
+        /* Animate snow layers */
+        animation: snowLayer1 3s linear infinite
+        , snowLayer2 4s linear infinite;
       }
 
-      /* Animate the background downward */
-      @keyframes snowMove {
+      /* Layer 1 movement */
+      @keyframes snowLayer1 {
         0% {
-          background-position: 0 -10px
-          , 0 0;
+          background-position: 0 -20px
+          , 0 0
+          , center;
         }
         100% {
-          background-position: 4px 40px
-          , 0 0;
+          background-position: 6px 40px
+          , 0 0
+          , center;
+        }
+      }
+
+      /* Layer 2 movement (slower) */
+      @keyframes snowLayer2 {
+        0% {
+          background-position: 0 -15px
+          , 0 0
+          , center;
+        }
+        100% {
+          background-position: -6px 45px
+          , 0 0
+          , center;
         }
       }
 
