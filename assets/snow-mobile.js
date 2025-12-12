@@ -1,69 +1,57 @@
-/* FINAL – GUARANTEED WORKING MOBILE SNOW (CDN VERSION ONLY) */
+/* DEBUG SCRIPT — DO NOT EDIT */
 
 (function () {
 
-  // Run only on mobile
   if (window.innerWidth > 768) return;
 
-  // ALWAYS USE CDN URL (Option B)
-  const SNOW_IMG = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Untitled-4.png?v=1765455277";
+  console.log("%cMOBILE SEARCH DEBUG STARTED", "background: #222; color: #0f0; padding: 4px;");
 
-  // Shopify mobile search uses a <details-modal> wrapper.
-  const MODAL_SELECTORS = [
+  const selectors = [
+    '.search-modal',
     '.search-modal__content',
     '.modal__content',
-    '.search-modal',
     '[class*="modal"]',
-    '[role="dialog"]'
+    '[id*="modal"]',
+    '[role="dialog"]',
+    'details-modal',
+    'details-modal.header__search',
+    'predictive-search',
+    '.field'
   ];
 
-  function createSnow() {
-    const wrap = document.createElement("div");
-    wrap.className = "mobile-snow-container";
+  function scan() {
+    console.log("----- NEW SCAN -----");
 
-    const img = document.createElement("img");
-    img.src = SNOW_IMG;
-    img.alt = "";
-    img.setAttribute("aria-hidden", "true");
+    selectors.forEach(sel => {
+      const nodes = document.querySelectorAll(sel);
+      nodes.forEach(n => {
+        const rect = n.getBoundingClientRect();
+        console.log(
+          sel,
+          "FOUND →", n,
+          "VISIBLE →", rect.width > 0 && rect.height > 0
+        );
+      });
+    });
 
-    wrap.appendChild(img);
-    return wrap;
-  }
-
-  function tryInject() {
-    // Look for ANY visible search modal container
-    const elements = document.querySelectorAll(MODAL_SELECTORS.join(","));
-    elements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-
-      // must be visible (Shopify keeps inactive modals hidden)
-      if (rect.width > 0 && rect.height > 0) {
-
-        if (!el.querySelector(".mobile-snow-container")) {
-
-          // Ensure positioning works
-          const pos = getComputedStyle(el).position;
-          if (pos === "static" || !pos) {
-            el.style.position = "relative";
-          }
-
-          el.appendChild(createSnow());
-        }
+    // Check active shadow roots
+    const preds = document.querySelectorAll("predictive-search");
+    preds.forEach(p => {
+      console.log("predictive-search:", p);
+      if (p.shadowRoot) {
+        console.log("SHADOW ROOT FOUND:", p.shadowRoot);
+        console.log("SHADOW CHILDREN:", p.shadowRoot.innerHTML);
+      } else {
+        console.log("NO SHADOW ROOT");
       }
     });
   }
 
-  function observeDOM() {
-    tryInject(); // first attempt
+  // Scan on load
+  scan();
 
-    const obs = new MutationObserver(() => tryInject());
-    obs.observe(document.body, { childList: true, subtree: true });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", observeDOM);
-  } else {
-    observeDOM();
-  }
+  // Scan when DOM changes
+  const obs = new MutationObserver(() => scan());
+  obs.observe(document.body, { childList: true, subtree: true });
 
 })();
