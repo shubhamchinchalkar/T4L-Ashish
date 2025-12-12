@@ -516,15 +516,20 @@ body {
         }
       }
 
-      /* ❄ MINI SNOWFALL EFFECT INSIDE BUTTON — SAFE (no ::before or ::after override) */
+
+      /*
+   ================================================================ 
+   ❄ MINI SNOWFALL INSIDE BUTTON — DOESN'T TOUCH ::before or ::after 
+   ================================================================
+*/
       .sale-offers-btn {
         position: relative !important;
         overflow: hidden !important;
 
-        /* Add 2 snow layers */
-        background-image: /* layer 1 - bigger flakes */
-        url("data:image/svg+xml;utf8, \ <svg xmlns='http://www.w3.org/2000/svg' width='140' height='30'>\ <text x='0' y='20' font-size='12' fill='white'>❅ ❄ ❆ ❄ ❅ ❆ ❄</text>\ </svg>"), /* layer 2 - smaller flakes */
-        url("data:image/svg+xml;utf8, \ <svg xmlns='http://www.w3.org/2000/svg' width='140' height='30'>\ <text x='0' y='20' font-size='8' fill='white'>❄ ❆ ❅ ❄ ❆ ❅ ❄</text>\ </svg>"), /* KEEP your original gradient background */
+        /* Your existing gradient stays — we ADD snow on top */
+        background-image: /* Snow layer 1 (big flakes) */
+        url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' width='160' height='30'><text x='0' y='20' font-size='14' fill='white'>❅ ❄ ❆ ❄ ❅ ❆ ❄</text></svg>"), /* Snow layer 2 (small flakes) */
+        url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' width='160' height='30'><text x='0' y='20' font-size='9' fill='white'>❄ ❆ ❅ ❄ ❆ ❅ ❄</text></svg>"), /* Your ORIGINAL gradient */
         linear-gradient(135deg, #ec2442, #169c69);
 
         background-repeat: repeat-x
@@ -534,36 +539,36 @@ body {
         , auto
         , cover;
 
-        /* Snow animations (2 layers) */
-        animation: snowLayer1 3s linear infinite
-        , snowLayer2 4s linear infinite
+        /* Animate snow in addition to your existing animations */
+        animation: snowBig 3.2s linear infinite
+        , snowSmall 4.4s linear infinite
         , christmasGlow 2s ease-in-out infinite
         , textBlink 1.8s ease-in-out infinite;
       }
 
-      /* Layer 1 movement */
-      @keyframes snowLayer1 {
+      /* Snow layer 1 animation (big flakes) */
+      @keyframes snowBig {
         0% {
-          background-position: 0 -25px
+          background-position: 0 -28px
           , 0 0
           , center;
         }
         100% {
-          background-position: 8px 45px
+          background-position: 10px 45px
           , 0 0
           , center;
         }
       }
 
-      /* Layer 2 movement */
-      @keyframes snowLayer2 {
+      /* Snow layer 2 animation (small flakes, slower) */
+      @keyframes snowSmall {
         0% {
           background-position: 0 -20px
           , 0 0
           , center;
         }
         100% {
-          background-position: -8px 48px
+          background-position: -10px 48px
           , 0 0
           , center;
         }
