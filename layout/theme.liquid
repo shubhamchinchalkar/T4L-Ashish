@@ -516,65 +516,6 @@ body {
         }
       }
 
-
-      /*
-   ================================================================ 
-   ❄ MINI SNOWFALL INSIDE BUTTON — DOESN'T TOUCH ::before or ::after 
-   ================================================================
-*/
-      .sale-offers-btn {
-        position: relative !important;
-        overflow: hidden !important;
-
-        /* Your existing gradient stays — we ADD snow on top */
-        background-image: /* Snow layer 1 (big flakes) */
-        url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' width='160' height='30'><text x='0' y='20' font-size='14' fill='white'>❅ ❄ ❆ ❄ ❅ ❆ ❄</text></svg>"), /* Snow layer 2 (small flakes) */
-        url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' width='160' height='30'><text x='0' y='20' font-size='9' fill='white'>❄ ❆ ❅ ❄ ❆ ❅ ❄</text></svg>"), /* Your ORIGINAL gradient */
-        linear-gradient(135deg, #ec2442, #169c69);
-
-        background-repeat: repeat-x
-        , repeat-x
-        , no-repeat;
-        background-size: auto
-        , auto
-        , cover;
-
-        /* Animate snow in addition to your existing animations */
-        animation: snowBig 3.2s linear infinite
-        , snowSmall 4.4s linear infinite
-        , christmasGlow 2s ease-in-out infinite
-        , textBlink 1.8s ease-in-out infinite;
-      }
-
-      /* Snow layer 1 animation (big flakes) */
-      @keyframes snowBig {
-        0% {
-          background-position: 0 -28px
-          , 0 0
-          , center;
-        }
-        100% {
-          background-position: 10px 45px
-          , 0 0
-          , center;
-        }
-      }
-
-      /* Snow layer 2 animation (small flakes, slower) */
-      @keyframes snowSmall {
-        0% {
-          background-position: 0 -20px
-          , 0 0
-          , center;
-        }
-        100% {
-          background-position: -10px 48px
-          , 0 0
-          , center;
-        }
-      }
-
-
     </style>
 
     <link rel="stylesheet" href="{{ 'snow.css' | asset_url }}">
