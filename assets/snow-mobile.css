@@ -1,0 +1,19 @@
+/* MOBILE-ONLY SNOW OVERLAY */
+
+@media (max-width: 767px) {
+
+  .mobile-snow-container {
+    position: absolute;
+    top: -6px;        /* Adjust UP/DOWN */
+    right: 6px;       /* Adjust LEFT/RIGHT */
+    pointer-events: none;
+    z-index: 999999;
+    display: block;
+  }
+
+  .mobile-snow-container img {
+    width: 80px;      /* Snow image size on mobile */
+    height: auto;
+  }
+
+}
