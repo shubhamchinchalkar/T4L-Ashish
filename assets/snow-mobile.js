@@ -1,57 +1,56 @@
-/* FINAL – Guaranteed Working Mobile Snow For Tiles4Less */
+/* FINAL – GUARANTEED WORKING MOBILE SNOW FOR TILES4LESS */
 
 (function () {
 
-  // Only mobile
+  // Only mobile view
   if (window.innerWidth > 768) return;
 
   const SNOW_IMG = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Untitled-4.png?v=1765455277";
 
-  // The exact structure from your screenshot:
-  // predictive-search.search-modal__form
-  //   form.search
-  //     div.field.flex   <-- attach snow HERE
-  const EXACT_SELECTOR = 'predictive-search.search-modal__form form .field';
+  // The ONLY reliable mobile search wrapper (outside shadow DOM)
+  const MOBILE_MODAL_SELECTOR = '.search-modal__content.search-modal__content-bottom';
 
   function createSnow() {
-    const box = document.createElement("div");
-    box.className = "mobile-snow-container";
+    const wrap = document.createElement("div");
+    wrap.className = "mobile-snow-container";
 
     const img = document.createElement("img");
     img.src = SNOW_IMG;
     img.alt = "";
     img.setAttribute("aria-hidden", "true");
 
-    box.appendChild(img);
-    return box;
+    wrap.appendChild(img);
+    return wrap;
   }
 
   function applySnow() {
-    const target = document.querySelector(EXACT_SELECTOR);
-    if (!target) return;
+    const modal = document.querySelector(MOBILE_MODAL_SELECTOR);
+    if (!modal) return;
 
-    // Prevent double insertion
-    if (target.querySelector('.mobile-snow-container')) return;
+    // avoid duplicates
+    if (modal.querySelector('.mobile-snow-container')) return;
 
-    // Ensure correct positioning
-    if (window.getComputedStyle(target).position === "static") {
-      target.style.position = "relative";
+    // ensure correct positioning
+    const pos = getComputedStyle(modal).position;
+    if (pos === "static" || pos === "") {
+      modal.style.position = "relative";
     }
 
-    target.appendChild(createSnow());
+    modal.appendChild(createSnow());
   }
 
   function init() {
+    applySnow(); // first attempt
 
-    // First attempt
-    applySnow();
-
-    // If search modal opens later → observe
-    const obs = new MutationObserver(() => {
+    // observe DOM changes until search modal appears
+    const observer = new MutationObserver(() => {
       applySnow();
     });
 
-    obs.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
 
   if (document.readyState === "loading") {

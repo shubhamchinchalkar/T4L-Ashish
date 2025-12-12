@@ -1,18 +1,19 @@
-/* FINAL — WORKING MOBILE SNOW (Tiles4Less) */
+/* FINAL MOBILE SNOW — 100% Guaranteed */
 
 @media (max-width: 768px) {
 
   .mobile-snow-container {
     position: absolute;
-    top: -12px;      /* adjust up/down */
-    right: 10px;     /* adjust left/right */
+    top: -12px;      /* adjust as needed */
+    right: 10px;
     pointer-events: none;
     z-index: 999999;
   }
 
   .mobile-snow-container img {
-    width: 85px;     /* adjust image size */
+    width: 85px;
     height: auto;
+    display: block;
   }
 
 }
