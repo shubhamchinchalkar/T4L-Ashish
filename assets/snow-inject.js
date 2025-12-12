@@ -1,130 +1,98 @@
 /* Instant Snow Overlay — Loads With No Delay
-   This script automatically adds a snow image on top of your search bar.
-   It works on desktop, mobile, and across all Shopify themes.
+   Updated to handle mobile search bar wrappers and attach overlay to the input wrapper on small screens.
 */
 
-(function () {  
-  // This starts an Immediately Invoked Function Expression (IIFE).
-  // It keeps all our code inside a private function so it does not interfere with other scripts.
+(function () {
 
-
-  // ⛄ The link to your snow image stored on Shopify CDN
   var SNOW_IMAGE = "https://cdn.shopify.com/s/files/1/0250/6198/2261/files/Snow.png?v=1765459385";
 
-
-  // 👉 These are the different possible search bar elements used by various Shopify themes.
-  // Shopify themes all structure the search bar differently, so we check each selector
-  // until we find which one actually exists on your website.
-
   var selectors = [
-
     '.field',
-    // Many themes wrap the search input inside a <div class="field">
-
     'form[action="/search"] .field',
-    // Search bar inside a form that sends data to /search
-
     '.search-modal__form .field',
-    // Search bar inside a modal popup (used in many mobile layouts)
-
     '.search-bar',
-    // Some themes use this class for the entire search component
-
     '.site-header__search',
-    // Newer Shopify themes (like Dawn) often use this class for the header search box
-
     '.header__search',
-    // Older themes commonly used this for header search
+    '.search-form',
 
-    '.search-form'
-    // Generic backup — catches any search form with custom naming
+    /* Added for Mobile Search Bars */
+    '.search-bar__input-wrapper',
+    '.search-header__wrapper',
+    '.header__mobile-search',
+    '.search-container',
+    '.mobile-search'
   ];
 
-
-  // -----------------------------------------------------
-  // FUNCTION 1: Create the snow overlay element
-  // -----------------------------------------------------
   function createOverlay() {
-
-    var wrap = document.createElement("div"); 
-    // Create an empty <div> which will hold the snow image
-
-    wrap.className = "snow-overlay-container"; 
-    // Add a class so our CSS can style it
-
-    var img = document.createElement("img"); 
-    // Create an <img> element for the snow image
-
-    img.src = SNOW_IMAGE; 
-    // Set the image source URL
-
-    img.alt = ""; 
-    // Decorative image → empty alt for accessibility
-
+    var wrap = document.createElement("div");
+    wrap.className = "snow-overlay-container";
+    var img = document.createElement("img");
+    img.src = SNOW_IMAGE;
+    img.alt = "";
     img.setAttribute("aria-hidden", "true");
-    // Screen readers should ignore this image
-
-    wrap.appendChild(img); 
-    // Put the <img> inside the <div>
-
-    return wrap; 
-    // Return the whole finished overlay element
+    wrap.appendChild(img);
+    return wrap;
   }
 
-
-  // -----------------------------------------------------
-  // FUNCTION 2: Attach snow overlay to the search bar
-  // -----------------------------------------------------
   function applySnow(target) {
-
-    if (!target) return; 
-    // If target is not found, stop
+    if (!target) return;
 
     // If the search bar has "static" positioning,
-    // we change it to "relative" so the snow image can sit on top of it.
+    // switch to "relative" so the overlay can be absolutely positioned inside.
     if (window.getComputedStyle(target).position === "static") {
       target.style.position = "relative";
     }
 
-    // Prevent adding duplicate snow images.
-    // Only add snow if it does NOT already exist.
+    // For mobile screens, try to attach the overlay directly to the input's parent
+    if (window.innerWidth < 768) {
+      var input = target.querySelector('input[type="search"], input[type="text"], input');
+      if (input) {
+        var inputWrap = input.parentElement || input;
+        if (window.getComputedStyle(inputWrap).position === "static") {
+          inputWrap.style.position = "relative";
+        }
+        if (!inputWrap.querySelector(".snow-overlay-container")) {
+          inputWrap.appendChild(createOverlay());
+        }
+        return; // done — we attached to the input wrapper
+      }
+    }
+
+    // Fallback: attach to the target container
     if (!target.querySelector(".snow-overlay-container")) {
       target.appendChild(createOverlay());
     }
   }
 
-
-  // -----------------------------------------------------
-  // FUNCTION 3: Detect search bar instantly using MutationObserver
-  // -----------------------------------------------------
   function observeForSearchBar() {
-
-    // MutationObserver watches for changes in the webpage (DOM)
     const observer = new MutationObserver(() => {
-
-      // Try each selector and return the first one that exists on the page
       const target = selectors
-        .map(sel => document.querySelector(sel)) // Test selector
-        .find(el => el);                         // Keep the first match
+        .map(sel => document.querySelector(sel))
+        .find(el => el);
 
-      if (target) { 
-        applySnow(target);      // Add snow on it
-        observer.disconnect();  // Stop watching — job done
+      if (target) {
+        applySnow(target);
+        observer.disconnect();
       }
     });
 
-    // Start watching the entire webpage for new elements
     observer.observe(document.documentElement, {
-      childList: true, // Detect added/removed elements
-      subtree: true    // Check inside all HTML levels
+      childList: true,
+      subtree: true
+    });
+
+    // Also run immediately in case DOM already loaded
+    document.addEventListener("DOMContentLoaded", function () {
+      const immediateTarget = selectors
+        .map(sel => document.querySelector(sel))
+        .find(el => el);
+      if (immediateTarget) {
+        applySnow(immediateTarget);
+        observer.disconnect();
+      }
     });
   }
 
-
-  // -----------------------------------------------------
-  // RUN THE OBSERVER IMMEDIATELY
-  // -----------------------------------------------------
   observeForSearchBar();
 
-
-})(); // End of self-running function
+})();
