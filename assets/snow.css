@@ -12,22 +12,16 @@
   height: auto;                /* Keeps the image height proportional (no stretching) */
 }
 
-/* ----------------------------------------
-   MOBILE — Exclusive snow overlay
-   (Values here ONLY apply to mobile snow)
------------------------------------------*/
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 768px) {    /* These styles apply ONLY when screen width is 768px or smaller */
 
-  .snow-overlay-container-mobile {
-    position: absolute;
-    top: -6px;         /* Adjust until looks correct */
-    right: 6px;        /* Adjust right spacing */
-    pointer-events: none;
-    z-index: 99999;
+  .snow-overlay-container {
+    top: -8px !important;      /* Move overlay slightly above the input on mobile */
+    right: 8px !important;     /* Push the snow image a bit to the right so it aligns well */
+    z-index: 9999 !important;  /* Make sure snow stays visible above mobile header */
   }
 
-  .snow-overlay-container-mobile img {
-    width: 80px;       /* Adjust image size for mobile */
-    height: auto;
+  .snow-overlay-container img {
+    width: 90px !important;    /* Smaller snow image size for mobile screens */
   }
 }
