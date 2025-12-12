@@ -4417,3 +4417,44 @@ product-info .breadcrumbs{
     box-shadow: none;  /* no glow */
   }
 }
+
+
+/* ================================
+   CANDY CANE BORDER FOR SEARCH BAR
+   ================================ */
+
+input.search__input.field__input {
+  border: none !important;
+  box-shadow: 0 0 0 3px transparent !important;
+  padding: 1.5rem;
+  border-radius: 6px;
+
+  /* Candy Cane Border */
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #ff0000,
+      #ff0000 10px,
+      #ffffff 10px,
+      #ffffff 20px
+    )
+    border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Make inside background white again */
+input.search__input.field__input {
+  background-color: #ffffff;
+  background-clip: padding-box;
+}
+
+/* MOBILE / DESKTOP FIX */
+@media (min-width: 769px) {
+  input.search__input.field__input {
+    box-shadow: none !important;
+  }
+}
