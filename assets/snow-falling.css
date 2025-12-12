@@ -1,19 +1,23 @@
 /* snow-falling.css — global falling snow effect */
 
+/* This class wraps the entire snow animation canvas */
 .snow-canvas-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;   /* snow will not block clicks */
-  z-index: 9999;          /* stays above site content */
+  position: fixed;        /* Keeps the snow in a fixed position so it stays in place while scrolling */
+  inset: 0;               /* Stretches the container to all four edges (top, right, bottom, left = 0) */
+  pointer-events: none;   /* Makes sure the snow doesn't block clicks on the website */
+  z-index: 9999;          /* Places the snow on top of all other content */
 }
 
+/* This styles the actual canvas element where snow is drawn */
 .snow-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
+  width: 100%;            /* Makes the canvas take up the full width of the screen */
+  height: 100%;           /* Makes the canvas take up the full height of the screen */
+  display: block;         /* Removes extra spacing that inline elements can create */
 }
 
-/* Disable snow for reduced motion users */
+/* Disable snow animation for people who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .snow-canvas-container { display: none !important; }
+  .snow-canvas-container { 
+    display: none !important;  /* Completely hides the snow for accessibility reasons */
+  }
 }
