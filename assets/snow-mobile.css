@@ -1,18 +1,18 @@
-/* MOBILE-ONLY SNOW OVERLAY */
-
-@media (max-width: 767px) {
+/* -------------------------------
+   MOBILE SNOW (Tiles4Less Mobile)
+--------------------------------*/
+@media (max-width: 768px) {
 
   .mobile-snow-container {
     position: absolute;
-    top: -6px;        /* Adjust UP/DOWN */
-    right: 6px;       /* Adjust LEFT/RIGHT */
+    top: -10px;     /* adjust up/down */
+    right: 10px;    /* adjust left/right */
     pointer-events: none;
     z-index: 999999;
-    display: block;
   }
 
   .mobile-snow-container img {
-    width: 80px;      /* Snow image size on mobile */
+    width: 80px;
     height: auto;
   }
 
