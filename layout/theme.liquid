@@ -516,61 +516,6 @@ body {
         }
       }
 
-      /* ---------------------------------------------------------- */
-      /* ❄️ MINI FALLING SNOW *INSIDE* SALE & OFFERS BUTTON — CSS ONLY */
-      /* ---------------------------------------------------------- */.sale-offers-btn {
-        position: relative !important;
-        overflow: hidden !important;
-      }
-
-      /* Snowflakes layer #1 (small flakes) */
-      .sale-offers-btn::before {
-        content: "❅ ❄ ❆ ❄ ❅ ❄ ❆";
-        position: absolute;
-        top: -20px;
-        left: 0;
-        width: 100%;
-        font-size: 8px;
-        opacity: 0.9;
-        animation: snowFall1 2.8s linear infinite;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* Snowflakes layer #2 (even smaller flakes) */
-      .sale-offers-btn::after {
-        content: "❄ ❆ ❅ ❄ ❆ ❅";
-        position: absolute;
-        top: -18px;
-        left: 0;
-        width: 100%;
-        font-size: 6px;
-        opacity: 0.7;
-        animation: snowFall2 3.6s linear infinite;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* Animation for layer 1 */
-      @keyframes snowFall1 {
-        0% {
-          transform: translateY(-20px) translateX(0);
-        }
-        100% {
-          transform: translateY(40px) translateX(4px);
-        }
-      }
-
-      /* Animation for layer 2 (slower for depth effect) */
-      @keyframes snowFall2 {
-        0% {
-          transform: translateY(-18px) translateX(0);
-        }
-        100% {
-          transform: translateY(45px) translateX(-4px);
-        }
-      }
-
 
     </style>
 
