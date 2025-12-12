@@ -1,18 +1,17 @@
-/* -------------------------------
-   MOBILE SNOW (Tiles4Less Mobile)
---------------------------------*/
+/* FINAL — WORKING MOBILE SNOW (Tiles4Less) */
+
 @media (max-width: 768px) {
 
   .mobile-snow-container {
     position: absolute;
-    top: -10px;     /* adjust up/down */
-    right: 10px;    /* adjust left/right */
+    top: -12px;      /* adjust up/down */
+    right: 10px;     /* adjust left/right */
     pointer-events: none;
     z-index: 999999;
   }
 
   .mobile-snow-container img {
-    width: 80px;
+    width: 85px;     /* adjust image size */
     height: auto;
   }
 
