@@ -516,6 +516,129 @@ body {
         }
       }
 
+
+      /*
+   ========================= 
+   Snow overlay (works with ::before and ::after kept) 
+   =========================
+*/
+
+      /* Make sure button keeps its existing positioning and visible hat */.sale-offers-btn {
+        position: relative !important;
+        /* must be positioned for overlay */
+        overflow: visible !important;
+        /* keep hat visible outside the button */
+      }
+
+
+      /*
+   Place the overlay that contains the snow. It will be clipped inside itself, 
+   so the button can stay overflow:visible while snow is contained.
+*/
+      .sale-offers-btn .snow-overlay {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        /* top:0; right:0; bottom:0; left:0; */
+        z-index: 1;
+        /* under the text/icon but above the button background */
+        overflow: hidden;
+        /* keep flakes inside button box */
+        display: block;
+        will-change: transform;
+        mask-image: linear-gradient(#000, #000);
+        /* ensure clean edges in some browsers */
+      }
+
+      /* Ensure the button content (text, icons) appears above the overlay */
+      .sale-offers-btn,
+      .sale-offers-btn * {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Snow layers: use the overlay's pseudo-elements so ::before/::after on the button stay free */
+      .sale-offers-btn .snow-overlay::before,
+      .sale-offers-btn .snow-overlay::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -30px;
+        bottom: -10px;
+        pointer-events: none;
+        background-repeat: repeat-x;
+        background-position: 0 0;
+        opacity: 0.9;
+        mix-blend-mode: normal;
+      }
+
+      /* Layer 1 — larger flakes (faster) */
+      .sale-offers-btn .snow-overlay::before {
+        background-image: url("data:image/svg+xml;utf8, \ <svg xmlns='http://www.w3.org/2000/svg' width='220' height='30'>\ <text x='0' y='20' font-size='14' fill='white' font-family='sans-serif'>❅ ❄ ❆ ❄ ❅ ❆ ❄ ❅</text>\ </svg>");
+        background-size: auto 28px;
+        animation: snowFallLarge 3.0s linear infinite;
+        opacity: 0.95;
+        filter: drop-shadow(0 0 1px rgba(0,0,0,0.15));
+      }
+
+      /* Layer 2 — smaller flakes (slower, depth) */
+      .sale-offers-btn .snow-overlay::after {
+        background-image: url("data:image/svg+xml;utf8, \ <svg xmlns='http://www.w3.org/2000/svg' width='220' height='30'>\ <text x='0' y='20' font-size='9' fill='white' font-family='sans-serif'>❄ ❆ ❅ ❄ ❆ ❅ ❄ ❆</text>\ </svg>");
+        background-size: auto 20px;
+        animation: snowFallSmall 4.5s linear infinite;
+        opacity: 0.75;
+      }
+
+      /* Animations — translate the backgrounds downward and slightly horizontally */
+      @keyframes snowFallLarge {
+        0% {
+          transform: translateY(-28px) translateX(0);
+          background-position: 0 0;
+        }
+        100% {
+          transform: translateY(36px) translateX(10px);
+          background-position: 10px 0;
+        }
+      }
+      @keyframes snowFallSmall {
+        0% {
+          transform: translateY(-20px) translateX(0);
+          background-position: 0 0;
+        }
+        100% {
+          transform: translateY(42px) translateX(-8px);
+          background-position: -8px 0;
+        }
+      }
+
+      /* Slight responsive adjustments so flakes are well placed on small buttons */
+      @media (max-width: 480px) {
+        .sale-offers-btn .snow-overlay::before {
+          background-size: auto 22px;
+        }
+        .sale-offers-btn .snow-overlay::after {
+          background-size: auto 14px;
+        }
+        @keyframes snowFallLarge {
+          0% {
+            transform: translateY(-18px)
+          }
+          100% {
+            transform: translateY(28px) translateX(6px)
+          }
+        }
+        @keyframes snowFallSmall {
+          0% {
+            transform: translateY(-14px)
+          }
+          100% {
+            transform: translateY(32px) translateX(-6px)
+          }
+        }
+      }
+
+
     </style>
 
     <link rel="stylesheet" href="{{ 'snow.css' | asset_url }}">
