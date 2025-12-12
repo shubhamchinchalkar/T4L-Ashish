@@ -1332,3 +1332,72 @@ body.showing-archived .product--unavailable {
     color: rgb(var(--color-background));
     border-color: rgba(var(--color-foreground);
 }
+
+
+/* ==== Candy animated border for search input ==== */
+
+.search .field {
+  padding: 3px;    
+  border-radius: 12px;
+  display: block;
+  background: linear-gradient(
+    90deg,
+    #ff6b6b,
+    #ffd166,
+    #6bf78a,
+    #6bb0ff,
+    #b56bff,
+    #ff6b6b
+  );
+  background-size: 300% 100%;
+  animation: candy-slide 4s linear infinite;
+  box-sizing: border-box;
+}
+
+/* Input box inside candy border */
+.search .field .field__input,
+.search .field input[type="search"] {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  background: #ffffff;
+  border-radius: 9px;
+  padding: 0.6rem 1rem;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+/* Keep search & clear icons working and above input */
+.search .field .reset__button,
+.search .field .search__button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Slight hover/focus effect */
+.search .field:focus-within {
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.08));
+  transform: translateY(-1px);
+}
+
+/* Candy border animation */
+@keyframes candy-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 150% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* Predictive search dropdown should appear above border */
+.predictive-search,
+.predictive-search--header {
+  z-index: 5;
+}
+
+/* Accessibility: disable animation for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .search .field {
+    animation: none !important;
+    background-position: 0% 50% !important;
+  }
+}
