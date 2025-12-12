@@ -4419,7 +4419,7 @@ product-info .breadcrumbs{
 }
 
 /* ============================================
-   WORKING GLITTER CANDY CANE BORDER (Dawn)
+   WORKING GLITTER CANDY CANE BORDER
    ============================================ */
 
 .field.search__input-wrapper,
@@ -4433,7 +4433,7 @@ form[action="/search"] .field {
 form[action="/search"] .field::before {
   content: "";
   position: absolute;
-  inset: -3px; /* border thickness */
+  inset: -10px; /* border thickness */
   border-radius: 10px;
 
   /* Candy Cane Stripes + Glitter Overlay */
