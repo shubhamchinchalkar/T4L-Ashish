@@ -4418,43 +4418,61 @@ product-info .breadcrumbs{
   }
 }
 
-
-/* ================================
-   CANDY CANE BORDER FOR SEARCH BAR
-   ================================ */
+/* ======================================================
+   GLITTER ANIMATED CANDY CANE BORDER FOR SEARCH BAR
+   ====================================================== */
 
 input.search__input.field__input {
   border: none !important;
-  box-shadow: 0 0 0 3px transparent !important;
   padding: 1.5rem;
   border-radius: 6px;
 
-  /* Candy Cane Border */
-  background:
-    repeating-linear-gradient(
-      45deg,
-      #ff0000,
-      #ff0000 10px,
-      #ffffff 10px,
-      #ffffff 20px
-    )
-    border-box;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) padding-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-/* Make inside background white again */
-input.search__input.field__input {
+  /* White background inside */
   background-color: #ffffff;
   background-clip: padding-box;
+
+  /* Candy Cane Glitter Border */
+  position: relative;
+  z-index: 1;
 }
 
-/* MOBILE / DESKTOP FIX */
-@media (min-width: 769px) {
-  input.search__input.field__input {
-    box-shadow: none !important;
+input.search__input.field__input::before {
+  content: "";
+  position: absolute;
+  inset: -3px; /* border thickness */
+  border-radius: 8px;
+
+  /* Candy stripes */
+  background: repeating-linear-gradient(
+      45deg,
+      #ff0000 0 12px,
+      #ffffff 12px 24px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.9) 20%,
+      rgba(255,255,255,0) 70%
+    );
+
+  background-size: 200% 200%;
+
+  animation: glitterCandy 2s linear infinite;
+
+  z-index: -1;
+}
+
+/* Glitter animation */
+@keyframes glitterCandy {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0.9;
+  }
+  50% {
+    background-position: 100% 100%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 0% 0%;
+    opacity: 0.9;
   }
 }
