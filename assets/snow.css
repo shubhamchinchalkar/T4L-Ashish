@@ -1,27 +1,27 @@
 /* Desktop positioning */
 .snow-overlay-container {
-  position: absolute;
-  top: -20px;
-  right: -1px;
-  pointer-events: none;
-  z-index: 9999;
+  position: absolute;          /* Places the snow image on top of the search bar */
+  top: -20px;                  /* Moves the snow image UP or DOWN - Negative value = move upwards & - Positive value = move downwards */
+  right: -1px;                 /* Moves the snow image LEFT or RIGHT - Negative value = move left & - Positive value = move right */
+  pointer-events: none;        /* Makes sure the snow image does NOT block clicks */
+  z-index: 9999;               /* Makes the snow appear on top of all other elements */
 }
 
 .snow-overlay-container img {
-  width: 400px;
-  height: auto;
+  width: 400px;                /* Controls the snow image size.- Increase = bigger snow image & Decrease = smaller snow image */
+  height: auto;                /* Keeps the image height proportional (no stretching) */
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 768px) {    /* These styles apply ONLY when screen width is 768px or smaller */
 
   .snow-overlay-container {
-    top: -8px !important;      /* pull inside visible area */
-    right: 8px !important;     /* move away from edge */
-    z-index: 9999 !important;  /* ensure visibility above header */
+    top: -8px !important;      /* Move overlay slightly above the input on mobile */
+    right: 8px !important;     /* Push the snow image a bit to the right so it aligns well */
+    z-index: 9999 !important;  /* Make sure snow stays visible above mobile header */
   }
 
   .snow-overlay-container img {
-    width: 90px !important;    /* perfect size for your layout */
+    width: 90px !important;    /* Smaller snow image size for mobile screens */
   }
 }
