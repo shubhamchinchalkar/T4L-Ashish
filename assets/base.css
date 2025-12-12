@@ -4418,51 +4418,42 @@ product-info .breadcrumbs{
   }
 }
 
-/* ======================================================
-   GLITTER ANIMATED CANDY CANE BORDER FOR SEARCH BAR
-   ====================================================== */
+/* ============================================
+   WORKING GLITTER CANDY CANE BORDER (Dawn)
+   ============================================ */
 
-input.search__input.field__input {
-  border: none !important;
-  padding: 1.5rem;
-  border-radius: 6px;
-
-  /* White background inside */
-  background-color: #ffffff;
-  background-clip: padding-box;
-
-  /* Candy Cane Glitter Border */
+.field.search__input-wrapper,
+form[action="/search"] .field {
   position: relative;
   z-index: 1;
 }
 
-input.search__input.field__input::before {
+/* Create border container */
+.field.search__input-wrapper::before,
+form[action="/search"] .field::before {
   content: "";
   position: absolute;
   inset: -3px; /* border thickness */
-  border-radius: 8px;
+  border-radius: 10px;
 
-  /* Candy stripes */
-  background: repeating-linear-gradient(
+  /* Candy Cane Stripes + Glitter Overlay */
+  background:
+    repeating-linear-gradient(
       45deg,
       #ff0000 0 12px,
       #ffffff 12px 24px
     ),
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.9) 20%,
-      rgba(255,255,255,0) 70%
-    );
-
+    radial-gradient(circle, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0) 70%);
+  
   background-size: 200% 200%;
 
-  animation: glitterCandy 2s linear infinite;
-
+  animation: glitterBorder 2.2s linear infinite;
   z-index: -1;
+  pointer-events: none;
 }
 
-/* Glitter animation */
-@keyframes glitterCandy {
+/* Animation for glitter */
+@keyframes glitterBorder {
   0% {
     background-position: 0% 0%;
     opacity: 0.9;
