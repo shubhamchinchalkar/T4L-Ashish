@@ -4433,7 +4433,7 @@ form[action="/search"] .field {
 form[action="/search"] .field::before {
   content: "";
   position: absolute;
-  inset: -10px; /* border thickness */
+  inset: -6px; /* border thickness */
   border-radius: 10px;
 
   /* Candy Cane Stripes + Glitter Overlay */
