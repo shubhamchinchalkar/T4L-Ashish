@@ -1,0 +1,19 @@
+/* snow-falling.css — global falling snow effect */
+
+.snow-canvas-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;   /* snow will not block clicks */
+  z-index: 9999;          /* stays above site content */
+}
+
+.snow-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Disable snow for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  .snow-canvas-container { display: none !important; }
+}

@@ -520,6 +520,8 @@ body {
     </style>
 
     <link rel="stylesheet" href="{{ 'snow.css' | asset_url }}">
+    {{ 'snow-falling.css' | asset_url | stylesheet_tag }}
+
 
   </head>
 
@@ -692,6 +694,8 @@ body {
     <!-- Global Footer Auto Collapse END -->
 
     <script src="{{ 'snow-inject.js' | asset_url }}"></script>
+    {{ 'snow-falling.js' | asset_url | script_tag }}
+
 
   </body>
 </html>
