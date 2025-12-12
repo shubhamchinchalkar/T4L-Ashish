@@ -72,3 +72,46 @@ input::-webkit-search-decoration {
 .template-search__results {
   position: relative;
 }
+
+/* === Candy-cane border for header search input ===
+   Safe: only CSS, targets .search__input.field__input
+*/
+.search__input.field__input {
+  box-sizing: border-box;
+  border: 6px solid transparent;
+  border-radius: 12px;
+
+  -webkit-border-image: repeating-linear-gradient(45deg, #e11d48 0 10px, #ffffff 10px 20px) 1;
+  border-image: repeating-linear-gradient(45deg, #e11d48 0 10px, #ffffff 10px 20px) 1;
+  border-image-slice: 1;
+
+  padding: calc(0.6rem + 2px) calc(1rem + 2px);
+  background-clip: padding-box;
+}
+
+.search__input.field__input:focus,
+.search__input.field__input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0.35rem rgba(225, 29, 72, 0.15);
+}
+
+@media (max-width: 599px) {
+  .search__input.field__input {
+    border-width: 4px;
+    border-radius: 10px;
+    padding: calc(0.5rem + 1px) calc(0.8rem + 1px);
+  }
+}
+
+/* Remove default webkit search decorations that might conflict */
+.search__input.field__input::-webkit-search-decoration,
+.search__input.field__input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* Ensure input does not overflow small header containers */
+.header__search .search__input.field__input,
+.header__search input.search__input.field__input {
+  max-width: 100%;
+}
+
