@@ -4435,7 +4435,7 @@ form[action="/search"] .field::before {
   position: absolute;
 
   /* THICK border */
-  inset: -12px; /* adjust thickness */
+  inset: -3.7px; /* adjust thickness */
   border-radius: 16px;
 
   /* Candy Cane stripes + glitter */
