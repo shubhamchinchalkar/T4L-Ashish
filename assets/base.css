@@ -4447,7 +4447,7 @@ form[action="/search"] .field::before {
   
   background-size: 200% 200%;
 
-  animation: glitterBorder 2.2s linear infinite;
+  animation: glitterBorder 15s linear infinite;
   z-index: -1;
   pointer-events: none;
 }
